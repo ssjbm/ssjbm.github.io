@@ -1,0 +1,185 @@
+<!-- 
+
+██████╗ ██╗ █████╗ ███╗   ███╗███████╗████████╗██████╗ ██╗ ██████╗██╗  ██╗
+██╔══██╗██║██╔══██╗████╗ ████║██╔════╝╚══██╔══╝██╔══██╗██║██╔════╝██║ ██╔╝
+██║  ██║██║███████║██╔████╔██║█████╗     ██║   ██████╔╝██║██║     █████╔╝ 
+██║  ██║██║██╔══██║██║╚██╔╝██║██╔══╝     ██║   ██╔══██╗██║██║     ██╔═██╗ 
+██████╔╝██║██║  ██║██║ ╚═╝ ██║███████╗   ██║   ██║  ██║██║╚██████╗██║  ██╗
+╚═════╝ ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝
+
+-->
+<!DOCTYPE html>
+<html lang="fr-ca">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta itemprop="digest" content="">
+        <meta itemprop="lang" content="fr_ca">
+        <meta property="og:locale" content="fr_ca">
+        <meta property="og:type" content="article">
+        <meta property="og:title" content="Histoire de la SSJB en vidéo | PXDoc">
+        <meta property="og:description" content="Lundis de l&rsquo;histoire de la SSJB-M">
+        <meta property="og:url" content="https://zmotrin.github.io/pxdoc-starter/historique/videos/">
+        <meta property="og:image" content="https://zmotrin.github.io/pxdoc-starter/pxdoc/images/image.webp">
+        <link rel="icon" type="image/x-icon" href="../../pxdoc/images/favicon.ico">
+        <link rel="stylesheet" href="../../pxdoc/styles/styles.min.css">
+        <script>const shared = '../../pxdoc/';</script>
+        <script>const root = '../../';</script>
+        <script src="../../pxdoc/jscripts/bundle.min.js"></script>
+        <title>Histoire de la SSJB en vidéo</title>
+    </head>
+    <body>
+        <script>document.body.classList.add(localStorage.getItem('darkmode') === 'true' ? 'dark' : 'light');</script>
+        <a id="top"></a>
+        <div id="logo" @click="goToTop('../../', '')" title="Retour à l'accueil"></div>
+        <div title="Interrupteur" id="lightswitch" ref="lightswitch" @click="lightswitch()"></div>
+        <header>
+            <div id="breadcrumb">
+                <div id="breadcrumb_normal"><div class="breadcrum-logo" style="background-image: url(../../../../../);"></div><a href="../../../">Documentation</a> > <a href="../">Historique de la SSJB</a> ></div>
+                <div id="breadcrumb_index"></div>
+            </div>
+            <h1 id="title"><img src="images/icon.webp">&nbsp;Histoire de la SSJB en vidéo</h1>
+        </header>
+        <main>
+            <article>
+                <div id="listing">
+                    <div class="list-grid">
+                        <div class="list-grid__item">
+                            <div class="list-grid__item__icon" style="background-image: url(01-les-deux-fondations/../images/icon.webp);"></div>
+                            <div class="list-grid__item__description">
+                                <span class="list-grid__item__title"><a href="01-les-deux-fondations/">1. Les deux fondations</a></span>
+                                <span class="list-grid__item__abstract">Les deux fondations de la Société Saint-Jean-Baptiste 1834-1843</span>
+                            </div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div class="list-grid__item__icon" style="background-image: url(02-preserver-l-unite/../images/icon.webp);"></div>
+                            <div class="list-grid__item__description">
+                                <span class="list-grid__item__title"><a href="02-preserver-l-unite/">2. Préserver l’unité</a></span>
+                                <span class="list-grid__item__abstract">Préserver l’unité de la nation: 1843-1867</span>
+                            </div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div class="list-grid__item__icon" style="background-image: url(03-federer-la-diaspora/../images/icon.webp);"></div>
+                            <div class="list-grid__item__description">
+                                <span class="list-grid__item__title"><a href="03-federer-la-diaspora/">3. Fédérer la diaspora</a></span>
+                                <span class="list-grid__item__abstract">Fédérer la diaspora canadienne-française: 1867-1885</span>
+                            </div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div class="list-grid__item__icon" style="background-image: url(04-l-emancipation-economique/../images/icon.webp);"></div>
+                            <div class="list-grid__item__description">
+                                <span class="list-grid__item__title"><a href="04-l-emancipation-economique/">4. L’émancipation économique</a></span>
+                                <span class="list-grid__item__abstract">L’émancipation économique des Canadiens français 1885-1914</span>
+                            </div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div class="list-grid__item__icon" style="background-image: url(05-l-emancipation-des-femmes/../images/icon.webp);"></div>
+                            <div class="list-grid__item__description">
+                                <span class="list-grid__item__title"><a href="05-l-emancipation-des-femmes/">5. L’émancipation des femmes</a></span>
+                                <span class="list-grid__item__abstract">La SSJB-M et l’émancipation des femmes: 1903-1933</span>
+                            </div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div class="list-grid__item__icon" style="background-image: url(06-institutions-financieres/../images/icon.webp);"></div>
+                            <div class="list-grid__item__description">
+                                <span class="list-grid__item__title"><a href="06-institutions-financieres/">6. Institutions financières</a></span>
+                                <span class="list-grid__item__abstract">La création d’institutions financières</span>
+                            </div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div class="list-grid__item__icon" style="background-image: url(07-l-oeuvre-editoriale/../images/icon.webp);"></div>
+                            <div class="list-grid__item__description">
+                                <span class="list-grid__item__title"><a href="07-l-oeuvre-editoriale/">7. L’oeuvre éditoriale</a></span>
+                                <span class="list-grid__item__abstract">L’oeuvre éditoriale de la SSJB-M: 1918-1929</span>
+                            </div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div class="list-grid__item__icon" style="background-image: url(08-la-construction-identitaire/../images/icon.webp);"></div>
+                            <div class="list-grid__item__description">
+                                <span class="list-grid__item__title"><a href="08-la-construction-identitaire/">8. La construction identitaire</a></span>
+                                <span class="list-grid__item__abstract">La construction identitaire dans l’espace urbain: 1920-1929</span>
+                            </div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div class="list-grid__item__icon" style="background-image: url(09-l-evolution-des-defiles/../images/icon.webp);"></div>
+                            <div class="list-grid__item__description">
+                                <span class="list-grid__item__title"><a href="09-l-evolution-des-defiles/">9. L’évolution des défilés</a></span>
+                                <span class="list-grid__item__abstract">L’évolution des défilés et l’adoption du drapeau fleurdelisé</span>
+                            </div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div class="list-grid__item__icon" style="background-image: url(10-la-bataille-pour-le-respect-du-francais/../images/icon.webp);"></div>
+                            <div class="list-grid__item__description">
+                                <span class="list-grid__item__title"><a href="10-la-bataille-pour-le-respect-du-francais/">10. Le respect du français</a></span>
+                                <span class="list-grid__item__abstract">La bataille pour le respect du français</span>
+                            </div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div class="list-grid__item__icon" style="background-image: url(11-la-crise-economique/../images/icon.webp);"></div>
+                            <div class="list-grid__item__description">
+                                <span class="list-grid__item__title"><a href="11-la-crise-economique/">11. La crise économique</a></span>
+                                <span class="list-grid__item__abstract">La SSJB-M et la crise économique</span>
+                            </div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div class="list-grid__item__icon" style="background-image: url(12-la-participation-a-la-guerre/../images/icon.webp);"></div>
+                            <div class="list-grid__item__description">
+                                <span class="list-grid__item__title"><a href="12-la-participation-a-la-guerre/">12. La participation à la guerre</a></span>
+                                <span class="list-grid__item__abstract">La SSJB-M et la participation à la guerre: 1939-1945</span>
+                            </div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div class="list-grid__item__icon" style="background-image: url(13-la-lutte-contre-la-centralisation/../images/icon.webp);"></div>
+                            <div class="list-grid__item__description">
+                                <span class="list-grid__item__title"><a href="13-la-lutte-contre-la-centralisation/">13. La lutte contre la centralisation</a></span>
+                                <span class="list-grid__item__abstract">La lutte contre la centralisation: 1937-1957</span>
+                            </div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div class="list-grid__item__icon" style="background-image: url(14-l-autonomie-provinciale/../images/icon.webp);"></div>
+                            <div class="list-grid__item__description">
+                                <span class="list-grid__item__title"><a href="14-l-autonomie-provinciale/">14. L’autonomie provinciale</a></span>
+                                <span class="list-grid__item__abstract">À la défense de l’autonomie provinciale: 1947-1960</span>
+                            </div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div class="list-grid__item__icon" style="background-image: url(15-l-emancipation-par-l-education/../images/icon.webp);"></div>
+                            <div class="list-grid__item__description">
+                                <span class="list-grid__item__title"><a href="15-l-emancipation-par-l-education/">15. L’émancipation par l’éducation</a></span>
+                                <span class="list-grid__item__abstract">La fondation du prêt d’honneur: 1947-1971</span>
+                            </div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div class="list-grid__item__icon" style="background-image: url(16-tradition-et-modernite/../images/icon.webp);"></div>
+                            <div class="list-grid__item__description">
+                                <span class="list-grid__item__title"><a href="16-tradition-et-modernite/">16. Tradition et modernité</a></span>
+                                <span class="list-grid__item__abstract">Entre la tradition et la modernité: 1960-1970</span>
+                            </div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div class="list-grid__item__icon" style="background-image: url(17-vers-l-independance/../images/icon.webp);"></div>
+                            <div class="list-grid__item__description">
+                                <span class="list-grid__item__title"><a href="17-vers-l-independance/">17. Vers l’indépendance</a></span>
+                                <span class="list-grid__item__abstract">Vers l’indépendance: les États généraux du Canada français</span>
+                            </div>
+                        </div>
+                        <div class="list-grid__item">
+                            <div class="list-grid__item__icon" style="background-image: url(18-la-bataille-pour-le-francais/../images/icon.webp);"></div>
+                            <div class="list-grid__item__description">
+                                <span class="list-grid__item__title"><a href="18-la-bataille-pour-le-francais/">18. La bataille pour le français</a></span>
+                                <span class="list-grid__item__abstract">La bataille pour le français: la création du MQF 1969-1976</span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </article>
+        </main>
+        <footer>
+            © Tous droits réservés<br>Diametrick, 2025            
+        </footer>
+        <script>app.mount('body');</script>
+    </body>
+</html>

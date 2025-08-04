@@ -1,0 +1,118 @@
+<!-- 
+
+██████╗ ██╗ █████╗ ███╗   ███╗███████╗████████╗██████╗ ██╗ ██████╗██╗  ██╗
+██╔══██╗██║██╔══██╗████╗ ████║██╔════╝╚══██╔══╝██╔══██╗██║██╔════╝██║ ██╔╝
+██║  ██║██║███████║██╔████╔██║█████╗     ██║   ██████╔╝██║██║     █████╔╝ 
+██║  ██║██║██╔══██║██║╚██╔╝██║██╔══╝     ██║   ██╔══██╗██║██║     ██╔═██╗ 
+██████╔╝██║██║  ██║██║ ╚═╝ ██║███████╗   ██║   ██║  ██║██║╚██████╗██║  ██╗
+╚═════╝ ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝
+
+-->
+<!DOCTYPE html>
+<html lang="fr-ca">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta itemprop="digest" content="">
+        <meta itemprop="lang" content="fr_ca">
+        <meta property="og:locale" content="fr_ca">
+        <meta property="og:type" content="article">
+        <meta property="og:title" content="Documentation | PXDoc">
+        <meta property="og:description" content="Documentation Web">
+        <meta property="og:url" content="https://zmotrin.github.io/pxdoc-starter/">
+        <meta property="og:image" content="https://zmotrin.github.io/pxdoc-starter/pxdoc/images/image.webp">
+        <link rel="icon" type="image/x-icon" href="./pxdoc/images/favicon.ico">
+        <link rel="stylesheet" href="./pxdoc/styles/styles.min.css">
+        <script>const shared = './pxdoc/';</script>
+        <script>const root = './';</script>
+        <script src="./pxdoc/jscripts/bundle.min.js"></script>
+        <title>Documentation</title>
+    </head>
+    <body>
+        <script>document.body.classList.add(localStorage.getItem('darkmode') === 'true' ? 'dark' : 'light');</script>
+        <a id="top"></a>
+        <div id="logo" @click="goToTop('./', '')" title="Retour à l'accueil"></div>
+        <div title="Interrupteur" id="lightswitch" ref="lightswitch" @click="lightswitch()"></div>
+        <header>
+            <div id="breadcrumb">
+                <div id="breadcrumb_normal"></div>
+                <div id="breadcrumb_index"></div>
+            </div>
+            <h1 id="title"><img src="shared/images/icon.webp">&nbsp;Documentation</h1>
+        </header>
+        <main>
+            <article>
+                <div id="contents">
+ 
+<p class="spacer">La Société Saint-Jean-Baptiste de Montréal (SSJBM) est une organisation québécoise fondée par le journaliste Ludger Duvernay le 8 mars 1834, sous le nom initial de l'Association « Aide-toi et le ciel t'aidera ».</p>
+
+<dots></dots>
+
+
+
+<grostitre>Trousses</grostitre>
+
+
+
+        <div class="intlink__item">
+            <div class="intlink__item__icon" style="background-image: url(./guide-sections/images/icon.webp);"></div>
+            <div class="intlink__item__description">
+                <span class="intlink__item__title"><a href="./guide-sections/">Guide des sections</a></span>
+                <span class="intlink__item__abstract">Guide de référence à l’usage des sections locales</span>
+            </div>
+        </div>
+        <div class="intlink__item">
+            <div class="intlink__item__icon" style="background-image: url(./historique/images/icon.webp);"></div>
+            <div class="intlink__item__description">
+                <span class="intlink__item__title"><a href="./historique/">Historique de la SSJB</a></span>
+                <span class="intlink__item__abstract">Fondation de la Société Saint-Jean-Baptiste</span>
+            </div>
+        </div>
+
+<doclink href="shared/files/guide-des-sections-2022.pdf">Guide de référence à l’usage des sections locales</doclink>
+
+<dots></dots>
+
+
+<grostitre>Liens</grostitre>
+
+<ul>
+    <li><a target="blank" href="https://ssjb.com/">Site internet</a></li>    
+    <li><a target="blank" href="https://linktr.ee/ssjbm">Linktree</a></li>    
+    <li><a target="blank" href="https://www.facebook.com/SSJBM">Facebook</a></li>
+    <li><a target="blank" href="https://www.instagram.com/ssjbm/">Instagram</a></li>
+    <li><a target="blank" href="https://x.com/SSJBM">X (Twitter)</a></li>
+    <li><a target="blank" href="https://www.tiktok.com/@ssjbm_officiel">TikTok</a></li>
+   
+
+</ul>
+
+<dots></dots>
+
+
+
+<grostitre>Contributeurs</grostitre>
+
+<ul>
+    <li>Maxime Larrivée-Roy <em>(développeur)</em></li>
+</ul>
+
+<dots></dots>
+
+
+
+
+
+
+
+                </div>
+                <tabledesmatieres></tabledesmatieres>
+            </article>
+        </main>
+        <footer>
+            © Tous droits réservés<br>Diametrick, 2025            
+        </footer>
+        <script>app.mount('body');</script>
+    </body>
+</html>

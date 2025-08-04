@@ -1,0 +1,18 @@
+{
+    "data": {
+        "project": "PXDoc",
+        "baseurl": "https://zmotrin.github.io/pxdoc-starter/",
+        "favicon": "pxdoc/images/favicon.ico",
+        "image": "pxdoc/images/image.webp",
+        "icon": "pxdoc/images/logo.svg",
+        "author": "Diametrick",
+        "lang": "fr_ca",
+        "gtag": ""
+    },
+    "includes": [
+        "pxdoc/_includes/functions.php",
+        "pxdoc/_includes/hooks.php"
+    ],
+    "before": "pxdoc/_includes/before.php",
+    "after": "pxdoc/_includes/after.php"
+}

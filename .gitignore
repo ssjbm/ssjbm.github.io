@@ -1,0 +1,6 @@
+.DS_Store
+.cache.db
+.cookie.txt
+package-lock.json
+node_modules/
+manuel/

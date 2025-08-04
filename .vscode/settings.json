@@ -1,0 +1,43 @@
+{
+    "terminal.integrated.env.windows": {
+        "PATH": "${workspaceFolder}\\node_modules\\.bin;${workspaceFolder}\\pxdoc\\_bin\\windows;${env:PATH};${workspaceFolder}"
+    },
+    "terminal.integrated.env.osx": {
+        "PATH": "${workspaceFolder}/node_modules/.bin:${workspaceFolder}/pxdoc/_bin/mac:${env:PATH}:${workspaceFolder}"
+    },
+    "filewatcher.commands": [
+        {
+            "match": "[\\\\/]_[^\\\\/]+\\.php$",
+            "isAsync": false,
+            "cmd": "${workspaceRoot}/node_modules/.bin/php-bulk \"${workspaceRoot}/pxdoc/_bin/scripts/pxdoc.php\" \"${file}\"",
+            "event": "onFileChange"
+        },
+        {
+            "match": "(?<!\\.min)\\.js$",
+            "isAsync": false,
+            "cmd": "${workspaceRoot}/node_modules/.bin/esbuild \"${file}\" --log-level=error --minify --target=es2020 --outfile=\"${fileDirname}/${fileBasenameNoExt}.min.js\"",
+            "event": "onFileChange"
+        },
+        {
+            "match": "[\\\\/]pxdoc[\\\\/]jscripts[\\\\/].*(?<!\\.min)\\.js$",
+            "isAsync": false,
+            "cmd": "node ${workspaceRoot}/pxdoc/_bin/node/bundle-js.js",
+            "event": "onFileChange"
+        },
+        {
+            "match": "[\\\\/](?!_)[^\\\\/]+\\.scss$",
+            "isAsync": false,
+            "cmd": "${workspaceRoot}/node_modules/.bin/sass \"${file}\" \"${fileDirname}/${fileBasenameNoExt}.min.css\" --style=compressed --no-source-map --quiet",
+            "event": "onFileChange"
+        },
+        {
+            "match": "[\\\\/]_[^\\\\/]+\\.scss$",
+            "isAsync": false,
+            "cmd": "${workspaceRoot}/node_modules/.bin/sass \"${fileDirname}/../styles.scss\"  \"${fileDirname}/../styles.min.css\" --style=compressed --no-source-map --quiet",
+            "event": "onFileChange"
+        }
+
+    ],
+    "liveServer.settings.port": 5501
+
+}
