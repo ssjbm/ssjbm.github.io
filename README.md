@@ -1,1 +1,0 @@
-Société St-Jean Baptiste de Montréal
