@@ -1,11 +1,11 @@
 {
     "data": {
-        "project": "PXDoc",
-        "baseurl": "https://zmotrin.github.io/pxdoc-starter/",
-        "favicon": "pxdoc/images/favicon.ico",
-        "image": "pxdoc/images/image.webp",
-        "icon": "pxdoc/images/logo.svg",
-        "author": "Diametrick",
+        "project": "SSJB",
+        "baseurl": "https://ssjbm.github.io/",
+        "favicon": "assets/images/favicon.ico",
+        "image": "assets/images/image.webp",
+        "icon": "assets/images/logo.svg",
+        "author": "Société Saint-Jean-Baptiste de Montréal",
         "lang": "fr_ca",
         "gtag": ""
     },
@@ -14,5 +14,6 @@
         "pxdoc/_includes/hooks.php"
     ],
     "before": "pxdoc/_includes/before.php",
-    "after": "pxdoc/_includes/after.php"
+    "after": "pxdoc/_includes/after.php",
+    "styles": "assets/styles/styles.min.css"
 }

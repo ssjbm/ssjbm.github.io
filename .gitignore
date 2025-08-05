@@ -1,6 +1,6 @@
 .DS_Store
 .cache.db
 .cookie.txt
+Thumbs.db
 package-lock.json
 node_modules/
-manuel/

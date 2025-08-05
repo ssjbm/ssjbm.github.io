@@ -1,9 +1,9 @@
 <?php 
 /**
  * @type     article
- * @title    Documentation
- * @icon     shared/images/icon.webp
- * @abstract Documentation Web
+ * @title    SSJB
+ * @icon     assets/images/logo.svg
+ * @abstract Documentation destiné à l'usage des sections
  */
 ?>
  
@@ -20,7 +20,7 @@
 <intlink href="./guide-sections/"></intlink>
 <intlink href="./historique/"></intlink>
 
-<doclink href="shared/files/guide-des-sections-2022.pdf">Guide de référence à l’usage des sections locales</doclink>
+<doclink href="assets/documents/guide-des-sections-2022.pdf">Guide de référence à l’usage des sections locales</doclink>
 
 <dots></dots>
 
@@ -46,6 +46,7 @@
 
 <ul>
     <li>Maxime Larrivée-Roy <em>(développeur)</em></li>
+    <li>Francis Trudel <em>(éditeur)</em></li>
 </ul>
 
 <dots></dots>
