@@ -20,7 +20,7 @@
 <intlink href="./guide-sections/"></intlink>
 <intlink href="./historique/"></intlink>
 
-<doclink href="assets/documents/guide-des-sections-2022.pdf">Guide de référence à l’usage des sections locales</doclink>
+<doclink href="./assets/documents/guide-des-sections-2022.pdf">Guide de référence à l’usage des sections locales</doclink>
 
 <dots></dots>
 
