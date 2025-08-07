@@ -2,7 +2,7 @@
 /**
  * @type     article
  * @title    Historique de la SSJB
- * @icon     images/icon.webp
+ * @icon     images/icon.svg
  * @abstract Fondation de la Société Saint-Jean-Baptiste
  */
 ?>
