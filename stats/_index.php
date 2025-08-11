@@ -35,5 +35,7 @@
 <grostitre>Site web</grostitre>
 
 
+<doclink href="./images/contenu-analytics.pdf">Statistiques de contenu</doclink>
 
+<doclink href="./images/vue-engagement.pdf">Vue d'ensemble de l'engagement</doclink>
 
