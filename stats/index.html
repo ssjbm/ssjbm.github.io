@@ -1,0 +1,91 @@
+<!-- 
+
+██████╗ ██╗ █████╗ ███╗   ███╗███████╗████████╗██████╗ ██╗ ██████╗██╗  ██╗
+██╔══██╗██║██╔══██╗████╗ ████║██╔════╝╚══██╔══╝██╔══██╗██║██╔════╝██║ ██╔╝
+██║  ██║██║███████║██╔████╔██║█████╗     ██║   ██████╔╝██║██║     █████╔╝ 
+██║  ██║██║██╔══██║██║╚██╔╝██║██╔══╝     ██║   ██╔══██╗██║██║     ██╔═██╗ 
+██████╔╝██║██║  ██║██║ ╚═╝ ██║███████╗   ██║   ██║  ██║██║╚██████╗██║  ██╗
+╚═════╝ ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝
+
+-->
+<!DOCTYPE html>
+<html lang="fr-ca">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta itemprop="digest" content="">
+        <meta itemprop="lang" content="fr_ca">
+        <meta property="og:locale" content="fr_ca">
+        <meta property="og:type" content="article">
+        <meta property="og:title" content="Statistiques générales | SSJB">
+        <meta property="og:description" content="Statistiques du site web et des r&eacute;seaux sociaux">
+        <meta property="og:url" content="https://ssjbm.github.io/stats/">
+        <meta property="og:image" content="https://ssjbm.github.io/assets/images/image.webp">
+        <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
+        <link rel="stylesheet" href="../pxdoc/styles/styles.min.css">
+        <link rel="stylesheet" href="../assets/styles/styles.min.css">
+        <script>const shared = '../pxdoc/';</script>
+        <script>const root = '../';</script>
+        <script src="../pxdoc/jscripts/bundle.min.js"></script>
+        <title>Statistiques générales</title>
+    </head>
+    <body>
+        <script>document.body.classList.add(localStorage.getItem('darkmode') === 'true' ? 'dark' : 'light');</script>
+        <a id="top"></a>
+        <div id="logo" @click="goToTop('../', '')" title="Retour à l'accueil"></div>
+        <div title="Interrupteur" id="lightswitch" ref="lightswitch" @click="lightswitch()"></div>
+        <header>
+            <div id="breadcrumb">
+                <div id="breadcrumb_normal"><div class="breadcrum-logo" style="background-image: url(../assets/images/logo.svg);"></div><a href="../../">SSJB</a> ></div>
+                <div id="breadcrumb_index"></div>
+            </div>
+            <h1 id="title"><img src="images/icon.svg">&nbsp;Statistiques générales</h1>
+        </header>
+        <main>
+            <article>
+                <div id="contents">
+
+<grostitre>Facebook</grostitre>
+
+<doclink href="./reports/visites.html">Statistiques de visites</doclink>
+<br>
+<doclink href="./reports/interactions.html">Statistiques d'interactions</doclink>
+<br>
+<doclink href="./reports/portee.html">Statistiques de portée</doclink>
+
+
+<h3>Contenus les plus populaires</h3>
+
+<img src="./images/contents-1.png" alt="">
+<img src="./images/contents-2.png" alt="">
+
+
+<h3>Audience</h3>
+
+<img src="./images/audience.png" alt="">
+
+
+<h3>Formats</h3>
+
+<img src="./images/formats.png" alt="">
+
+
+<grostitre>Site web</grostitre>
+
+
+<doclink href="./images/contenu-analytics.pdf">Statistiques de contenu</doclink>
+
+<doclink href="./images/vue-engagement.pdf">Vue d'ensemble de l'engagement</doclink>
+
+
+                </div>
+                <tabledesmatieres></tabledesmatieres>
+            </article>
+        </main>
+        <footer>
+            © Tous droits réservés<br>Société Saint-Jean-Baptiste de Montréal, 2025            
+        </footer>
+        <script>app.mount('body');</script>
+    </body>
+</html>
