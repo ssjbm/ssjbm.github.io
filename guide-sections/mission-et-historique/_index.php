@@ -1,5 +1,6 @@
 <?php
 /**
+ * @index    9000
  * @type     article
  * @title    Mission et historique
  * @icon     ../images/icon.svg

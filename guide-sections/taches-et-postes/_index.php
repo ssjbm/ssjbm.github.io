@@ -1,5 +1,6 @@
 <?php
 /**
+ * @index    7000
  * @type     list
  * @title    Tâches et postes
  * @icon     ../images/icon.svg

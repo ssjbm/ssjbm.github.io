@@ -1,5 +1,6 @@
 <?php
 /**
+ * @index    8000
  * @type     article
  * @title    Organigrammes
  * @icon     ../images/icon.svg
