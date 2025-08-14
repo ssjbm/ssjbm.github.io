@@ -88,7 +88,7 @@
                 <mxCell id="28" value="Conseiller jeunesse" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="1480" y="360" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="38" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="29">
+                <mxCell id="38" value="" style="edgeStyle=none;html=1;" parent="1" source="29" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="950" y="610" as="targetPoint"/>
                     </mxGeometry>
@@ -156,49 +156,49 @@
         </mxGraphModel>
     </diagram>
     <diagram id="Q0sISDKZN2SVK8-eo9jl" name="Page-3">
-        <mxGraphModel dx="832" dy="611" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="832" dy="415" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-1" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="s4ZuQAUr4H0u5sW4ewev-1" target="s4ZuQAUr4H0u5sW4ewev-2">
+                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-1" value="" style="edgeStyle=none;html=1;" parent="1" source="s4ZuQAUr4H0u5sW4ewev-1" target="s4ZuQAUr4H0u5sW4ewev-2" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="s4ZuQAUr4H0u5sW4ewev-1" value="Assemblée Générale Délégué.e.s" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="s4ZuQAUr4H0u5sW4ewev-1" value="Assemblée Générale Délégué.e.s" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="360" y="40" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-5" style="edgeStyle=none;html=1;" edge="1" parent="1" source="s4ZuQAUr4H0u5sW4ewev-2" target="Dt00RHw7MW5CAD4Y3GF8-4">
+                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-5" style="edgeStyle=none;html=1;" parent="1" source="s4ZuQAUr4H0u5sW4ewev-2" target="Dt00RHw7MW5CAD4Y3GF8-4" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="s4ZuQAUr4H0u5sW4ewev-2" value="Assemblée Générale Délégué.e.s" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="s4ZuQAUr4H0u5sW4ewev-2" value="Assemblée Générale Délégué.e.s" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="360" y="160" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-2" value="Comité de vérification des finances" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-2" value="Comité de vérification des finances" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="600" y="170" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-3" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="s4ZuQAUr4H0u5sW4ewev-1" target="Dt00RHw7MW5CAD4Y3GF8-2">
+                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-3" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="s4ZuQAUr4H0u5sW4ewev-1" target="Dt00RHw7MW5CAD4Y3GF8-2" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="580" y="150" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-7" style="edgeStyle=none;html=1;" edge="1" parent="1" source="Dt00RHw7MW5CAD4Y3GF8-4" target="Dt00RHw7MW5CAD4Y3GF8-6">
+                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-7" style="edgeStyle=none;html=1;" parent="1" source="Dt00RHw7MW5CAD4Y3GF8-4" target="Dt00RHw7MW5CAD4Y3GF8-6" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-9" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Dt00RHw7MW5CAD4Y3GF8-4" target="Dt00RHw7MW5CAD4Y3GF8-8">
+                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-9" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="Dt00RHw7MW5CAD4Y3GF8-4" target="Dt00RHw7MW5CAD4Y3GF8-8" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-11" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Dt00RHw7MW5CAD4Y3GF8-4" target="Dt00RHw7MW5CAD4Y3GF8-10">
+                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-11" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="Dt00RHw7MW5CAD4Y3GF8-4" target="Dt00RHw7MW5CAD4Y3GF8-10" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-4" value="Comité de Direction&lt;br&gt;Nommé.e.s" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-4" value="Comité de Direction&lt;br&gt;Nommé.e.s" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="360" y="280" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-6" value="Comités conjoints" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-6" value="Comités conjoints" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="360" y="400" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-8" value="Comission des présidentes et présidents" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-8" value="Comission des présidentes et présidents" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="120" y="400" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-10" value="Conseil Jeunesse" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="Dt00RHw7MW5CAD4Y3GF8-10" value="Conseil Jeunesse" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="600" y="400" width="120" height="60" as="geometry"/>
                 </mxCell>
             </root>

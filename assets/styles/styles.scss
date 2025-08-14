@@ -1,6 +1,7 @@
 @use 'partials/config';
 
 
+#contents ul li:not(:first-child),
 #contents ol li:not(:first-child) {
     margin-top: 0.6rem;
 }
