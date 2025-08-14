@@ -2,10 +2,10 @@
 	"dependencies": {
 		"@ffmpeg-installer/ffmpeg": "^1.1.0",
 		"audiowaveform-uni-installer": "^1.0.3",
-		"esbuild": "^0.25.8",
+		"esbuild": "^0.25.9",
 		"mediainfo-installer": "^1.0.10",
 		"php-bulk-installer": "^1.1.2",
-		"sass": "^1.89.2"
+		"sass": "^1.90.0"
 	},
 	"scripts": {
 		"postinstall": "node pxdoc/_bin/node/link-ffmpeg-bin.js"
