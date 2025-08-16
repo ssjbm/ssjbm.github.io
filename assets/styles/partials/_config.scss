@@ -14,9 +14,7 @@
 $light: 45%;
 $dark: 65%;
 
-// $main_color: #04446c;
 $main_color: #0e6aa4;
-
 $second_color: #e5a00d;
 
 $color_white: #ffffff;
@@ -41,7 +39,7 @@ $color_red_hex: unquote('#{str-slice(ie-hex-str($color_red), 4)}');
     
     --logo: url(../images/logo.svg);
     --font: "Rubik", sans-serif;
-    --font-monospace: "Inconsolata", monospace;
+    --font-monospace: "Consolas";
     --font-size-base: 18px;
     --font-size-resp: 4vw;
     

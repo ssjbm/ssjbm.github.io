@@ -15,7 +15,7 @@
         {
             "match": "(?<!\\.min)\\.js$",
             "isAsync": false,
-            "cmd": "${workspaceRoot}/node_modules/.bin/esbuild \"${file}\" --log-level=error --minify --target=es2020 --outfile=\"${fileDirname}/${fileBasenameNoExt}.min.js\"",
+            "cmd": "${workspaceRoot}/node_modules/.bin/esbuild \"${file}\" --log-level=error --minify --target=es2020 --legal-comments=none --outfile=\"${fileDirname}/${fileBasenameNoExt}.min.js\"",
             "event": "onFileChange"
         },
         {
