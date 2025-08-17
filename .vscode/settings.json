@@ -1,4 +1,6 @@
 {
+    "terminal.integrated.enablePersistentSessions": false,
+    "terminal.integrated.windowsEnableConpty": false,
     "terminal.integrated.env.windows": {
         "PATH": "${workspaceFolder}\\node_modules\\.bin;${workspaceFolder}\\pxdoc\\_bin\\windows;${env:PATH};${workspaceFolder}"
     },
@@ -13,7 +15,7 @@
             "event": "onFileChange"
         },
         {
-            "match": "(?<!\\.min)\\.js$",
+            "match": "^(?!.*[/\\\\]pxdoc[/\\\\])(?!.*\\.min\\.js$).*\\.js$",
             "isAsync": false,
             "vscodeTask": ["workbench.action.tasks.runTask", "pxdoc:jsmin"],
             "event": "onFileChange"

@@ -3,47 +3,55 @@
   "tasks": [
     {
       "label": "pxdoc:pull",
-      "type": "shell",
-      "command": "git submodule update --remote --recursive",
+      "type": "process",
+      "command": "git",
+      "args": [
+        "submodule",
+        "update",
+        "--remote",
+        "--recursive",
+        "--merge"
+      ],
       "options": { "cwd": "${workspaceFolder}" },
-      "isBackground": true,
-      "presentation": { "reveal": "always" },
-      "runOptions": { "runOn": "folderOpen" }
+      "presentation": { "panel": "shared", "reveal": "never", "group": "pxdoc", "showReuseMessage": false },
+      "runOptions": { "runOn": "folderOpen" },
+      "isBackground": true
     },
     {
       "label": "pxdoc:process",
       "type": "shell",
-      "presentation": { "reveal": "never" },
       "options": { "cwd": "${workspaceFolder}" },
-      "command": "./node_modules/.bin/php-bulk ./pxdoc/_bin/scripts/pxdoc.php \"${file}\"",
+      "command": "./node_modules/.bin/php-bulk",
+      "args": ["./pxdoc/_bin/scripts/pxdoc.php", "${file}"],
+      "presentation": { "panel": "shared", "group": "pxdoc", "reveal": "never", "showReuseMessage": false }
     },
     {
       "label": "pxdoc:jsmin",
       "type": "shell",
-      "presentation": { "reveal": "never" },
       "options": { "cwd": "${workspaceFolder}" },
       "command": "./node_modules/.bin/esbuild \"${file}\" --log-level=error --minify --target=es2020 --legal-comments=none --outfile=\"${fileDirname}/${fileBasenameNoExtension}.min.js\"",
+      "presentation": { "panel": "shared", "group": "pxdoc", "reveal": "never", "showReuseMessage": false }
     },
     {
       "label": "pxdoc:jsbundle",
       "type": "shell",
-      "presentation": { "reveal": "never" },
       "options": { "cwd": "${workspaceFolder}" },
-      "command": "node ./pxdoc/_bin/node/bundle-js.js",
+      "command": "node ./pxdoc/_bin/node/build-pxdoc-core.js",
+      "presentation": { "panel": "shared", "group": "pxdoc", "reveal": "never", "showReuseMessage": false }
     },
     {
       "label": "pxdoc:sass:master",
       "type": "shell",
-      "presentation": { "reveal": "never" },
       "options": { "cwd": "${workspaceFolder}" },
       "command": "./node_modules/.bin/sass \"${file}\" \"${fileDirname}/${fileBasenameNoExtension}.min.css\" --style=compressed --no-source-map --quiet",
+      "presentation": { "panel": "shared", "group": "pxdoc", "reveal": "never", "showReuseMessage": false }
     },
     {
       "label": "pxdoc:sass:slave",
       "type": "shell",
-      "presentation": { "reveal": "never" },
       "options": { "cwd": "${workspaceFolder}" },
       "command": "./node_modules/.bin/sass \"${fileDirname}/../styles.scss\"  \"${fileDirname}/../styles.min.css\" --style=compressed --no-source-map --quiet",
+      "presentation": { "panel": "shared", "group": "pxdoc", "reveal": "never", "showReuseMessage": false }
     },
   ]
 }
