@@ -9,31 +9,31 @@
         {
             "match": "[\\\\/]_[^\\\\/]+\\.php$",
             "isAsync": false,
-            "cmd": "${workspaceRoot}/node_modules/.bin/php-bulk \"${workspaceRoot}/pxdoc/_bin/scripts/pxdoc.php\" \"${file}\"",
+            "vscodeTask": ["workbench.action.tasks.runTask", "pxdoc:process"],
             "event": "onFileChange"
         },
         {
             "match": "(?<!\\.min)\\.js$",
             "isAsync": false,
-            "cmd": "${workspaceRoot}/node_modules/.bin/esbuild \"${file}\" --log-level=error --minify --target=es2020 --legal-comments=none --outfile=\"${fileDirname}/${fileBasenameNoExt}.min.js\"",
+            "vscodeTask": ["workbench.action.tasks.runTask", "pxdoc:jsmin"],
             "event": "onFileChange"
         },
         {
             "match": "[\\\\/]pxdoc[\\\\/]jscripts[\\\\/].*(?<!\\.min)\\.js$",
             "isAsync": false,
-            "cmd": "node ${workspaceRoot}/pxdoc/_bin/node/bundle-js.js",
+            "vscodeTask": ["workbench.action.tasks.runTask", "pxdoc:jsbundle"],
             "event": "onFileChange"
         },
         {
             "match": "[\\\\/](?!_)[^\\\\/]+\\.scss$",
             "isAsync": false,
-            "cmd": "${workspaceRoot}/node_modules/.bin/sass \"${file}\" \"${fileDirname}/${fileBasenameNoExt}.min.css\" --style=compressed --no-source-map --quiet",
+            "vscodeTask": ["workbench.action.tasks.runTask", "pxdoc:sass:master"],
             "event": "onFileChange"
         },
         {
             "match": "[\\\\/]_[^\\\\/]+\\.scss$",
             "isAsync": false,
-            "cmd": "${workspaceRoot}/node_modules/.bin/sass \"${fileDirname}/../styles.scss\"  \"${fileDirname}/../styles.min.css\" --style=compressed --no-source-map --quiet",
+            "vscodeTask": ["workbench.action.tasks.runTask", "pxdoc:sass:slave"],
             "event": "onFileChange"
         }
 

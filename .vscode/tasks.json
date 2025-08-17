@@ -1,0 +1,49 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "pxdoc:pull",
+      "type": "shell",
+      "command": "git submodule update --remote --recursive",
+      "options": { "cwd": "${workspaceFolder}" },
+      "isBackground": true,
+      "presentation": { "reveal": "always" },
+      "runOptions": { "runOn": "folderOpen" }
+    },
+    {
+      "label": "pxdoc:process",
+      "type": "shell",
+      "presentation": { "reveal": "never" },
+      "options": { "cwd": "${workspaceFolder}" },
+      "command": "./node_modules/.bin/php-bulk ./pxdoc/_bin/scripts/pxdoc.php \"${file}\"",
+    },
+    {
+      "label": "pxdoc:jsmin",
+      "type": "shell",
+      "presentation": { "reveal": "never" },
+      "options": { "cwd": "${workspaceFolder}" },
+      "command": "./node_modules/.bin/esbuild \"${file}\" --log-level=error --minify --target=es2020 --legal-comments=none --outfile=\"${fileDirname}/${fileBasenameNoExtension}.min.js\"",
+    },
+    {
+      "label": "pxdoc:jsbundle",
+      "type": "shell",
+      "presentation": { "reveal": "never" },
+      "options": { "cwd": "${workspaceFolder}" },
+      "command": "node ./pxdoc/_bin/node/bundle-js.js",
+    },
+    {
+      "label": "pxdoc:sass:master",
+      "type": "shell",
+      "presentation": { "reveal": "never" },
+      "options": { "cwd": "${workspaceFolder}" },
+      "command": "./node_modules/.bin/sass \"${file}\" \"${fileDirname}/${fileBasenameNoExtension}.min.css\" --style=compressed --no-source-map --quiet",
+    },
+    {
+      "label": "pxdoc:sass:slave",
+      "type": "shell",
+      "presentation": { "reveal": "never" },
+      "options": { "cwd": "${workspaceFolder}" },
+      "command": "./node_modules/.bin/sass \"${fileDirname}/../styles.scss\"  \"${fileDirname}/../styles.min.css\" --style=compressed --no-source-map --quiet",
+    },
+  ]
+}
