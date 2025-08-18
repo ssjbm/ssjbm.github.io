@@ -27,3 +27,6 @@
     <li>Il collabore avec les autres membres de l'exécutif à rendre représentative la section dans son milieu. </li>
     <li>En collaboration avec le président, il coordonne le travail des conseillers et les membres de la  section. </li>
 </ol>
+
+<dots></dots>
+

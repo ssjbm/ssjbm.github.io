@@ -31,3 +31,5 @@
     <li>Il motive ses membres et les incite à participer aux activités de la Société ainsi qu'à celles des  autres sections. </li>
     <li>Il évalue l'efficacité de la section et propose des solutions aux problèmes qu'elle rencontre avec la  collaboration du coordonnateur de projets.</li>
 </ol>
+
+<dots></dots>
