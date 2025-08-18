@@ -6,14 +6,33 @@
       "type": "process",
       "command": "git",
       "args": [
+        "pull",
+        "--no-recurse-submodules",
+        "--no-rebase"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "presentation": { "panel": "shared", "reveal": "never", "group": "pxdoc", "showReuseMessage": false },
+    },
+    {
+      "label": "pxdoc:update",
+      "type": "process",
+      "command": "git",
+      "args": [
         "submodule",
         "update",
+        "--init",
         "--remote",
         "--recursive",
         "--merge"
       ],
       "options": { "cwd": "${workspaceFolder}" },
       "presentation": { "panel": "shared", "reveal": "never", "group": "pxdoc", "showReuseMessage": false },
+    },
+    {
+      "label": "pxdoc:pull+update",
+      "dependsOn": ["pxdoc:pull", "pxdoc:update"],
+      "dependsOrder": "sequence",
+      "presentation": { "panel": "shared", "group": "pxdoc", "reveal": "never", "showReuseMessage": false },
       "runOptions": { "runOn": "folderOpen" },
       "isBackground": true
     },
