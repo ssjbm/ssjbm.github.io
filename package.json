@@ -9,6 +9,6 @@
 		"vue": "^3.5.18"
 	},
 	"scripts": {
-		"postinstall": "node pxdoc/_bin/node/link-ffmpeg-bin.js"
+		"postinstall": "node pxdoc/_bin/node/postinstall.js"
 	}
 }
