@@ -17,8 +17,6 @@
 
 <grostitre>Responsabilités</grostitre>
 
-
-
 <ol>
     <li>Il convoque et préside au moins quatre assemblées régulières du conseil de la section (art. 17.A) et  une assemblée générale de section (art. 18.A) durant laquelle les dirigeants et les délégués sont  élus. </li>
     <li>Il voit en collaboration avec le secrétaire à ce que tous les procès-verbaux soient acheminés à la  Société (secrétariat) (art. 13.C). </li>
@@ -33,3 +31,4 @@
 </ol>
 
 <dots></dots>
+

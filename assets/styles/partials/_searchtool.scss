@@ -1,0 +1,81 @@
+
+.searchtool {
+    display: flex;
+    flex-direction: column;
+
+    &__nowrap {
+        white-space: nowrap;
+    }
+
+
+    &__header {
+        line-height: 2rem;
+
+        &__postalcode {
+            width: 5rem;
+            text-align: center;
+            text-transform: uppercase;
+        
+            &:focus:valid {
+                background-color: var(--color-green-back-light);
+            }
+
+            &:focus:invalid {
+                background-color: var(--color-red-back-light)
+            }
+        
+        }
+
+    }
+
+
+
+    
+    &:has(&__header__postalcode:placeholder-shown) {
+        .searchtool__header {
+            &__validmark {
+                display: none;
+            }
+        }
+    }
+
+
+    &:has(&__header__postalcode:valid) {
+        .searchtool__header {
+            &__validmark {
+                &::before {
+                    content: "🟢";
+                }
+            }
+        }
+    }
+
+    &:has(&__header__postalcode:invalid) {
+        .searchtool__header {
+            &__validmark {
+                &::before {
+                    content: "🔴";
+                }
+            }
+        }
+    }
+
+}
+
+
+
+body.dark .searchtool {
+    &__header {
+        &__postalcode {
+
+            &:focus:valid {
+                background-color: var(--color-green-back-dark);
+            }
+
+            &:focus:invalid {
+                background-color: var(--color-red-back-dark)
+            }
+        
+        }
+    }
+}
