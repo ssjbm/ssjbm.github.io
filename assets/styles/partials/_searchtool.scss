@@ -21,13 +21,17 @@
             }
 
             &:focus:invalid {
-                background-color: var(--color-red-back-light)
+                background-color: var(--color-red-back-light);
             }
         
         }
 
     }
 
+    &__results {
+        margin-top: 2rem;
+        font-size: 2rem;
+    }
 
 
     
@@ -44,7 +48,7 @@
         .searchtool__header {
             &__validmark {
                 &::before {
-                    content: "🟢";
+                    content: "✅";
                 }
             }
         }
@@ -54,7 +58,7 @@
         .searchtool__header {
             &__validmark {
                 &::before {
-                    content: "🔴";
+                    content: "❌";
                 }
             }
         }
@@ -73,9 +77,11 @@ body.dark .searchtool {
             }
 
             &:focus:invalid {
-                background-color: var(--color-red-back-dark)
+                background-color: var(--color-red-back-dark);
             }
         
         }
     }
 }
+
+

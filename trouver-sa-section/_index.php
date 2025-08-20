@@ -9,7 +9,7 @@
 
 
 
-<!-- <grostitre>Territoires</grostitre>
+<grostitre>Territoires</grostitre>
 
 <table>
     <thead>
@@ -82,7 +82,7 @@
     </tbody>
 </table>
 
-<dots></dots> -->
+<dots></dots>
 
 
 <grostitre>Outil de recherche</grostitre>
@@ -91,12 +91,12 @@
     <div class="searchtool__header">
         Entrez votre <strong>code postal:&nbsp;&nbsp;</strong>
         <span class="searchtool__nowrap">
-            <input id="searchtool_postalcode" class="searchtool__header__postalcode" name="postalcode" type="text" placeholder="H2K 2V6" maxlength="7" required pattern="^^[Hh][0-9][ABCEGHJ-NPRSTV-Zabceghj-nprstv-z][ ]?[0-9][ABCEGHJ-NPRSTV-Zabceghj-nprstv-z][0-9]$" title="Entrez un code postal valide du Québec (ex: H2K 2V6)">
+            <input id="searchtool_postalcode" class="searchtool__header__postalcode" name="postalcode" type="text" placeholder="H2K 2V6" maxlength="7" required pattern="^[GgHhJj][0-9][ABCEGHJ-NPRSTV-Zabceghj-nprstv-z][ ]?[0-9][ABCEGHJ-NPRSTV-Zabceghj-nprstv-z][0-9]$" title="Entrez un code postal valide du Québec (ex: H2K 2V6)">
             <span class="searchtool__header__validmark"></span>
         </span>
     </div>
+    <div id="searchtool_results" class="searchtool__results"></div>
 </div>
-
 
 <dots></dots>
 

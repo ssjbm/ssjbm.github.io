@@ -1,0 +1,289 @@
+{
+    "sections": [
+        {
+            "id": "pierre-le-gardeur",
+            "name": "Pierre-Le-Gardeur",
+            "url": "https://ssjb.com/portail-des-sections/pierre-le-gardeur/",
+            "fsa": [
+                "J5W",
+                "J5X",
+                "J5Y",
+                "J5Z",
+                "J6A"
+            ]
+        },
+        {
+            "id": "yves-blais",
+            "name": "Yves-Blais",
+            "url": "https://ssjb.com/portail-des-sections/yves-blais/",
+            "fsa": [
+                "J6V",
+                "J6W",
+                "J6X",
+                "J6Y",
+                "J7M",
+                "J7K",
+                "J7L"
+            ]
+        },
+        {
+            "id": "joseph-olivier chenier",
+            "name": "Joseph-Olivier Chênier",
+            "url": "https://ssjb.com/portail-des-sections/jean-olivier-chenier/",
+            "fsa": [
+                "J7P",
+                "J7R",
+                "J0N",
+                "J0V"
+            ]
+        },
+        {
+            "id": "laval",
+            "name": "Laval",
+            "url": "https://ssjb.com/portail-des-sections/laval/",
+            "fsa": [
+                "H7A",
+                "H7B",
+                "H7C",
+                "H7E",
+                "H7G",
+                "H7H",
+                "H7J",
+                "H7K",
+                "H7L",
+                "H7M",
+                "H7N",
+                "H7P",
+                "H7R",
+                "H7S",
+                "H7T",
+                "H7V",
+                "H7W",
+                "H7X",
+                "H7Y"
+            ]
+        },
+        {
+            "id": "ouest-de-l'ile",
+            "name": "Ouest-de-l'île",
+            "url": "https://ssjb.com/portail-des-sections/ouest-de-lile/",
+            "fsa": [
+                "H4S",
+                "H4Y",
+                "H8Y",
+                "H8Z",
+                "H9A",
+                "H9B",
+                "H9C",
+                "H9E",
+                "H9G",
+                "H9H",
+                "H9J",
+                "H9K",
+                "H9P",
+                "H9R",
+                "H9S",
+                "H9W",
+                "H9X"
+            ]
+        },
+        {
+            "id": "nicolas-viel",
+            "name": "Nicolas-Viel",
+            "url": "https://ssjb.com/portail-des-sections/nicolas-viel/",
+            "fsa": [
+                "H2B",
+                "H2C",
+                "H2M",
+                "H2N",
+                "H3L",
+                "H3M",
+                "H4J",
+                "H4K",
+                "H4L",
+                "H4M",
+                "H4N",
+                "H4R",
+                "H4S",
+                "H4T"
+            ]
+        },
+        {
+            "id": "henri-bourassa",
+            "name": "Henri-Bourassa",
+            "url": "https://ssjb.com/portail-des-sections/henri-bourassa/",
+            "fsa": [
+                "H1G",
+                "H1H",
+                "H1P",
+                "H1R",
+                "H1S"
+            ]
+        },
+        {
+            "id": "louis-riel",
+            "name": "Louis-Riel",
+            "url": "https://ssjb.com/portail-des-sections/louis-riel/",
+            "fsa": [
+                "H1A",
+                "H1B",
+                "H1C",
+                "H1E",
+                "H1J",
+                "H1K",
+                "H1M"
+            ]
+        },
+        {
+            "id": "chomedey-de-maisonneuve-jeanne-mance",
+            "name": "Chomedey-de-Maisonneuve-Jeanne-Mance",
+            "url": "https://ssjb.com/portail-des-sections/chomedey-de-maisonneuve/",
+            "fsa": [
+                "H1L",
+                "H1M",
+                "H1N",
+                "H1V",
+                "H1W"
+            ]
+        },
+        {
+            "id": "andree-ferretti",
+            "name": "Andrée-Ferretti",
+            "url": "https://ssjb.com/portail-des-sections/rosemont/",
+            "fsa": [
+                "H1T",
+                "H1X",
+                "H1Y",
+                "H2G",
+                "H2S"
+            ]
+        },
+        {
+            "id": "jacques-viger",
+            "name": "Jacques-Viger",
+            "url": "https://ssjb.com/portail-des-sections/jacques-viger/",
+            "fsa": [
+                "H2V",
+                "H3P",
+                "H3R",
+                "H3S",
+                "H3T",
+                "H3V",
+                "H3W",
+                "H3X",
+                "H4A",
+                "H4B",
+                "H4P",
+                "H4V",
+                "H4W",
+                "H4X"
+            ]
+        },
+        {
+            "id": "marguerite-bourgeoys",
+            "name": "Marguerite-Bourgeoys",
+            "url": "https://ssjb.com/portail-des-sections/marguerite-bourgeoys/",
+            "fsa": [
+                "H3C",
+                "H3E",
+                "H3J",
+                "H3K",
+                "H4C",
+                "H4E",
+                "H4G",
+                "H4H",
+                "H8N",
+                "H8P",
+                "H8R",
+                "H8S",
+                "H8T"
+            ]
+        },
+        {
+            "id": "chevalier-de-lorimier",
+            "name": "Chevalier-de-Lorimier",
+            "url": "https://ssjb.com/portail-des-sections/chevalier-de-lorimier/",
+            "fsa": [
+                "H2H",
+                "H2J",
+                "H2K",
+                "H2L",
+                "H2T",
+                "H2W",
+                "H2X",
+                "H2Y",
+                "H2Z",
+                "H3A",
+                "H3B",
+                "H3C",
+                "H3G",
+                "H3H",
+                "H3Y",
+                "H3Z",
+                "H4Z",
+                "H5A",
+                "H5B"
+            ]
+        },
+        {
+            "id": "pierre-lemoyne-d'iberville",
+            "name": "Pierre-Lemoyne-D'Iberville",
+            "url": "https://ssjb.com/portail-des-sections/pierre-lemoyne-diberville/",
+            "fsa": [
+                "J3V",
+                "J3Y",
+                "J3Z",
+                "J4B",
+                "J4G",
+                "J4H",
+                "J4J",
+                "J4K",
+                "J4L",
+                "J4M",
+                "J4N",
+                "J4P",
+                "J4R",
+                "J4S",
+                "J4T",
+                "J4V"
+            ]
+        },
+        {
+            "id": "doris-lussier",
+            "name": "Doris-Lussier",
+            "url": "https://ssjb.com/portail-des-sections/doris-lussier",
+            "fsa": [
+                "J0L",
+                "J4W",
+                "J4X",
+                "J4Y",
+                "J4Z",
+                "J5A",
+                "J5B",
+                "J5C",
+                "J5R",
+                "J6J",
+                "J6K",
+                "J6N",
+                "J6R"
+            ]
+        },
+        {
+            "id": "rene-levesque",
+            "name": "René-Lévesque",
+            "url": "https://ssjb.com/portail-des-sections/rene-levesque/",
+            "fsa": [
+                "H2A",
+                "H2E",
+                "H2P",
+                "H2R",
+                "H3N"
+            ]
+        }
+    ],
+    "defaultSection": {
+        "id": "ludger-duvernay",
+        "name": "Ludger-Duvernay",
+        "url": "https://ssjb.com/portail-des-sections/ludger-duvernay/"
+    }
+}

@@ -1,0 +1,1 @@
+@"php-bulk" "%~dp0..\scripts\updatefsa.php" %1
