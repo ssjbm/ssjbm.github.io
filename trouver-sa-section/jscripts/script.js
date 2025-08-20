@@ -3,6 +3,7 @@ const GEOCODER = '';
 
 const SearchTool = {
     rules: null,
+    secrets: null,
     postalcode: null,
     results: null,
     ready: false,
@@ -19,7 +20,24 @@ const SearchTool = {
                 this.searchSection(this.postalcode.value);
             }
         });
-        fetch('./data/rules.json').then(r => r.json()).then(data => this.rules = data).catch(console.error);
+
+        const urls = [root + 'secrets.json', './data/rules.json'];
+        const requests = urls.map(async url => {
+            const response = await fetch(url);
+            return { url, id: url.match(/([^\/]+)(?=\.\w+$)/)[0], status: response.status, ok: response.ok, data: await response.json()};
+        });
+        for await (const {url, id, status, ok, data} of requests) {
+            if(!ok) console.error(`${id} [${status} - ${ok ? "OK" : "ERREUR"}] ${url}`);
+            this[id] = data;
+        }
+
+        this.setReady();
+    },
+
+
+    setReady: function() {
+        this.ready = true;
+        this.postalcode.disabled = false;
     },
 
 
