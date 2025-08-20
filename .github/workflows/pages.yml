@@ -18,34 +18,33 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Checkout + submodules
+      # 1. Checkout avec submodules
       - name: Checkout repository (with submodules)
         uses: actions/checkout@v4
         with:
-          submodules: recursive   # <- récupère aussi les submodules
-          fetch-depth: 0          # utile si Jekyll/plug-ins lisent l'historique
+          submodules: recursive
+          fetch-depth: 0
 
-      # Config Pages (définit la baseURL, etc.)
+      # 2. Setup Pages (configuration spéciale GitHub Pages)
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      # Génère un secrets.json non versionné (sera copié par Jekyll)
+      # 3. Génération du fichier secrets.json
       - name: Generate secrets.json with Maps key
         run: jq -n --arg k "$MAPS_API_KEY" '{MAPS_API_KEY:$k}' > secrets.json
         env:
           MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
 
-      # Build Jekyll (destination: _site)
-      # Utilise JEKYLL_ENV=production pour les minifications/urls prod.
+      # 4. Build avec l’action officielle Jekyll
       - name: Build with Jekyll
-        uses: actions/jekyll-build@v4
+        uses: actions/jekyll-build-pages@v1
         with:
           source: .
           destination: ./_site
         env:
           JEKYLL_ENV: production
 
-      # Upload de l’artifact (le dossier _site)
+      # 5. Upload de l'artifact (_site)
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
