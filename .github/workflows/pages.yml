@@ -1,4 +1,5 @@
 name: Deploy Pages
+
 on:
   push:
     branches: [ main ]
@@ -17,17 +18,38 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # Checkout + submodules
+      - name: Checkout repository (with submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive   # <- récupère aussi les submodules
+          fetch-depth: 0          # utile si Jekyll/plug-ins lisent l'historique
 
-      # Injecte la clé dans un fichier non versionné
-      - name: Generate config.js with Maps key
+      # Config Pages (définit la baseURL, etc.)
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # Génère un secrets.json non versionné (sera copié par Jekyll)
+      - name: Generate secrets.json with Maps key
         run: jq -n --arg k "$MAPS_API_KEY" '{MAPS_API_KEY:$k}' > secrets.json
         env:
           MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
 
-      - uses: actions/upload-pages-artifact@v3
+      # Build Jekyll (destination: _site)
+      # Utilise JEKYLL_ENV=production pour les minifications/urls prod.
+      - name: Build with Jekyll
+        uses: actions/jekyll-build@v4
         with:
-          path: .  # dossier à publier (racine du site)
+          source: .
+          destination: ./_site
+        env:
+          JEKYLL_ENV: production
+
+      # Upload de l’artifact (le dossier _site)
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
 
   deploy:
     needs: build

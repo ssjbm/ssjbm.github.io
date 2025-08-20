@@ -30,7 +30,7 @@
     },
     {
       "label": "pxdoc:pull+update",
-      "dependsOn": ["pxdoc:pull", "pxdoc:update"],
+      "dependsOn": ["pxdoc:update", "pxdoc:pull"],
       "dependsOrder": "sequence",
       "presentation": { "panel": "shared", "group": "pxdoc", "reveal": "never", "showReuseMessage": false },
       "runOptions": { "runOn": "folderOpen" },
