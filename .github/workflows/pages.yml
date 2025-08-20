@@ -1,0 +1,41 @@
+name: Deploy Pages
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Injecte la clé dans un fichier non versionné
+      - name: Generate config.js with Maps key
+        # run: echo "window.MAPS_KEY='${MAPS_API_KEY}';" > config.js
+        run: echo '{ "MAPS_API_KEY": "${MAPS_API_KEY}" }';> secrets.json
+        env:
+          MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .  # dossier à publier (racine du site)
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

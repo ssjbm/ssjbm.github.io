@@ -46,6 +46,29 @@
             <article>
                 <div id="contents">
 
+<!-- <div id="map" style="height:100vh"></div>
+<script>
+  function initMap() {
+    const map = new google.maps.Map(document.getElementById('map'), {
+    //   center: {lat: 45.55, lng: -73.65}, zoom: 10
+    });
+
+    const layer = new google.maps.Data({ map });
+    layer.loadGeoJson('/geotruc_full.geojson', null, (features) => {
+      layer.setStyle({ fillOpacity: 0.25, strokeWeight: 1 });
+
+      // Fit aux polygones chargés
+      const b = new google.maps.LatLngBounds();
+      features.forEach(f => f.getGeometry().forEachLatLng(ll => b.extend(ll)));
+      if (!b.isEmpty()) map.fitBounds(b);
+
+      console.log('GeoJSON features:', features.length);
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=api_key&callback=initMap&v=weekly&loading=async"></script> -->
+
+
 
 
 <grostitre>Territoires</grostitre>
