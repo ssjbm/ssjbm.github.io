@@ -21,7 +21,6 @@ jobs:
 
       # Injecte la clé dans un fichier non versionné
       - name: Generate config.js with Maps key
-        # run: echo "window.MAPS_KEY='${MAPS_API_KEY}';" > config.js
         run: jq -n --arg k "$MAPS_API_KEY" '{MAPS_API_KEY:$k}' > secrets.json
         env:
           MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
