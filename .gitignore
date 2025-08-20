@@ -5,3 +5,8 @@ Thumbs.db
 package-lock.json
 secrets.json
 node_modules/
+assets/_bin/maps/*.dbf
+assets/_bin/maps/*.prj
+assets/_bin/maps/*.shp
+assets/_bin/maps/*.shx
+assets/_bin/maps/*.xml

@@ -1,7 +1,7 @@
 const GEOCODER = '';
 
 
-const SearchTool = {
+window.SearchTool = {
     rules: null,
     secrets: null,
     postalcode: null,
@@ -21,7 +21,7 @@ const SearchTool = {
             }
         });
 
-        const urls = [root + 'secrets.json', './data/rules.json'];
+        const urls = [root + 'secrets.json', root + 'assets/maps/rules.json'];
         const requests = urls.map(async url => {
             const response = await fetch(url);
             return { url, id: url.match(/([^\/]+)(?=\.\w+$)/)[0], status: response.status, ok: response.ok, data: await response.json()};
@@ -38,7 +38,34 @@ const SearchTool = {
     setReady: function() {
         this.ready = true;
         this.postalcode.disabled = false;
+
+        const s=document.createElement('script');
+        s.src=`https://maps.googleapis.com/maps/api/js?key=${this.secrets.MAPS_API_KEY}&callback=SearchTool.initMap&v=weekly&loading=async`;
+        s.async=true; document.head.appendChild(s);
     },
+
+
+    initMap: function () {
+        this.loadGeneralMap();
+    },
+
+
+    loadGeneralMap: function() {
+        const map = new google.maps.Map(document.getElementById('map'), { center: {lat: 45.55, lng: -73.65}, zoom: 7 });
+        const layer = new google.maps.Data({ map });
+
+        layer.loadGeoJson(root + '/assets/maps/global-area.geojson', null, (features) => {
+            layer.setStyle({ fillOpacity: 0.25, strokeWeight: 1 });
+
+            // Fit aux polygones chargés
+            const b = new google.maps.LatLngBounds();
+            features.forEach(f => f.getGeometry().forEachLatLng(ll => b.extend(ll)));
+            if (!b.isEmpty()) map.fitBounds(b);
+
+            console.log('GeoJSON features:', features.length);
+        });
+    },
+
 
 
     searchSection: async function(postalcode) {
@@ -74,7 +101,7 @@ const SearchTool = {
         const url = new URL("https://maps.googleapis.com/maps/api/geocode/json");
         url.searchParams.set("components", `country:CA|postal_code:${postalcode.replace(/[^A-Z0-9]/g, '')}`);
         url.searchParams.set("language", "fr-CA");
-        url.searchParams.set("key", GEOCODER);
+        url.searchParams.set("key", this.secrets.MAPS_API_KEY);
 
         const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -89,7 +116,6 @@ const SearchTool = {
         const joinNonEmpty = (arr) => { return arr.filter(Boolean).join(' '); }
         const codeWrap = (s) => { return s ? `(${s})` : ''; }
         const get = (type, short = false) => { const c = r.address_components.find(c => c.types.includes(type)); return c ? (short ? c.short_name : c.long_name) : ''; };
-
         const rows = [
             ["postalcode", get("postal_code")],
             ["city", get("locality") || get("sublocality") || get("postal_town")],
@@ -101,7 +127,6 @@ const SearchTool = {
             ["longitude", r.geometry?.location?.lng ?? ""],
             ["place_id", r.place_id]
         ].filter(([,v]) => v && String(v).trim() !== "");
-    
         return Object.fromEntries(rows);
     },
 
@@ -109,4 +134,6 @@ const SearchTool = {
 
 
 };
+
+ready(() => { SearchTool.init(); });
 
