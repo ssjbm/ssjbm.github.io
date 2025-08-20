@@ -124,8 +124,4 @@
 <dots></dots>
 
 <script src="./jscripts/script.js"></script>
-<script>
-    ready(() => {
-        SearchTool.init();
-    });
-</script>
+<script>ready(() => { SearchTool.init(); });</script>

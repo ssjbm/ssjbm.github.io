@@ -3,4 +3,5 @@
 .cookie.txt
 Thumbs.db
 package-lock.json
+secrets.json
 node_modules/

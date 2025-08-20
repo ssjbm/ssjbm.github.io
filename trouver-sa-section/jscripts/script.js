@@ -2,9 +2,10 @@ const GEOCODER = '';
 
 
 const SearchTool = {
-    data: null,
+    rules: null,
     postalcode: null,
     results: null,
+    ready: false,
 
 
     init: async function () {
@@ -18,7 +19,7 @@ const SearchTool = {
                 this.searchSection(this.postalcode.value);
             }
         });
-        fetch('./data/rules.json').then(r => r.json()).then(data => this.data = data).catch(console.error);
+        fetch('./data/rules.json').then(r => r.json()).then(data => this.rules = data).catch(console.error);
     },
 
 
@@ -30,8 +31,8 @@ const SearchTool = {
 
 
     findSectionByFSA: function(fsa) {
-        const section = this.data.sections.find(s => Array.isArray(s.fsa) && s.fsa.includes(fsa));
-        return section || this.data.defaultSection || null;
+        const section = this.rules.sections.find(s => Array.isArray(s.fsa) && s.fsa.includes(fsa));
+        return section || this.rules.defaultSection || null;
     },
 
 
