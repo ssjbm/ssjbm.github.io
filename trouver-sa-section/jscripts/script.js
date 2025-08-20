@@ -1,4 +1,4 @@
-const GEOCODER_API_KEY = 'AIzaSyDUbLCfJfcZtNGs0Zaml_LJiL_AQLKnuWI';
+const GEOCODER = '';
 
 
 const SearchTool = {
@@ -55,7 +55,7 @@ const SearchTool = {
         const url = new URL("https://maps.googleapis.com/maps/api/geocode/json");
         url.searchParams.set("components", `country:CA|postal_code:${postalcode.replace(/[^A-Z0-9]/g, '')}`);
         url.searchParams.set("language", "fr-CA");
-        url.searchParams.set("key", GEOCODER_API_KEY);
+        url.searchParams.set("key", GEOCODER);
 
         const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
