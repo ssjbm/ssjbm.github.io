@@ -11,6 +11,6 @@
 		"vue": "^3.5.19"
 	},
 	"scripts": {
-		"postinstall": "node pxdoc/_bin/node/postinstall.js"
+		"postinstall": "node pxdoc/_bin/node/postinstall.js && node assets/_bin/node/postinstall.js"
 	}
 }

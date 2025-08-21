@@ -42,7 +42,6 @@
 <dots></dots>
 
 
-
 <grostitre>Contributeurs</grostitre>
 
 <ul>
