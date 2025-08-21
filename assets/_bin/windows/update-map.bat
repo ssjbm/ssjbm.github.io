@@ -1,0 +1,1 @@
+@"php-bulk" "%~dp0..\scripts\update-map.php" %1

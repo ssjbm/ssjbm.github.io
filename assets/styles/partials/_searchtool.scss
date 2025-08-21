@@ -23,6 +23,10 @@
             &:focus:invalid {
                 background-color: var(--color-red-back-light);
             }
+
+            &::placeholder {
+                opacity: 0.3;
+            }
         
         }
 
@@ -69,6 +73,7 @@
 
 .resultmap {
     margin-top: 2rem;
+    height: 60vh;
 }
 
 

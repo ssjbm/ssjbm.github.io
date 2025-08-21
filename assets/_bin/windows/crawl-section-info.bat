@@ -1,0 +1,1 @@
+@"php-bulk" "%~dp0..\scripts\crawl-section-info.php" %1

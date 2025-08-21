@@ -20,7 +20,6 @@ $globalFSAs = [];
 foreach ($rules->sections as $section) $globalFSAs = array_merge($globalFSAs, $section->fsa);
 $globalFSAs = array_values(array_unique($globalFSAs));
 sort($globalFSAs);
-$globalFSAsString = join('|', $globalFSAs);
 
 
 // Download shape file from Statcan
@@ -45,7 +44,7 @@ if(!$shpFile = current(glob($srcMapDir . '*.shp'))) {
 // Convert Shape file to Geojson format & keep only global FSAs
 echo "Convert Shape file and filters FSAs..." . RN;
 $masterGeojsonFile = $srcMapDir . 'fsa_subset_master.geojson';
-shell_exec('mapshaper ' . escapeshellarg($shpFile) . ' -proj wgs84 from=EPSG:3347 -filter "/^(' . $globalFSAsString . ')$/.test(RTACIDU)" -o format=geojson ' . escapeshellarg($masterGeojsonFile) . ' 2>&1');
+shell_exec('mapshaper ' . escapeshellarg($shpFile) . ' -proj wgs84 from=EPSG:3347 -filter "/^(' . join('|', $globalFSAs) . ')$/.test(RTACIDU)" -o format=geojson ' . escapeshellarg($masterGeojsonFile) . ' 2>&1');
 
 
 // Generate sections maps

@@ -2,7 +2,7 @@ const GEOCODER = '';
 
 
 window.SearchTool = {
-    rules: null,
+    sections: null,
     secrets: null,
     postalcode: null,
     results: null,
@@ -55,14 +55,16 @@ window.SearchTool = {
     },
 
 
-    loadGeneralMap: function() {
+    loadGeneralMap: async function() {
+        const {ColorScheme} = await google.maps.importLibrary("core");
         this.map = new google.maps.Map(document.getElementById('map'), {
             // center: {lat: 45.55, lng: -73.65}, zoom: 7
+            colorScheme: localStorage.getItem('darkmode') === 'true' ? ColorScheme.DARK : ColorScheme.LIGHT,
         });
 
         this.layer = new google.maps.Data({ map: this.map });
         this.layer.loadGeoJson(root + '/assets/maps/sections.geojson', null, (features) => {
-            this.layer.setStyle({ fillOpacity: 0.25, strokeWeight: 1 });
+            this.layer.setStyle({ fillOpacity: 0.20, strokeWeight: 1 });
 
             this.layer.addListener('click', e => {
                 // console.log(e.feature.getProperty('id'), e.feature.getProperty('name'));
@@ -86,31 +88,54 @@ window.SearchTool = {
     },
 
 
-    setFocus: function(id) {
-        console.log(this.features[id].getProperty('name'));
-        const b = new google.maps.LatLngBounds();
-        this.features[id].getGeometry().forEachLatLng(ll => b.extend(ll));
-        if (!b.isEmpty()) this.map.fitBounds(b);
-        for (const i in this.features) {
-            if (this.features.hasOwnProperty(i)) {
-                if(i == id) this.layer.overrideStyle(this.features[i], { fillOpacity: 0.50 });
-                else this.layer.overrideStyle(this.features[i], { fillOpacity: 0.20 });
+    setFocus: async function(id) {
+        const section = this.findSectionById(id);
+        this.results.innerHTML = `Section ${section.name}`;
+
+
+        if (this.features[id] !== undefined) {
+            const b = new google.maps.LatLngBounds();
+            this.features[id].getGeometry().forEachLatLng(ll => b.extend(ll));
+            if (!b.isEmpty()) this.map.fitBounds(b);
+            for (const i in this.features) {
+                if (this.features.hasOwnProperty(i)) {
+                    if(i == id) this.layer.overrideStyle(this.features[i], { fillOpacity: 0.50 });
+                    else this.layer.overrideStyle(this.features[i], { fillOpacity: 0.20 });
+                }
             }
+        } else {
+            const b = new google.maps.LatLngBounds();
+            for (const i in this.features) {
+                if (this.features.hasOwnProperty(i)) {
+                    this.features[i].getGeometry().forEachLatLng(ll => b.extend(ll));
+                    this.layer.overrideStyle(this.features[i], { fillOpacity: 0.20 });
+                }
+            }
+            if (!b.isEmpty()) this.map.fitBounds(b);
         }
+
+
+        
+
     },
 
 
     searchSection: async function(postalcode) {
         const fsa = postalcode.slice(0, 3).toUpperCase();
         const section = this.findSectionByFSA(fsa);
-        this.results.innerHTML = `Section ${section.name}`;
         this.setFocus(section.id);
     },
 
 
     findSectionByFSA: function(fsa) {
-        const section = this.rules.sections.find(s => Array.isArray(s.fsa) && s.fsa.includes(fsa));
-        return section || this.rules.defaultSection || null;
+        const section = this.sections.sections.find(s => Array.isArray(s.fsa) && s.fsa.includes(fsa));
+        return section || this.sections.defaultSection || null;
+    },
+
+
+    findSectionById: function(id) {
+        const section = this.sections.sections.find(s => s.id == id);
+        return section || this.sections.defaultSection || null;
     },
 
 
