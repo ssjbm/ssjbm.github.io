@@ -51,21 +51,30 @@ window.SearchTool = {
 
 
     loadGeneralMap: function() {
-        const map = new google.maps.Map(document.getElementById('map'), { center: {lat: 45.55, lng: -73.65}, zoom: 7 });
+        const map = new google.maps.Map(document.getElementById('map'), {
+            // center: {lat: 45.55, lng: -73.65}, zoom: 7
+        });
         const layer = new google.maps.Data({ map });
 
         layer.loadGeoJson(root + '/assets/maps/sections.geojson', null, (features) => {
             layer.setStyle({ fillOpacity: 0.25, strokeWeight: 1 });
+
+            layer.addListener('click', e => {
+                console.log(e.feature.getProperty('id'), e.feature.getProperty('name'));
+            });
 
             // Fit aux polygones chargés
             const b = new google.maps.LatLngBounds();
             features.forEach(f => f.getGeometry().forEachLatLng(ll => b.extend(ll)));
             if (!b.isEmpty()) map.fitBounds(b);
 
+            features.forEach(f => {
+                console.log(f.getProperty('name'));
+            });
+
             console.log('GeoJSON features:', features.length);
         });
     },
-
 
 
     searchSection: async function(postalcode) {
@@ -136,4 +145,3 @@ window.SearchTool = {
 };
 
 ready(() => { SearchTool.init(); });
-

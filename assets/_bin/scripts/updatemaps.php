@@ -59,7 +59,6 @@ foreach($rules->sections as $section) {
 echo "Merge section files in one FeatureCollection file..." . RN;
 $globalSectionFile = $srcMapDir . 'sections.geojson';
 shell_exec('geojson-merge ' . join(' ', $sectionFiles) . ' > ' . escapeshellarg($globalSectionFile));
-
 file_put_contents($globalSectionFile, json_encode(json_decode(file_get_contents($globalSectionFile))));
 
 // Cleanup
