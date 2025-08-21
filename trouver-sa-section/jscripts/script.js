@@ -8,6 +8,10 @@ window.SearchTool = {
     results: null,
     ready: false,
 
+    map: null,
+    layer: null,
+    features: {},
+
 
     init: async function () {
         this.results = document.getElementById('searchtool_results');
@@ -51,29 +55,46 @@ window.SearchTool = {
 
 
     loadGeneralMap: function() {
-        const map = new google.maps.Map(document.getElementById('map'), {
+        this.map = new google.maps.Map(document.getElementById('map'), {
             // center: {lat: 45.55, lng: -73.65}, zoom: 7
         });
-        const layer = new google.maps.Data({ map });
+        this.layer = new google.maps.Data({ map: this.map });
 
-        layer.loadGeoJson(root + '/assets/maps/sections.geojson', null, (features) => {
-            layer.setStyle({ fillOpacity: 0.25, strokeWeight: 1 });
+        this.layer.loadGeoJson(root + '/assets/maps/sections.geojson', null, (features) => {
+            this.layer.setStyle({ fillOpacity: 0.25, strokeWeight: 1 });
 
-            layer.addListener('click', e => {
-                console.log(e.feature.getProperty('id'), e.feature.getProperty('name'));
+            this.layer.addListener('click', e => {
+                // console.log(e.feature.getProperty('id'), e.feature.getProperty('name'));
+                this.setFocus(e.feature.getProperty('id'));
             });
 
             // Fit aux polygones chargés
             const b = new google.maps.LatLngBounds();
             features.forEach(f => f.getGeometry().forEachLatLng(ll => b.extend(ll)));
-            if (!b.isEmpty()) map.fitBounds(b);
+            if (!b.isEmpty()) this.map.fitBounds(b);
 
-            features.forEach(f => {
-                console.log(f.getProperty('name'));
+            const palette = this.getPalette();
+            features.forEach((f, i) => {
+                this.features[f.getProperty('id')] = f;
+                const c = palette[i % palette.length];
+                this.layer.overrideStyle(f, { fillColor: c, strokeColor: c, fillOpacity: 0.40, strokeWeight: 1 });
             });
 
-            console.log('GeoJSON features:', features.length);
+            // console.log('GeoJSON features:', features.length);
         });
+    },
+
+    setFocus: function(id) {
+        console.log(this.features[id].getProperty('name'));
+        const b = new google.maps.LatLngBounds();
+        this.features[id].getGeometry().forEachLatLng(ll => b.extend(ll));
+        if (!b.isEmpty()) this.map.fitBounds(b);
+        for (const i in this.features) {
+            if (this.features.hasOwnProperty(i)) {
+                if(i == id) this.layer.overrideStyle(this.features[i], { fillOpacity: 0.50 });
+                else this.layer.overrideStyle(this.features[i], { fillOpacity: 0.20 });
+            }
+        }
     },
 
 
@@ -81,6 +102,7 @@ window.SearchTool = {
         const fsa = postalcode.slice(0, 3).toUpperCase();
         const section = this.findSectionByFSA(fsa);
         this.results.innerHTML = `Section ${section.name}`;
+        this.setFocus(section.id);
     },
 
 
@@ -139,9 +161,48 @@ window.SearchTool = {
         return Object.fromEntries(rows);
     },
 
+    getPalette: function() {
+        return [
+            '#ef4444', // red
+            '#f97316', // orange
+            '#f59e0b', // amber
+            '#eab308', // yellow
+            '#84cc16', // lime
+            '#22c55e', // green
+            '#10b981', // emerald
+            '#14b8a6', // teal
+            '#06b6d4', // cyan
+            '#0ea5e9', // sky
+            '#3b82f6', // blue
+            '#6366f1', // indigo
+            '#8b5cf6', // violet
+            '#a855f7', // purple
+            '#d946ef', // fuchsia
+            '#ec4899'  // pink
+        ];
+
+
+
+    }
 
 
 
 };
+
+function shuffle(array) {
+  let currentIndex = array.length;
+
+  // While there remain elements to shuffle...
+  while (currentIndex != 0) {
+
+    // Pick a remaining element...
+    let randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+}
 
 ready(() => { SearchTool.init(); });

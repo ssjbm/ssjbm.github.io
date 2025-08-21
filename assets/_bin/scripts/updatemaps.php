@@ -1,14 +1,16 @@
 <?php
+
+// Official Statcan FSA Geo Map
 const SHP_ZIP_URL = 'https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lrta000b21a_f.zip';
 
-require(__DIR__ . '/../../../pxdoc/_bin/scripts/utils.php');
 
-// $srcMapDir = realpath(__DIR__ . '../../maps'). S;
-$srcMapDir = realpath(__DIR__ . '../../../maps'). S;
+// Load PXDoc utilities
+require(__DIR__ . '/../../../pxdoc/_bin/scripts/utils.php');
 
 
 // --> Load FSA rules for sections
 echo "Load FSA rules...".RN;
+$srcMapDir = realpath(__DIR__ . '../../../maps'). S;
 if(!$rulesFile = realpath($srcMapDir . 'rules.json')) err("Can't find rules file.");
 if(!$rules = json_decode(file_get_contents($rulesFile))) err("Invalid rules file.");
 
@@ -41,7 +43,7 @@ if(!$shpFile = current(glob($srcMapDir . '*.shp'))) {
 
 
 // Convert Shape file to Geojson format & keep only global FSAs
-echo "Convert Shape file to Geojson format..." . RN;
+echo "Convert Shape file and filters FSAs..." . RN;
 $masterGeojsonFile = $srcMapDir . 'fsa_subset_master.geojson';
 shell_exec('mapshaper ' . escapeshellarg($shpFile) . ' -proj wgs84 from=EPSG:3347 -filter "/^(' . $globalFSAsString . ')$/.test(RTACIDU)" -o format=geojson ' . escapeshellarg($masterGeojsonFile) . ' 2>&1');
 
@@ -61,6 +63,7 @@ $globalSectionFile = $srcMapDir . 'sections.geojson';
 shell_exec('geojson-merge ' . join(' ', $sectionFiles) . ' > ' . escapeshellarg($globalSectionFile));
 file_put_contents($globalSectionFile, json_encode(json_decode(file_get_contents($globalSectionFile))));
 
+
 // Cleanup
 echo "Cleanup..." . RN;
 unlink($masterGeojsonFile);
@@ -68,7 +71,7 @@ array_map('unlink', glob($srcMapDir . 'section-*.geojson'));
 
 
 // EN FRANÇAIS!
-echo RN . 'EN FRANÇAIS ✊' .RN;
+echo RN . 'EN FRANÇAIS ✊' . RN;
 
 
 
