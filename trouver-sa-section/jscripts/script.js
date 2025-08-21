@@ -54,7 +54,7 @@ window.SearchTool = {
         const map = new google.maps.Map(document.getElementById('map'), { center: {lat: 45.55, lng: -73.65}, zoom: 7 });
         const layer = new google.maps.Data({ map });
 
-        layer.loadGeoJson(root + '/assets/maps/global-area.geojson', null, (features) => {
+        layer.loadGeoJson(root + '/assets/maps/sections.geojson', null, (features) => {
             layer.setStyle({ fillOpacity: 0.25, strokeWeight: 1 });
 
             // Fit aux polygones chargés
