@@ -196,7 +196,7 @@ window.SearchTool = {
         
 
 
-        fetch('https://script.google.com/macros/s/AKfycbzcwgwA-h0teZUhCsu_Ka0VHeMLvWkXVYorT_s4WT2PHC7TZ52lrPNWW1vatxiX1QPy/exec', {
+        fetch('https://script.google.com/macros/s/' + this.secrets.KV_API_KEY + '/exec', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams({ key: key, value: JSON.stringify(data) }),
