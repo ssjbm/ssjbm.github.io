@@ -1,0 +1,1 @@
+@"php-bulk" "%~dp0..\scripts\create-fsa-map.php" %1

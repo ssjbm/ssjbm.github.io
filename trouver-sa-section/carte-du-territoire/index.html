@@ -1,0 +1,63 @@
+<!-- 
+
+██████╗ ██╗  ██╗██████╗  ██████╗  ██████╗
+██╔══██╗╚██╗██╔╝██╔══██╗██╔═══██╗██╔════╝
+██████╔╝ ╚███╔╝ ██║  ██║██║   ██║██║
+██╔═══╝  ██╔██╗ ██║  ██║██║   ██║██║
+██║     ██╔╝ ██╗██████╔╝╚██████╔╝╚██████╗
+╚═╝     ╚═╝  ╚═╝╚═════╝  ╚═════╝  ╚═════╝
+
+-->
+<!DOCTYPE html>
+<html lang="fr-ca">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta itemprop="digest" content="">
+        <meta itemprop="lang" content="fr_ca">
+        <meta property="og:locale" content="fr_ca">
+        <meta property="og:type" content="article">
+        <meta property="og:title" content="Carte du territoire | SSJB">
+        <meta property="og:description" content="Outil de modification de la carte du territoire">
+        <meta property="og:url" content="https://docs.ssjb.com/trouver-sa-section/carte-du-territoire/">
+        <meta property="og:image" content="https://docs.ssjb.com/assets/images/image.webp">
+        <link rel="icon" type="image/x-icon" href="../../assets/images/favicon.ico">
+        <link rel="stylesheet" href="../../pxdoc/styles/styles.min.css">
+        <link rel="stylesheet" href="../../assets/styles/styles.min.css">
+        <script>const shared = '../../pxdoc/';</script>
+        <script>const root = '../../';</script>
+        <script src="../../pxdoc/jscripts/pxdoc.core.min.js"></script>
+        <title>Carte du territoire</title>
+    </head>
+    <body>
+        <script>document.body.classList.add(localStorage.getItem('darkmode') === 'true' ? 'dark' : 'light');</script>
+        <a id="top"></a>
+        <div id="logo" @click="goToTop('../../', '')" title="Retour à l'accueil"></div>
+        <div title="Interrupteur" id="lightswitch" ref="lightswitch" @click="lightswitch()"></div>
+        <header>
+            <div id="breadcrumb">
+                <div id="breadcrumb_normal"><div class="breadcrum-logo" style="background-image: url(../../assets/images/logo.svg);"></div><a href="../../../">SSJB</a> > <a href="../">Trouver sa section</a> ></div>
+                <div id="breadcrumb_index"></div>
+            </div>
+            <h1 id="title"><img src="images/icon3.svg">&nbsp;Carte du territoire</h1>
+        </header>
+        <main>
+            <article>
+                <div id="contents">
+
+<div class="resultmap" id="map"></div>
+
+
+
+<script src="./jscripts/script.js"></script>
+                </div>
+                <tabledesmatieres></tabledesmatieres>
+            </article>
+        </main>
+        <footer>
+            © Tous droits réservés<br>Société Saint-Jean-Baptiste de Montréal, 2025            
+        </footer>
+        <script>app.mount('body');</script>
+    </body>
+</html>

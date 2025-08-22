@@ -23,7 +23,7 @@ sort($globalFSAs);
 
 
 // Download shape file from Statcan
-if(!$shpFile = current(glob($srcMapDir . '*.shp'))) {
+if(!$shpFile = current(glob($srcMapDir . 'lrt*_f.shp'))) {
     echo 'Downloading ' . pathinfo(SHP_ZIP_URL, PATHINFO_BASENAME) . ': 0% ';
     $tmpFile = sys_get_temp_dir() . S . pathinfo(SHP_ZIP_URL, PATHINFO_BASENAME);
     if(!curl_get_contents(SHP_ZIP_URL, $tmpFile, function($prog){
@@ -37,7 +37,7 @@ if(!$shpFile = current(glob($srcMapDir . '*.shp'))) {
     echo RN . 'Unzip ' . pathinfo(SHP_ZIP_URL, PATHINFO_BASENAME) . '...' . RN;
     if(!unzip($tmpFile, $srcMapDir, pathinfo(SHP_ZIP_URL, PATHINFO_FILENAME))) err("Can't unzip shape file.");
     unlink($tmpFile);
-    if(!$shpFile = current(glob($srcMapDir . '*.shp'))) err("Cant't find shape file. Please download it at: Try to download it manualy and unzip it into /assets/_bin/maps/ https://www150.statcan.gc.ca/n1/en/catalogue/92-179-X");
+    if(!$shpFile = current(glob($srcMapDir . 'lrt*_f.shp'))) err("Cant't find shape file. Please download it at: Try to download it manualy and unzip it into /assets/_bin/maps/ https://www150.statcan.gc.ca/n1/en/catalogue/92-179-X");
 }
 
 
