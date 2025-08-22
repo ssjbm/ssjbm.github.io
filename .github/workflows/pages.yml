@@ -30,10 +30,13 @@ jobs:
         uses: actions/configure-pages@v5
 
       # 3. Génération du fichier secrets.json
-      - name: Generate secrets.json with Maps key
-        run: jq -n --arg k "$MAPS_API_KEY" '{MAPS_API_KEY:$k}' > secrets.json
+      - name: Generate secrets.json with Maps & KV keys
+        run: |
+          jq -n --arg maps "$MAPS_API_KEY" --arg kv "$KV_API_KEY" \
+            '{MAPS_API_KEY:$maps, KV_API_KEY:$kv}' > secrets.json
         env:
           MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
+          KV_API_KEY: ${{ secrets.KV_API_KEY }}
 
       # 4. Build avec l’action officielle Jekyll
       - name: Build with Jekyll

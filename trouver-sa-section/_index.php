@@ -9,6 +9,27 @@
 
 
 
+
+
+
+<grostitre>Outil de recherche</grostitre>
+
+<div class="searchtool">
+    <div class="searchtool__header">
+        Entrez votre <strong>code postal:&nbsp;&nbsp;</strong>
+        <span class="searchtool__nowrap">
+            <input id="searchtool_postalcode" class="searchtool__header__postalcode" name="postalcode" type="text" placeholder="H2X 1X3" maxlength="7" required pattern="^[GgHhJj][0-9][ABCEGHJ-NPRSTV-Zabceghj-nprstv-z][ ]?[0-9][ABCEGHJ-NPRSTV-Zabceghj-nprstv-z][0-9]$" title="Entrez un code postal valide du Québec (ex: H2X 1X3)" disabled>
+            <span class="searchtool__header__validmark"></span>
+        </span>
+    </div>
+    <div id="searchtool_results" class="searchtool__results">Territoire couvert par la SSJB de Montréal</div>
+</div>
+
+<div class="resultmap" id="map"></div>
+
+<dots></dots>
+
+
 <grostitre>Territoires</grostitre>
 
 <table>
@@ -84,22 +105,5 @@
 
 <dots></dots>
 
-
-<grostitre>Outil de recherche</grostitre>
-
-<div class="searchtool">
-    <div class="searchtool__header">
-        Entrez votre <strong>code postal:&nbsp;&nbsp;</strong>
-        <span class="searchtool__nowrap">
-            <input id="searchtool_postalcode" class="searchtool__header__postalcode" name="postalcode" type="text" placeholder="H2X 1X3" maxlength="7" required pattern="^[GgHhJj][0-9][ABCEGHJ-NPRSTV-Zabceghj-nprstv-z][ ]?[0-9][ABCEGHJ-NPRSTV-Zabceghj-nprstv-z][0-9]$" title="Entrez un code postal valide du Québec (ex: H2X 1X3)" disabled>
-            <span class="searchtool__header__validmark"></span>
-        </span>
-    </div>
-    <div id="searchtool_results" class="searchtool__results">Territoire couvert par la SSJB de Montréal</div>
-</div>
-
-<div class="resultmap" id="map"></div>
-
-<dots></dots>
 
 <script src="./jscripts/script.js"></script>
