@@ -36,12 +36,12 @@ foreach($rules->sections as $section) {
         if($paragraphs->length) {
             foreach($paragraphs as $parag){
                 $value = trim($parag->textContent);
-                if($value) $values[] = $value;
+                if($value) $values[] = trim_nbsp($value);
             }
         } else {
             foreach($cell->childNodes as $elm) {
                 if($elm->nodeType !== XML_TEXT_NODE) continue;
-                if(($value = trim($elm->textContent))) $values[] = $value;
+                if(($value = trim($elm->textContent))) $values[] = trim_nbsp($value);
             }
         }
 
@@ -62,3 +62,5 @@ file_put_contents($rulesFile, json_encode($rules, JSON_PRETTY_PRINT));
 // EN FRANÇAIS!
 echo RN . 'EN FRANÇAIS ✊' . RN;
 exit(0);
+
+
