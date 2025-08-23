@@ -30,6 +30,12 @@ function doOptions(e) {
   return ContentService.createTextOutput('').setMimeType(ContentService.MimeType.TEXT);
 }
 
+function toBool_(v) {
+  if (v === undefined || v === null) return false;
+  const s = String(v).trim().toLowerCase();
+  return s === '1' || s === 'true' || s === 'yes' || s === 'y' || s === 'on';
+}
+
 function findRowByKey_(sh, key) {
   const values = sh.getDataRange().getValues(); // inclut l’en-tête
   for (let i = 1; i < values.length; i++) {
@@ -66,15 +72,44 @@ function doGet(e) {
   const sh = getSheet_();
 
   if (action === 'get_all') {
-    const lastRow = sh.getLastRow();
-    if (lastRow < 2) return respond_({ ok: true, items: [] });
-    const values = sh.getRange(2, 1, lastRow - 1, HEADERS.length).getValues();
-    const items = values.map(r => ({
-      key: String(r[0]),
-      value: r[1],
-      createdAt: String(r[2]),
-    }));
-    return respond_({ ok: true, count: items.length, items });
+    const wantClear = toBool_(params.clear);
+
+    if (!wantClear) {
+      const lastRow = sh.getLastRow();
+      if (lastRow < 2) return respond_({ ok: true, count: 0, items: [] });
+      const values = sh.getRange(2, 1, lastRow - 1, HEADERS.length).getValues();
+      const items = values.map(r => ({
+        key: String(r[0]),
+        value: r[1],
+        createdAt: String(r[2]),
+      }));
+      return respond_({ ok: true, count: items.length, items });
+    }
+
+    // wantClear === true : lire puis vider, de façon atomique
+    const lock = LockService.getDocumentLock();
+    try {
+      lock.waitLock(30000); // attend jusqu'à 30s si besoin
+      const lastRow = sh.getLastRow();
+      if (lastRow < 2) {
+        return respond_({ ok: true, count: 0, items: [], cleared: 0 });
+      }
+      const count = lastRow - 1;
+      const values = sh.getRange(2, 1, count, HEADERS.length).getValues();
+      const items = values.map(r => ({
+        key: String(r[0]),
+        value: r[1],
+        createdAt: String(r[2]),
+      }));
+
+      // Vider le contenu des lignes (conserve l’en-tête)
+      sh.getRange(2, 1, count, sh.getLastColumn()).clearContent();
+
+      // Retourner les items (avant effacement) + info de purge
+      return respond_({ ok: true, count: items.length, items, cleared: count });
+    } finally {
+      try { lock.releaseLock(); } catch (e) {}
+    }
   }
 
   if (action === 'get') {
@@ -93,6 +128,7 @@ function doGet(e) {
     usage: {
       get: 'GET ?action=get&key=YOUR_KEY',
       get_all: 'GET ?action=get_all',
+      get_all_and_clear: 'GET ?action=get_all&clear=1',
       add_or_update: 'POST key=YOUR_KEY&value=YOUR_VALUE'
     }
   });
@@ -106,17 +142,25 @@ function doPost(e) {
   if (!key) return respond_({ ok: false, error: 'Missing "key"' });
 
   const sh = getSheet_();
-  let row = findRowByKey_(sh, key);
 
-  if (row) {
-    // Mise à jour: garder createdAt de la première insertion
-    sh.getRange(row, 2).setValue(value);
-    const createdAt = sh.getRange(row, 3).getValue();
-    return respond_({ ok: true, updated: true, item: { key, value, createdAt: String(createdAt) } });
-  } else {
-    const createdAt = new Date().toISOString();
-    sh.appendRow([key, value, createdAt]);
-    return respond_({ ok: true, created: true, item: { key, value, createdAt } });
+  // Petite section critique: éviter les écritures concurrentes sur la même clé
+  const lock = LockService.getDocumentLock();
+  try {
+    lock.waitLock(30000);
+
+    let row = findRowByKey_(sh, key);
+    if (row) {
+      // Mise à jour: garder createdAt de la première insertion
+      sh.getRange(row, 2).setValue(value);
+      const createdAt = sh.getRange(row, 3).getValue();
+      return respond_({ ok: true, updated: true, item: { key, value, createdAt: String(createdAt) } });
+    } else {
+      const createdAt = new Date().toISOString();
+      sh.appendRow([key, value, createdAt]);
+      return respond_({ ok: true, created: true, item: { key, value, createdAt } });
+    }
+  } finally {
+    try { lock.releaseLock(); } catch (e) {}
   }
 }
 
@@ -149,4 +193,20 @@ function test_get_all() {
   Logger.log('GET status: %s', res.getResponseCode());
   Logger.log(res.getContentText());
   return res.getContentText();
+}
+
+/** Test: retourne les items puis vide la sheet (GET ?action=get_all&clear=1).
+ *  Vérifie ensuite que la sheet est vide. */
+function test_get_all_and_clear() {
+  const url1 = WEBAPP_URL + '?action=get_all&clear=1';
+  const res1 = UrlFetchApp.fetch(url1, { method: 'get', muteHttpExceptions: true });
+  Logger.log('CLEAR-READ status: %s', res1.getResponseCode());
+  Logger.log('Items before clear: %s', res1.getContentText());
+
+  const url2 = WEBAPP_URL + '?action=get_all';
+  const res2 = UrlFetchApp.fetch(url2, { method: 'get', muteHttpExceptions: true });
+  Logger.log('POST-CLEAR GET status: %s', res2.getResponseCode());
+  Logger.log('After clear (should be empty): %s', res2.getContentText());
+
+  return { first: res1.getContentText(), second: res2.getContentText() };
 }

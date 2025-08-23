@@ -106,4 +106,4 @@
 <dots></dots>
 
 
-<script src="./jscripts/script.js"></script>
+<script src="./jscripts/script.min.js"></script>

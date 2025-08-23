@@ -1,6 +1,3 @@
-const GEOCODER = '';
-
-
 window.SearchTool = {
     sections: null,
     secrets: null,
@@ -11,7 +8,7 @@ window.SearchTool = {
     map: null,
     layer: null,
     features: {},
-    _polyIndex: [],
+    polyIndex: [],
 
 
     init: async function () {
@@ -57,7 +54,7 @@ window.SearchTool = {
 
 
     loadGeneralMap: async function() {
-        const {ColorScheme} = await google.maps.importLibrary("core");
+        const { ColorScheme } = await google.maps.importLibrary("core");
         this.map = new google.maps.Map(document.getElementById('map'), {
             // center: {lat: 45.55, lng: -73.65}, zoom: 7
             colorScheme: localStorage.getItem('darkmode') === 'true' ? ColorScheme.DARK : ColorScheme.LIGHT,
@@ -68,7 +65,6 @@ window.SearchTool = {
             this.layer.setStyle({ fillOpacity: 0.20, strokeWeight: 1 });
 
             this.layer.addListener('click', e => {
-                // console.log(e.feature.getProperty('id'), e.feature.getProperty('name'));
                 this.setFocus(e.feature.getProperty('id'));
             });
 
@@ -83,15 +79,12 @@ window.SearchTool = {
                 const c = palette[i % palette.length];
                 this.layer.overrideStyle(feature, { fillColor: c, strokeColor: c, fillOpacity: 0.20, strokeWeight: 1 });
 
-
-    const geoms = this.dataGeomToPolygons(feature.getGeometry()); // -> array<google.maps.Polygon>
-    geoms.forEach((poly) => {
-      const bounds = new google.maps.LatLngBounds();
-      poly.getPaths().forEach(path => path.forEach(ll => bounds.extend(ll)));
-      this._polyIndex.push({ feature, poly, bounds });
-    });
-
-
+                const geoms = this.dataGeomToPolygons(feature.getGeometry()); // -> array<google.maps.Polygon>
+                geoms.forEach((poly) => {
+                    const bounds = new google.maps.LatLngBounds();
+                    poly.getPaths().forEach(path => path.forEach(ll => bounds.extend(ll)));
+                    this.polyIndex.push({ feature, poly, bounds });
+                });
 
             });
 
@@ -103,7 +96,6 @@ window.SearchTool = {
     setFocus: async function(id) {
         const section = this.findSectionById(id);
         this.results.innerHTML = `Section ${section.name}`;
-
 
         if (this.features[id] !== undefined) {
             const b = new google.maps.LatLngBounds();
@@ -117,6 +109,20 @@ window.SearchTool = {
                 }
             }
 
+
+
+
+            console.log(section);
+            // const { InfoWindow } = await google.maps.importLibrary("maps");
+            // // Contenu du popup
+            // const infoWindow = new InfoWindow({
+            // content: "<div style='font-size:14px'><b>Salut 👋</b><br>Voici mon popup</div>",
+            // position: section.bounds.center
+            // });
+
+            // infoWindow.open(this.map);
+
+
         } else {
             const b = new google.maps.LatLngBounds();
             for (const i in this.features) {
@@ -128,14 +134,10 @@ window.SearchTool = {
             if (!b.isEmpty()) this.map.fitBounds(b);
         }
 
-
-        
-
     },
 
 
     searchSection: async function(postalcode) {
-
         const results = await this.getGeocode(postalcode);
         if(results.status != 'OK') this.setFocus(this.sections.defaultSection.id);
         else {
@@ -194,8 +196,6 @@ window.SearchTool = {
         if(!(data = await res.json())) throw new Error(`Bad request response format.`);
         localStorage.setItem(key, JSON.stringify(data));
         
-
-
         fetch('https://script.google.com/macros/s/' + this.secrets.KV_API_KEY + '/exec', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -226,50 +226,34 @@ window.SearchTool = {
     },
 
 
+    dataGeomToPolygons: function (geom) {
+        const out = [];
+        const type = geom.getType(); // 'Polygon' | 'MultiPolygon' | ...
+        if (type === 'Polygon') {
+            out.push(new google.maps.Polygon({
+                // rings: [outer, hole1, hole2, ...]
+                paths: geom.getArray().map(ring => ring.getArray())
+            }));
+        } else if (type === 'MultiPolygon') {
+            geom.getArray().forEach(pg => {
+                out.push(new google.maps.Polygon({
+                    paths: pg.getArray().map(ring => ring.getArray())
+                }));
+            });
+        }
+        return out;
+    },
 
 
-dataGeomToPolygons: function(geom) {
-  const out = [];
-  const type = geom.getType(); // 'Polygon' | 'MultiPolygon' | ...
-  if (type === 'Polygon') {
-    out.push(new google.maps.Polygon({
-      // rings: [outer, hole1, hole2, ...]
-      paths: geom.getArray().map(ring => ring.getArray())
-    }));
-  } else if (type === 'MultiPolygon') {
-    geom.getArray().forEach(pg => {
-      out.push(new google.maps.Polygon({
-        paths: pg.getArray().map(ring => ring.getArray())
-      }));
-    });
-  }
-  return out;
-},
-
-
-findContainingFeature: function(latLng) {
-  for (const {feature, poly, bounds} of this._polyIndex) {
-    if (!bounds.contains(latLng)) continue; // rejet rapide
-    if (google.maps.geometry.poly.containsLocation(latLng, poly)) {
-      return feature; // trouvé !
-    }
-  }
-  return null;
-},
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    findContainingFeature: function (latLng) {
+        for (const { feature, poly, bounds } of this.polyIndex) {
+            if (!bounds.contains(latLng)) continue; // rejet rapide
+            if (google.maps.geometry.poly.containsLocation(latLng, poly)) {
+                return feature; // trouvé !
+            }
+        }
+        return null;
+    },
 
 
     getPalette: function() {

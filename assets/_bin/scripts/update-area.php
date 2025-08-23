@@ -34,5 +34,23 @@ echo "Cleanup..." . RN;
 array_map('unlink', glob($srcMapDir . 'section-*.geojson'));
 
 
+
+$bounds = [];
+$sectionsFeaturesFile = $srcMapDir . 'sections.geojson';
+$sectionsFeatures = json_decode(file_get_contents($sectionsFeaturesFile));
+
+foreach($sectionsFeatures->features as $feature) {
+    $info = Geomatic::featureBounds($feature);
+    $bounds[$feature->properties->id] = $info;
+}
+
+$sectionsFile = $srcMapDir . 'sections.json';
+$sections = json_decode(file_get_contents($sectionsFile));
+foreach($sections->sections as $section) $section->bounds = $bounds[$section->id];
+file_put_contents($sectionsFile, json_encode($sections, JSON_PRETTY_PRINT)); 
+
+// print_r($bounds);
+
+
 // EN FRANÇAIS!
 echo RN . 'EN FRANÇAIS ✊' . RN;
