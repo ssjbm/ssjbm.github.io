@@ -1,5 +1,5 @@
 window.SearchTool = {
-    
+
     sections: null,
     secrets: null,
     postalcode: null,
@@ -139,13 +139,25 @@ window.SearchTool = {
 
 
     searchSection: async function(postalcode) {
-        const results = await this.getGeocode(postalcode);
-        if(results.status != 'OK') this.setFocus(this.sections.defaultSection.id);
+        const easySection = this.findSectionByPostalCode(postalcode);
+        if(easySection) this.setFocus(easySection.id);
         else {
-            const data = this.wrapData(results);
-            const section = this.findSectionByLatLng(data.latitude, data.longitude);
-            this.setFocus(section.id);
+            const results = await this.getGeocode(postalcode);
+            if(results.status != 'OK') this.setFocus(this.sections.defaultSection.id);
+            else {
+                const data = this.wrapData(results);
+                const section = this.findSectionByLatLng(data.latitude, data.longitude);
+                this.setFocus(section.id);
+            }
         }
+    },
+
+
+    findSectionByPostalCode: function(postalcode) {
+        postalcode = postalcode.trim().replace(/^([A-Z][0-9][A-Z])\s?([0-9][A-Z][0-9][A-Z][0-9])$/i, '$1 $2').toUpperCase();
+        if(this.sections.defaultSection.postalcodes.includes(postalcode)) return this.sections.defaultSection;
+        let section = this.sections.sections.find(s => Array.isArray(s.postalcodes) && s.postalcodes.includes(postalcode));
+        return section || null;
     },
 
 

@@ -1378,5 +1378,250 @@
         "types": [
             "postal_code"
         ]
+    },
+    "J5J 0M4": {
+        "address_components": [
+            {
+                "long_name": "J5J 0M4",
+                "short_name": "J5J 0M4",
+                "types": [
+                    "postal_code"
+                ]
+            },
+            {
+                "long_name": "La Rivi\u00e8re-du-Nord",
+                "short_name": "La Rivi\u00e8re-du-Nord",
+                "types": [
+                    "administrative_area_level_3",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Laurentides",
+                "short_name": "Laurentides",
+                "types": [
+                    "administrative_area_level_2",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Qu\u00e9bec",
+                "short_name": "QC",
+                "types": [
+                    "administrative_area_level_1",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Canada",
+                "short_name": "CA",
+                "types": [
+                    "country",
+                    "political"
+                ]
+            }
+        ],
+        "formatted_address": "La Rivi\u00e8re-du-Nord, QC J5J 0M4, Canada",
+        "geometry": {
+            "bounds": {
+                "northeast": {
+                    "lat": 45.8100949,
+                    "lng": -73.9747162
+                },
+                "southwest": {
+                    "lat": 45.808295,
+                    "lng": -73.9781379
+                }
+            },
+            "location": {
+                "lat": 45.8093386,
+                "lng": -73.97641689999999
+            },
+            "location_type": "APPROXIMATE",
+            "viewport": {
+                "northeast": {
+                    "lat": 45.81054393029149,
+                    "lng": -73.9747162
+                },
+                "southwest": {
+                    "lat": 45.8078459697085,
+                    "lng": -73.9781379
+                }
+            }
+        },
+        "place_id": "ChIJi8kE2Sctz0wRFXD1B5GCP7Q",
+        "postcode_localities": [
+            "Saint-J\u00e9r\u00f4me",
+            "Sainte-Sophie"
+        ],
+        "types": [
+            "postal_code"
+        ]
+    },
+    "J5W 0A2": {
+        "address_components": [
+            {
+                "long_name": "J5W 0A2",
+                "short_name": "J5W 0A2",
+                "types": [
+                    "postal_code"
+                ]
+            },
+            {
+                "long_name": "L'Assomption",
+                "short_name": "L'Assomption",
+                "types": [
+                    "locality",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "L'Assomption",
+                "short_name": "L'Assomption",
+                "types": [
+                    "administrative_area_level_3",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Lanaudi\u00e8re",
+                "short_name": "Lanaudi\u00e8re",
+                "types": [
+                    "administrative_area_level_2",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Qu\u00e9bec",
+                "short_name": "QC",
+                "types": [
+                    "administrative_area_level_1",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Canada",
+                "short_name": "CA",
+                "types": [
+                    "country",
+                    "political"
+                ]
+            }
+        ],
+        "formatted_address": "L'Assomption, QC J5W 0A2, Canada",
+        "geometry": {
+            "bounds": {
+                "northeast": {
+                    "lat": 45.8418553,
+                    "lng": -73.4193001
+                },
+                "southwest": {
+                    "lat": 45.84044,
+                    "lng": -73.420472
+                }
+            },
+            "location": {
+                "lat": 45.84110279999999,
+                "lng": -73.4196267
+            },
+            "location_type": "APPROXIMATE",
+            "viewport": {
+                "northeast": {
+                    "lat": 45.8424966302915,
+                    "lng": -73.4185370697085
+                },
+                "southwest": {
+                    "lat": 45.83979866970851,
+                    "lng": -73.42123503029151
+                }
+            }
+        },
+        "place_id": "ChIJkRA2FVvpyEwR9FrC6u6fQ10",
+        "types": [
+            "postal_code"
+        ]
+    },
+    "H9H 0A5": {
+        "address_components": [
+            {
+                "long_name": "H9H 0A5",
+                "short_name": "H9H 0A5",
+                "types": [
+                    "postal_code"
+                ]
+            },
+            {
+                "long_name": "Kirkland",
+                "short_name": "Kirkland",
+                "types": [
+                    "locality",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "administrative_area_level_3",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "administrative_area_level_2",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Qu\u00e9bec",
+                "short_name": "QC",
+                "types": [
+                    "administrative_area_level_1",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Canada",
+                "short_name": "CA",
+                "types": [
+                    "country",
+                    "political"
+                ]
+            }
+        ],
+        "formatted_address": "Kirkland, QC H9H 0A5, Canada",
+        "geometry": {
+            "bounds": {
+                "northeast": {
+                    "lat": 45.4547719,
+                    "lng": -73.8593747
+                },
+                "southwest": {
+                    "lat": 45.4531503,
+                    "lng": -73.8605206
+                }
+            },
+            "location": {
+                "lat": 45.4541263,
+                "lng": -73.8599326
+            },
+            "location_type": "APPROXIMATE",
+            "viewport": {
+                "northeast": {
+                    "lat": 45.4553100802915,
+                    "lng": -73.8585986697085
+                },
+                "southwest": {
+                    "lat": 45.4526121197085,
+                    "lng": -73.8612966302915
+                }
+            }
+        },
+        "place_id": "ChIJTZ7_VO07yUwRz70A724pwtY",
+        "types": [
+            "postal_code"
+        ]
     }
 }
