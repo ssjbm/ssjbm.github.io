@@ -8,10 +8,6 @@
 ?>
 
 
-
-
-
-
 <grostitre>Outil de recherche</grostitre>
 
 <div class="searchtool">
@@ -22,10 +18,10 @@
             <span class="searchtool__header__validmark"></span>
         </span>
     </div>
-    <div id="searchtool_results" class="searchtool__results">Territoire couvert par la SSJB de Montréal</div>
 </div>
 
 <div class="resultmap" id="map"></div>
+<div class="resultinfo" id="info"></div>
 
 <dots></dots>
 

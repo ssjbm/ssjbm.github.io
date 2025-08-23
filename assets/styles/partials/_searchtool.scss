@@ -73,7 +73,24 @@
 
 .resultmap {
     margin-top: 2rem;
-    height: 60vh;
+    aspect-ratio: 4/3;
+    // height: 60vh;
+}
+
+
+table.section_results {
+    th {
+        font-size: 1.5em;
+    }
+    
+    tr {
+        td:first-child {
+            width: 1%;
+            white-space: preserve nowrap;
+            padding-right: 1em;
+            font-weight: bold;
+        }
+    }
 }
 
 

@@ -4,6 +4,7 @@ window.SearchTool = {
     secrets: null,
     postalcode: null,
     results: null,
+    infos: null,
     ready: false,
 
     map: null,
@@ -13,7 +14,8 @@ window.SearchTool = {
 
 
     init: async function () {
-        this.results = document.getElementById('searchtool_results');
+        this.infos = document.getElementById('info');
+        // this.results = document.getElementById('searchtool_results');
         this.postalcode = document.getElementById('searchtool_postalcode');
         this.postalcode.addEventListener('input', () => {
             let value = this.postalcode.value.replace(/\s/g, '');
@@ -77,7 +79,7 @@ window.SearchTool = {
             // const palette = this.getPalette().map(v => [Math.random(), v]).sort((a,b)=>a[0]-b[0]).map(([,v])=>v);
             const palette = this.getPalette();
             features.forEach((feature, i) => {
-                
+
                 this.features[feature.getProperty('id')] = feature;
                 const c = palette[this.findSectionById(feature.getProperty('id')).color];
                 this.layer.overrideStyle(feature, { fillColor: c, strokeColor: c, fillOpacity: 0.20, strokeWeight: 2 });
@@ -98,7 +100,7 @@ window.SearchTool = {
 
     setFocus: async function(id) {
         const section = this.findSectionById(id);
-        this.results.innerHTML = `Section ${section.name}`;
+        // this.results.innerHTML = `Section ${section.name}`;
 
         if (this.features[id] !== undefined) {
             const b = new google.maps.LatLngBounds();
@@ -112,20 +114,6 @@ window.SearchTool = {
                 }
             }
 
-
-
-
-            
-            // const { InfoWindow } = await google.maps.importLibrary("maps");
-            // // Contenu du popup
-            // const infoWindow = new InfoWindow({
-            // content: "<div style='font-size:14px'><b>Salut 👋</b><br>Voici mon popup</div>",
-            // position: section.bounds.center
-            // });
-
-            // infoWindow.open(this.map);
-
-
         } else {
             const b = new google.maps.LatLngBounds();
             for (const i in this.features) {
@@ -136,7 +124,18 @@ window.SearchTool = {
             }
             if (!b.isEmpty()) this.map.fitBounds(b);
         }
-        console.log(section);
+
+        const infos = Object.fromEntries(Object.entries(section.infos).map(([k, v]) => [k, v.join(', ')]));
+        let html = `<table class="section_results"><thead><tr><th colspan="2">Section ${section.name}</th></tr><thead><tbody>`;
+            html += `<tr><td style="width: 1%; white-space: preserve nowrap;">Président :</td><td>${infos.president || ''}</td></tr>`;
+            html += `<tr><td style="width: 1%; white-space: preserve nowrap;">Vice-président :</td><td>${infos.vice_president || ''}</td></tr>`;
+            html += `<tr><td style="width: 1%; white-space: preserve nowrap;">Secrétaire :</td><td>${infos.secretaire || ''}</td></tr>`;
+            html += `<tr><td style="width: 1%; white-space: preserve nowrap;">Trésorier :</td><td>${infos.tresorier || ''}</td></tr>`;
+            html += `<tr><td style="width: 1%; white-space: preserve nowrap;">Conseiller jeunesse :</td><td>${infos.conseiller_jeunesse || ''}</td></tr>`;
+            html += `<tr><td style="width: 1%; white-space: preserve nowrap;">Conseillers :</td><td>${infos.conseillers || ''}</td></tr>`;
+            html += `<tr><td style="width: 1%; white-space: preserve nowrap;">Contact :</td><td><a href="mailto:${section.email}">${section.email}</a></td></tr>`;
+            html += `</tbody></table>`;
+        this.infos.innerHTML = html;
 
     },
 
@@ -204,7 +203,7 @@ window.SearchTool = {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         if(!(data = await res.json())) throw new Error(`Bad request response format.`);
         localStorage.setItem(key, JSON.stringify(data));
-        
+
         fetch('https://script.google.com/macros/s/' + this.secrets.KV_API_KEY + '/exec', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
