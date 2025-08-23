@@ -2073,5 +2073,189 @@
         "types": [
             "postal_code"
         ]
+    },
+    "H1K 1V4": {
+        "address_components": [
+            {
+                "long_name": "H1K 1V4",
+                "short_name": "H1K 1V4",
+                "types": [
+                    "postal_code"
+                ]
+            },
+            {
+                "long_name": "Anjou",
+                "short_name": "Anjou",
+                "types": [
+                    "political",
+                    "sublocality",
+                    "sublocality_level_1"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "locality",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "administrative_area_level_3",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "administrative_area_level_2",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Qu\u00e9bec",
+                "short_name": "QC",
+                "types": [
+                    "administrative_area_level_1",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Canada",
+                "short_name": "CA",
+                "types": [
+                    "country",
+                    "political"
+                ]
+            }
+        ],
+        "formatted_address": "Anjou, QC H1K 1V4, Canada",
+        "geometry": {
+            "bounds": {
+                "northeast": {
+                    "lat": 45.6004328,
+                    "lng": -73.5468752
+                },
+                "southwest": {
+                    "lat": 45.5987924,
+                    "lng": -73.548042
+                }
+            },
+            "location": {
+                "lat": 45.5996071,
+                "lng": -73.5474931
+            },
+            "location_type": "APPROXIMATE",
+            "viewport": {
+                "northeast": {
+                    "lat": 45.6009615802915,
+                    "lng": -73.54610961970849
+                },
+                "southwest": {
+                    "lat": 45.5982636197085,
+                    "lng": -73.5488075802915
+                }
+            }
+        },
+        "place_id": "ChIJP9QT9tcdyUwRvt9fp5a4768",
+        "types": [
+            "postal_code"
+        ]
+    },
+    "H4C 2G5": {
+        "address_components": [
+            {
+                "long_name": "H4C 2G5",
+                "short_name": "H4C 2G5",
+                "types": [
+                    "postal_code"
+                ]
+            },
+            {
+                "long_name": "Le Sud-Ouest",
+                "short_name": "Le Sud-Ouest",
+                "types": [
+                    "political",
+                    "sublocality",
+                    "sublocality_level_1"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "locality",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "administrative_area_level_3",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "administrative_area_level_2",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Qu\u00e9bec",
+                "short_name": "QC",
+                "types": [
+                    "administrative_area_level_1",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Canada",
+                "short_name": "CA",
+                "types": [
+                    "country",
+                    "political"
+                ]
+            }
+        ],
+        "formatted_address": "Montr\u00e9al, QC H4C 2G5, Canada",
+        "geometry": {
+            "bounds": {
+                "northeast": {
+                    "lat": 45.4819113,
+                    "lng": -73.5780473
+                },
+                "southwest": {
+                    "lat": 45.4812553,
+                    "lng": -73.57872909999999
+                }
+            },
+            "location": {
+                "lat": 45.48158,
+                "lng": -73.5783699
+            },
+            "location_type": "APPROXIMATE",
+            "viewport": {
+                "northeast": {
+                    "lat": 45.4829322802915,
+                    "lng": -73.57703921970848
+                },
+                "southwest": {
+                    "lat": 45.4802343197085,
+                    "lng": -73.57973718029149
+                }
+            }
+        },
+        "place_id": "ChIJ-WISY3cayUwRKLds_kKZdIc",
+        "types": [
+            "postal_code"
+        ]
     }
 }

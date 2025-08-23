@@ -95,7 +95,7 @@ foreach($postalCodes as $k => $info) {
 foreach($sections->sections as $section)
     $section->postalcodes = isset($sectionPostalCodes[$section->id]) ? $sectionPostalCodes[$section->id] : [];
 $sections->defaultSection->postalcodes = $defaultPostalCodes;
-file_put_contents($sectionsFile, json_encode($sections, JSON_PRETTY_PRINT));
+file_put_contents($sectionsFile, json_encode($sections));
 
 
 // EN FRANÇAIS!
