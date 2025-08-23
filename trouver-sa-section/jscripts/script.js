@@ -63,7 +63,7 @@ window.SearchTool = {
 
         this.layer = new google.maps.Data({ map: this.map });
         this.layer.loadGeoJson(root + '/assets/maps/sections.geojson', null, (features) => {
-            this.layer.setStyle({ fillOpacity: 0.20, strokeWeight: 1 });
+            this.layer.setStyle({ fillOpacity: 0.20, strokeWeight: 2 });
 
             this.layer.addListener('click', e => {
                 this.setFocus(e.feature.getProperty('id'));
@@ -78,7 +78,7 @@ window.SearchTool = {
             features.forEach((feature, i) => {
                 this.features[feature.getProperty('id')] = feature;
                 const c = palette[i % palette.length];
-                this.layer.overrideStyle(feature, { fillColor: c, strokeColor: c, fillOpacity: 0.20, strokeWeight: 1 });
+                this.layer.overrideStyle(feature, { fillColor: c, strokeColor: c, fillOpacity: 0.20, strokeWeight: 2 });
 
                 const geoms = this.dataGeomToPolygons(feature.getGeometry()); // -> array<google.maps.Polygon>
                 geoms.forEach((poly) => {
