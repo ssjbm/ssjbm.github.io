@@ -1623,5 +1623,455 @@
         "types": [
             "postal_code"
         ]
+    },
+    "H9H 0C3": {
+        "address_components": [
+            {
+                "long_name": "H9H 0C3",
+                "short_name": "H9H 0C3",
+                "types": [
+                    "postal_code"
+                ]
+            },
+            {
+                "long_name": "Kirkland",
+                "short_name": "Kirkland",
+                "types": [
+                    "locality",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "administrative_area_level_3",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "administrative_area_level_2",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Qu\u00e9bec",
+                "short_name": "QC",
+                "types": [
+                    "administrative_area_level_1",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Canada",
+                "short_name": "CA",
+                "types": [
+                    "country",
+                    "political"
+                ]
+            }
+        ],
+        "formatted_address": "Kirkland, QC H9H 0C3, Canada",
+        "geometry": {
+            "bounds": {
+                "northeast": {
+                    "lat": 45.45647599999999,
+                    "lng": -73.85176489999999
+                },
+                "southwest": {
+                    "lat": 45.4539269,
+                    "lng": -73.8621249
+                }
+            },
+            "location": {
+                "lat": 45.4545733,
+                "lng": -73.8562424
+            },
+            "location_type": "APPROXIMATE",
+            "viewport": {
+                "northeast": {
+                    "lat": 45.45655043029149,
+                    "lng": -73.85176489999999
+                },
+                "southwest": {
+                    "lat": 45.45385246970849,
+                    "lng": -73.8621249
+                }
+            }
+        },
+        "place_id": "ChIJ5zrlipA7yUwR996eAVqjMvM",
+        "types": [
+            "postal_code"
+        ]
+    },
+    "H7N 5J4": {
+        "address_components": [
+            {
+                "long_name": "H7N 5J4",
+                "short_name": "H7N 5J4",
+                "types": [
+                    "postal_code"
+                ]
+            },
+            {
+                "long_name": "Laval-des-rapides",
+                "short_name": "Laval-des-Rapides",
+                "types": [
+                    "neighborhood",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Laval",
+                "short_name": "Laval",
+                "types": [
+                    "locality",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Laval",
+                "short_name": "Laval",
+                "types": [
+                    "administrative_area_level_3",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Laval",
+                "short_name": "Laval",
+                "types": [
+                    "administrative_area_level_2",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Qu\u00e9bec",
+                "short_name": "QC",
+                "types": [
+                    "administrative_area_level_1",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Canada",
+                "short_name": "CA",
+                "types": [
+                    "country",
+                    "political"
+                ]
+            }
+        ],
+        "formatted_address": "Laval, QC H7N 5J4, Canada",
+        "geometry": {
+            "bounds": {
+                "northeast": {
+                    "lat": 45.5607099,
+                    "lng": -73.7137996
+                },
+                "southwest": {
+                    "lat": 45.5587666,
+                    "lng": -73.71566779999999
+                }
+            },
+            "location": {
+                "lat": 45.5598772,
+                "lng": -73.7146976
+            },
+            "location_type": "APPROXIMATE",
+            "viewport": {
+                "northeast": {
+                    "lat": 45.5610872302915,
+                    "lng": -73.71338471970849
+                },
+                "southwest": {
+                    "lat": 45.5583892697085,
+                    "lng": -73.71608268029149
+                }
+            }
+        },
+        "place_id": "ChIJBRfoFzkiyUwRkxqYIUnzz3c",
+        "types": [
+            "postal_code"
+        ]
+    },
+    "H1K 3V7": {
+        "address_components": [
+            {
+                "long_name": "H1K 3V7",
+                "short_name": "H1K 3V7",
+                "types": [
+                    "postal_code"
+                ]
+            },
+            {
+                "long_name": "Anjou",
+                "short_name": "Anjou",
+                "types": [
+                    "political",
+                    "sublocality",
+                    "sublocality_level_1"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "locality",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "administrative_area_level_3",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "administrative_area_level_2",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Qu\u00e9bec",
+                "short_name": "QC",
+                "types": [
+                    "administrative_area_level_1",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Canada",
+                "short_name": "CA",
+                "types": [
+                    "country",
+                    "political"
+                ]
+            }
+        ],
+        "formatted_address": "Anjou, QC H1K 3V7, Canada",
+        "geometry": {
+            "bounds": {
+                "northeast": {
+                    "lat": 45.605926,
+                    "lng": -73.554389
+                },
+                "southwest": {
+                    "lat": 45.6047224,
+                    "lng": -73.5580517
+                }
+            },
+            "location": {
+                "lat": 45.60566559999999,
+                "lng": -73.5561997
+            },
+            "location_type": "APPROXIMATE",
+            "viewport": {
+                "northeast": {
+                    "lat": 45.60667318029149,
+                    "lng": -73.554389
+                },
+                "southwest": {
+                    "lat": 45.6039752197085,
+                    "lng": -73.5580517
+                }
+            }
+        },
+        "place_id": "ChIJD9qii3EeyUwRunINgUEGHRY",
+        "types": [
+            "postal_code"
+        ]
+    },
+    "H1L 4M7": {
+        "address_components": [
+            {
+                "long_name": "H1L 4M7",
+                "short_name": "H1L 4M7",
+                "types": [
+                    "postal_code"
+                ]
+            },
+            {
+                "long_name": "Mercier - Hochelaga-Maisonneuve",
+                "short_name": "Mercier - Hochelaga-Maisonneuve",
+                "types": [
+                    "political",
+                    "sublocality",
+                    "sublocality_level_1"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "locality",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "administrative_area_level_3",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "administrative_area_level_2",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Qu\u00e9bec",
+                "short_name": "QC",
+                "types": [
+                    "administrative_area_level_1",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Canada",
+                "short_name": "CA",
+                "types": [
+                    "country",
+                    "political"
+                ]
+            }
+        ],
+        "formatted_address": "Montr\u00e9al, QC H1L 4M7, Canada",
+        "geometry": {
+            "bounds": {
+                "northeast": {
+                    "lat": 45.6046247,
+                    "lng": -73.51306509999999
+                },
+                "southwest": {
+                    "lat": 45.6036622,
+                    "lng": -73.51510429999999
+                }
+            },
+            "location": {
+                "lat": 45.6040511,
+                "lng": -73.51398429999999
+            },
+            "location_type": "APPROXIMATE",
+            "viewport": {
+                "northeast": {
+                    "lat": 45.6054924302915,
+                    "lng": -73.51273571970847
+                },
+                "southwest": {
+                    "lat": 45.6027944697085,
+                    "lng": -73.5154336802915
+                }
+            }
+        },
+        "place_id": "ChIJIwPLG74dyUwR3NhgaP84kWs",
+        "types": [
+            "postal_code"
+        ]
+    },
+    "H2G 2P7": {
+        "address_components": [
+            {
+                "long_name": "H2G 2P7",
+                "short_name": "H2G 2P7",
+                "types": [
+                    "postal_code"
+                ]
+            },
+            {
+                "long_name": "Rosemont - La Petite-Patrie",
+                "short_name": "Rosemont - La Petite-Patrie",
+                "types": [
+                    "political",
+                    "sublocality",
+                    "sublocality_level_1"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "locality",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "administrative_area_level_3",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "administrative_area_level_2",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Qu\u00e9bec",
+                "short_name": "QC",
+                "types": [
+                    "administrative_area_level_1",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Canada",
+                "short_name": "CA",
+                "types": [
+                    "country",
+                    "political"
+                ]
+            }
+        ],
+        "formatted_address": "Montr\u00e9al, QC H2G 2P7, Canada",
+        "geometry": {
+            "bounds": {
+                "northeast": {
+                    "lat": 45.5472421,
+                    "lng": -73.5943621
+                },
+                "southwest": {
+                    "lat": 45.5456694,
+                    "lng": -73.59775499999999
+                }
+            },
+            "location": {
+                "lat": 45.546489,
+                "lng": -73.59602269999999
+            },
+            "location_type": "APPROXIMATE",
+            "viewport": {
+                "northeast": {
+                    "lat": 45.5478047302915,
+                    "lng": -73.5943621
+                },
+                "southwest": {
+                    "lat": 45.5451067697085,
+                    "lng": -73.59775499999999
+                }
+            }
+        },
+        "place_id": "ChIJy3BKAkUZyUwRL0gDna80BpA",
+        "types": [
+            "postal_code"
+        ]
     }
 }

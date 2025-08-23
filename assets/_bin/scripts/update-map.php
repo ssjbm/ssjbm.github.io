@@ -75,7 +75,6 @@ if($results->count) {
 file_put_contents($postalCodesFile, json_encode($postalCodes, JSON_PRETTY_PRINT));
 
 
-
 // Dispatch postal codes in sections
 echo "Dispatch postal codes in sections..." .RN;
 $sections = json_decode(file_get_contents($sectionsFile));
@@ -85,7 +84,7 @@ $sectionPostalCodes = [];
 foreach($postalCodes as $k => $info) {
     $find = false;
     foreach($geoSections->features as $feature) {
-        if(Geomatic::pointInFeature($info->geometry->location->lat, $info->geometry->location->lng, $feature)) {
+        if(Geomatic::pointInFeature($feature, [$info->geometry->location->lng, $info->geometry->location->lat])) {
             $sectionPostalCodes[$feature->properties->id][] = $k;
             $find = true;
             break;
