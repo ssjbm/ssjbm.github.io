@@ -104,7 +104,7 @@ file_put_contents($sectionsFile, json_encode($sections));
 // Sort sections for palette intersection
 echo "Sort sections for palette intersection..." . RN;
 $sections = json_decode(file_get_contents($sectionsFile));
-$orderedIds = FeatureOrder::orderIds($geoSectionFile,['idKeys' => ['id'], 'seed'   => 'barycenter', 'metric' => 'euclid', 'step' => 6]);
+$orderedIds = FeatureOrder::orderIds($geoSectionFile,['idKeys' => ['id'], 'seed'   => 'barycenter', 'metric' => 'euclid', 'step' => 8]);
 foreach($sections->sections as $section) $section->color = array_search($section->id, $orderedIds);
 file_put_contents($sectionsFile, json_encode($sections));
 
