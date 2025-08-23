@@ -74,7 +74,7 @@ window.SearchTool = {
             features.forEach(f => f.getGeometry().forEachLatLng(ll => b.extend(ll)));
             if (!b.isEmpty()) this.map.fitBounds(b);
 
-            const palette = this.getPalette();
+            const palette = this.getPalette().map(v => [Math.random(), v]).sort((a,b)=>a[0]-b[0]).map(([,v])=>v);
             features.forEach((feature, i) => {
                 this.features[feature.getProperty('id')] = feature;
                 const c = palette[i % palette.length];
