@@ -77,8 +77,9 @@ window.SearchTool = {
             // const palette = this.getPalette().map(v => [Math.random(), v]).sort((a,b)=>a[0]-b[0]).map(([,v])=>v);
             const palette = this.getPalette();
             features.forEach((feature, i) => {
+                
                 this.features[feature.getProperty('id')] = feature;
-                const c = palette[i % palette.length];
+                const c = palette[this.findSectionById(feature.getProperty('id')).color];
                 this.layer.overrideStyle(feature, { fillColor: c, strokeColor: c, fillOpacity: 0.20, strokeWeight: 2 });
 
                 const geoms = this.dataGeomToPolygons(feature.getGeometry()); // -> array<google.maps.Polygon>
@@ -265,7 +266,7 @@ window.SearchTool = {
 
     getPalette: function() {
         if(localStorage.getItem('darkmode') === 'true') {
-            return this.spreadPalette([
+            return [
                 '#ef4444', // red
                 '#f97316', // orange
                 '#f59e0b', // amber
@@ -282,9 +283,9 @@ window.SearchTool = {
                 '#a855f7', // purple
                 '#d946ef', // fuchsia
                 '#ec4899'  // pink
-            ]);
+            ];
         } else {
-            return this.spreadPalette([
+            return [
                 '#b91c1c', // red-700
                 '#c2410c', // orange-700
                 '#b45309', // amber-700
@@ -301,7 +302,7 @@ window.SearchTool = {
                 '#7e22ce', // purple-700
                 '#a21caf', // fuchsia-700
                 '#be185d'  // pink-700
-            ]);
+            ];
 
         }
     },

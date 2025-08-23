@@ -98,6 +98,15 @@ $sections->defaultSection->postalcodes = $defaultPostalCodes;
 file_put_contents($sectionsFile, json_encode($sections));
 
 
+// Sort sections for palette intersection
+echo "Sort sections for palette intersection..." . RN;
+$sections = json_decode(file_get_contents($sectionsFile));
+$geoSections = json_decode(file_get_contents($geoSectionFile));
+$orderedIds = FeatureOrder::orderIds($geoSections, idKey: 'id');
+foreach($sections->sections as $section) $section->color = array_search($section->id, $orderedIds);
+file_put_contents($sectionsFile, json_encode($sections));
+
+
 // EN FRANÇAIS!
 echo RN . 'EN FRANÇAIS ✊' . RN;
 exit(0);
