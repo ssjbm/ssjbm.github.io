@@ -56,8 +56,9 @@ foreach($rules->sections as $section) {
 
 // Save the new result
 array_pop($rules->sections);
-// file_put_contents($rulesFile, json_encode($rules, JSON_PRETTY_PRINT));
+file_put_contents($rulesFile, json_encode($rules, JSON_PRETTY_PRINT));
 
-print_r($rules);
+
 // EN FRANÇAIS!
 echo RN . 'EN FRANÇAIS ✊' . RN;
+exit(0);

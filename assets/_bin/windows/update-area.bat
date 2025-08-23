@@ -1,1 +1,0 @@
-@"php-bulk" "%~dp0..\scripts\update-area.php" %1

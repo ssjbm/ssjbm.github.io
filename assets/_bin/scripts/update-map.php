@@ -1,73 +1,104 @@
 <?php
 
-// Official Statcan FSA Geo Map
-const SHP_ZIP_URL = 'https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lrta000b21a_f.zip';
+
+// Add more memory to the script
+ini_set('memory_limit', '2G');
 
 
 // Load PXDoc utilities
 require(__DIR__ . '/../../../pxdoc/_bin/scripts/utils.php');
+require(__DIR__ . '/libraries/functions.php');
 
 
-// --> Load FSA rules for sections
-echo "Load FSA rules...".RN;
+// Load Secrets
+$secretFile = PXPros::findRoot(__FILE__, true) . 'secrets.json';
+$secrets = json_decode(file_get_contents($secretFile));
+
+
+// Set dirs
 $srcMapDir = realpath(__DIR__ . '../../../maps'). S;
-if(!$rulesFile = realpath($srcMapDir . 'sections.json')) err("Can't find rules file.");
-if(!$rules = json_decode(file_get_contents($rulesFile))) err("Invalid rules file.");
+$geoSectionFile = $srcMapDir . 'sections.geojson';
+$areasFile = $srcMapDir . 'montreal-areas.geojson';
+$sectionsFile = $srcMapDir . 'sections.json';
+$sections = json_decode(file_get_contents($sectionsFile));
 
 
-// Prepare Global FSAs
-$globalFSAs = [];
-foreach ($rules->sections as $section) $globalFSAs = array_merge($globalFSAs, $section->fsa);
-$globalFSAs = array_values(array_unique($globalFSAs));
-sort($globalFSAs);
-
-
-// Download shape file from Statcan
-if(!$shpFile = current(glob($srcMapDir . 'lrt*_f.shp'))) {
-    echo 'Downloading ' . pathinfo(SHP_ZIP_URL, PATHINFO_BASENAME) . ': 0% ';
-    $tmpFile = sys_get_temp_dir() . S . pathinfo(SHP_ZIP_URL, PATHINFO_BASENAME);
-    if(!curl_get_contents(SHP_ZIP_URL, $tmpFile, function($prog){
-        static $display = 'Downloading...';
-        $newDisplay = 'Downloading ' . pathinfo(SHP_ZIP_URL, PATHINFO_BASENAME) . ': ' . round($prog * 100) . '%';
-        if($display != $newDisplay) {
-            $display = $newDisplay;
-            echo R . $display . ' ';
-        }
-    })) err("Can't download shape file. Try to download it manualy and unzip it into /assets/_bin/maps/ https://www150.statcan.gc.ca/n1/en/catalogue/92-179-X");
-    echo RN . 'Unzip ' . pathinfo(SHP_ZIP_URL, PATHINFO_BASENAME) . '...' . RN;
-    if(!unzip($tmpFile, $srcMapDir, pathinfo(SHP_ZIP_URL, PATHINFO_FILENAME))) err("Can't unzip shape file.");
-    unlink($tmpFile);
-    if(!$shpFile = current(glob($srcMapDir . 'lrt*_f.shp'))) err("Cant't find shape file. Please download it at: Try to download it manualy and unzip it into /assets/_bin/maps/ https://www150.statcan.gc.ca/n1/en/catalogue/92-179-X");
-}
-
-
-// Convert Shape file to Geojson format & keep only global FSAs
-echo "Convert Shape file and filters FSAs..." . RN;
-$masterGeojsonFile = $srcMapDir . 'fsa_subset_master.geojson';
-shell_exec('mapshaper ' . escapeshellarg($shpFile) . ' -proj wgs84 from=EPSG:3347 -filter "/^(' . join('|', $globalFSAs) . ')$/.test(RTACIDU)" -o format=geojson ' . escapeshellarg($masterGeojsonFile) . ' 2>&1');
-
-
-// Generate sections maps
-foreach($rules->sections as $section) {
-    echo "Generate section map: " . $section->name.RN;
+// Compile and merge areas for sections
+foreach($sections->sections as $section) {
+    echo 'Create section Geojson: ' . $section->name.RN;
     $sectionFile = $srcMapDir . 'section-' . $section->id . '.geojson';
     $sectionFiles[] = escapeshellarg($sectionFile);
-    shell_exec('mapshaper ' . escapeshellarg($masterGeojsonFile) . ' -filter "/^(' . join('|', $section->fsa) . ')$/.test(RTACIDU)" -dissolve -simplify visvalingam 5% keep-shapes -clean -each "id=\'' . addslashes($section->id) . '\'; name=\'' . addslashes($section->name) . '\'" -o format=geojson geojson-type=FeatureCollection id-field=fid ' . escapeshellarg($sectionFile) . ' 2>&1');
+    shell_exec('mapshaper ' . escapeshellarg($areasFile) . ' -filter "/^(' . join('|', $section->areas) . ')$/.test(IDUGD)" -dissolve -simplify visvalingam 5% keep-shapes -clean -each "id=\'' . addslashes($section->id) . '\'; name=\'' . addslashes($section->name) . '\'" -o format=geojson geojson-type=FeatureCollection id-field=fid ' . escapeshellarg($sectionFile) . ' 2>&1');
 }
 
 
 // Merge sections into one file
 echo "Merge section files in one FeatureCollection file..." . RN;
-$globalSectionFile = $srcMapDir . 'sections.geojson';
-shell_exec('geojson-merge ' . join(' ', $sectionFiles) . ' > ' . escapeshellarg($globalSectionFile));
-file_put_contents($globalSectionFile, json_encode(json_decode(file_get_contents($globalSectionFile))));
-
-
-// Cleanup
-echo "Cleanup..." . RN;
-unlink($masterGeojsonFile);
+shell_exec('geojson-merge ' . join(' ', $sectionFiles) . ' > ' . escapeshellarg($geoSectionFile));
+file_put_contents($geoSectionFile, json_encode(json_decode(file_get_contents($geoSectionFile))));
 array_map('unlink', glob($srcMapDir . 'section-*.geojson'));
+
+
+// Update sections bounds
+echo "Update sections bounds..." . RN;
+$sectionsFile = $srcMapDir . 'sections.json';
+$sectionsFeaturesFile = $srcMapDir . 'sections.geojson';
+$sections = json_decode(file_get_contents($sectionsFile));
+$sectionsFeatures = json_decode(file_get_contents($sectionsFeaturesFile));
+foreach($sectionsFeatures->features as $feature) $bounds[$feature->properties->id] = Geomatic::featureBounds($feature);
+foreach($sections->sections as $section) $section->bounds = $bounds[$section->id];
+file_put_contents($sectionsFile, json_encode($sections, JSON_PRETTY_PRINT)); 
+
+
+// Merge Postal Codes with KV API
+echo "Merge actual postal codes with KV API..." .RN;
+$postalCodesFile = $srcMapDir . 'postal-codes.json';
+$postalCodes = json_decode(file_get_contents($postalCodesFile));
+if(!$contents = curl_get_contents('https://script.google.com/macros/s/' . $secrets->KV_API_KEY . '/exec?action=get_all&clear=1')) err("Can't get KV API data.");
+if(!$results = json_decode($contents)) err("Can't decode KV API server response.");
+if(!$results->ok) err("An error occured while crawling KV API: ". $results->error);
+if($results->count) {
+    foreach($results->items as $item) {
+        if(!$data = json_decode($item->value)) continue;
+        if($data->status != 'OK') continue;
+        if(!$elm = current($data->results)) continue;
+        $find = false;
+        foreach($elm->address_components as $component) {
+            if(!in_array('postal_code', $component->types)) continue;
+            $postalcode = $component->short_name;
+            $find = true;
+            break;
+        } if(!$find) continue;
+        $postalCodes->{$postalcode} = clone $elm;
+    }
+}
+file_put_contents($postalCodesFile, json_encode($postalCodes, JSON_PRETTY_PRINT));
+
+
+
+// Dispatch postal codes in sections
+echo "Dispatch postal codes in sections..." .RN;
+$sections = json_decode(file_get_contents($sectionsFile));
+$geoSections = json_decode(file_get_contents($geoSectionFile));
+$defaultPostalCodes = [];
+$sectionPostalCodes = [];
+foreach($postalCodes as $k => $info) {
+    $find = false;
+    foreach($geoSections->features as $feature) {
+        if(Geomatic::pointInFeature($info->geometry->location->lat, $info->geometry->location->lng, $feature)) {
+            $sectionPostalCodes[$feature->properties->id][] = $k;
+            $find = true;
+            break;
+        }
+    }
+    if(!$find) $defaultPostalCodes[] = $k;
+}
+foreach($sections->sections as $section)
+    $section->postalcodes = isset($sectionPostalCodes[$section->id]) ? $sectionPostalCodes[$section->id] : [];
+$sections->defaultSection->postalcodes = $defaultPostalCodes;
+file_put_contents($sectionsFile, json_encode($sections, JSON_PRETTY_PRINT));
 
 
 // EN FRANÇAIS!
 echo RN . 'EN FRANÇAIS ✊' . RN;
+exit(0);

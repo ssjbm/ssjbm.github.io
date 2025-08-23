@@ -4,13 +4,6 @@
             "id": "pierre-le-gardeur",
             "name": "Pierre-Le-Gardeur",
             "url": "https:\/\/ssjb.com\/portail-des-sections\/pierre-le-gardeur\/",
-            "fsa": [
-                "J5W",
-                "J5X",
-                "J5Y",
-                "J5Z",
-                "J6A"
-            ],
             "default": false,
             "description": "Pierre Legardeur De Repentigny, lieutenant du gouverneur de la Nouvelle-France Charles Jacques Huault de Montmagny, directeur de la Communaut\u00e9 des Habitants, amiral de la flotte, n\u00e9 en Haute-Normandie, et d\u00e9c\u00e9d\u00e9 en mer en 1648.",
             "infos": {
@@ -62,21 +55,15 @@
                 "2021S051624600022",
                 "2021S051624600023",
                 "2021S051624600024"
+            ],
+            "postalcodes": [
+                "J5W 0C9"
             ]
         },
         {
             "id": "yves-blais",
             "name": "Yves-Blais",
             "url": "https:\/\/ssjb.com\/portail-des-sections\/yves-blais\/",
-            "fsa": [
-                "J6V",
-                "J6W",
-                "J6X",
-                "J6Y",
-                "J7M",
-                "J7K",
-                "J7L"
-            ],
             "default": false,
             "description": "Yves Blais, homme politique, d\u00e9put\u00e9 du Parti qu\u00e9b\u00e9cois de Terrebonne de 1981 \u00e0 1989 et de Masson de 1989 \u00e0 1998. Il est d\u00e9c\u00e9d\u00e9 durant la campagne \u00e9lectorale de\u00a01998.",
             "infos": {
@@ -129,17 +116,15 @@
                 "2021S051624640021",
                 "2021S051624640022",
                 "2021S051624640023"
+            ],
+            "postalcodes": [
+                "J6X 0G9"
             ]
         },
         {
             "id": "joseph-olivier-chenier",
             "name": "Joseph-Olivier Ch\u00eanier",
             "url": "https:\/\/ssjb.com\/portail-des-sections\/jean-olivier-chenier\/",
-            "fsa": [
-                "J7P",
-                "J7R",
-                "J0N"
-            ],
             "default": false,
             "description": "Jean-Olivier Ch\u00e9nier, m\u00e9decin et chef patriote lors de la Bataille du 14 d\u00e9cembre 1837 contre l\u2019arm\u00e9e britannique, n\u00e9 le 9 d\u00e9cembre 1806, et d\u00e9c\u00e9d\u00e9 le 14 d\u00e9cembre 1837 \u00e0 Saint-Eustache.\u00a0",
             "infos": {
@@ -214,33 +199,15 @@
                 "2021S051624740003",
                 "2021S051624740004",
                 "2021S051624740005"
+            ],
+            "postalcodes": [
+                "J5K 1B5"
             ]
         },
         {
             "id": "laval",
             "name": "Laval",
             "url": "https:\/\/ssjb.com\/portail-des-sections\/laval\/",
-            "fsa": [
-                "H7A",
-                "H7B",
-                "H7C",
-                "H7E",
-                "H7G",
-                "H7H",
-                "H7J",
-                "H7K",
-                "H7L",
-                "H7M",
-                "H7N",
-                "H7P",
-                "H7R",
-                "H7S",
-                "H7T",
-                "H7V",
-                "H7W",
-                "H7X",
-                "H7Y"
-            ],
             "default": false,
             "description": "Fran\u00e7ois De Laval, vicaire apostolique en Nouvelle-France (1658\u20131674), premier \u00e9v\u00eaque de Qu\u00e9bec (1674\u20131688), n\u00e9 \u00e0 Montigny-sur-Avre en France le 30\u00a0avril\u00a01623, et d\u00e9c\u00e9d\u00e9 \u00e0 Qu\u00e9bec le 6\u00a0mai\u00a01708, inhum\u00e9 le 9 dans la cath\u00e9drale de cette\u00a0ville.",
             "infos": {
@@ -325,31 +292,19 @@
                 "2021S051624650050",
                 "2021S051624650051",
                 "2021S051624650052"
+            ],
+            "postalcodes": [
+                "H2K 2V6",
+                "H2K 2V5",
+                "H7A 0A4",
+                "H3N 1T2",
+                "H3N 1T4"
             ]
         },
         {
             "id": "ouest-de-l-ile",
             "name": "Ouest-de-l'\u00eele",
             "url": "https:\/\/ssjb.com\/portail-des-sections\/ouest-de-lile\/",
-            "fsa": [
-                "H4S",
-                "H4Y",
-                "H8Y",
-                "H8Z",
-                "H9A",
-                "H9B",
-                "H9C",
-                "H9E",
-                "H9G",
-                "H9H",
-                "H9J",
-                "H9K",
-                "H9P",
-                "H9R",
-                "H9S",
-                "H9W",
-                "H9X"
-            ],
             "default": false,
             "description": "",
             "infos": {
@@ -417,28 +372,13 @@
                 "2021S051624660252",
                 "2021S051624660253",
                 "2021S051624660254"
-            ]
+            ],
+            "postalcodes": []
         },
         {
             "id": "nicolas-viel",
             "name": "Nicolas-Viel",
             "url": "https:\/\/ssjb.com\/portail-des-sections\/nicolas-viel\/",
-            "fsa": [
-                "H2B",
-                "H2C",
-                "H2M",
-                "H2N",
-                "H3L",
-                "H3M",
-                "H4J",
-                "H4K",
-                "H4L",
-                "H4M",
-                "H4N",
-                "H4R",
-                "H4S",
-                "H4T"
-            ],
             "default": false,
             "description": "Nicolas Viel, pr\u00eatre, r\u00e9collet, missionnaire chez les Hurons, n\u00e9 pr\u00e8s de Coutances en Normandie, nomm\u00e9 missionnaire au Canada en 1623, et d\u00e9c\u00e9d\u00e9 en\u00a01625.\u00a0",
             "infos": {
@@ -495,19 +435,13 @@
                 "2021S051624660258",
                 "2021S051624660259",
                 "2021S051624660261"
-            ]
+            ],
+            "postalcodes": []
         },
         {
             "id": "henri-bourassa",
             "name": "Henri-Bourassa",
             "url": "https:\/\/ssjb.com\/portail-des-sections\/henri-bourassa\/",
-            "fsa": [
-                "H1G",
-                "H1H",
-                "H1P",
-                "H1R",
-                "H1S"
-            ],
             "default": false,
             "description": "Henri Bourassa (n\u00e9 Joseph Henry Napol\u00e9on le 1er septembre 1868 \u00e0 Montr\u00e9al, mort le 31 ao\u00fbt 1952 \u00e0 Montr\u00e9al) est un journaliste et homme politique qu\u00e9b\u00e9cois qui a agi tant sur les sc\u00e8nes canadienne que provinciale.\u00a0Fondateur du quotidien Le Devoir en 1910, il est reconnu pour son d\u00e9sir d\u2019\u00e9manciper le Canada de la tutelle britannique, ainsi que pour sa d\u00e9fense des droits des Canadiens fran\u00e7ais.",
             "infos": {
@@ -558,21 +492,13 @@
                 "2021S051624660053",
                 "2021S051624660055",
                 "2021S051624660056"
-            ]
+            ],
+            "postalcodes": []
         },
         {
             "id": "louis-riel",
             "name": "Louis-Riel",
             "url": "https:\/\/ssjb.com\/portail-des-sections\/louis-riel\/",
-            "fsa": [
-                "H1A",
-                "H1B",
-                "H1C",
-                "H1E",
-                "H1J",
-                "H1K",
-                "H1M"
-            ],
             "default": false,
             "description": "Louis Riel, porte-parole des M\u00e9tis, fondateur du Manitoba, instituteur et chef de la r\u00e9bellion du Nord-Ouest, n\u00e9 le 22\u00a0octobre\u00a01844 dans la colonie de la Rivi\u00e8re-Rouge au Manitoba, et pendu le 16\u00a0novembre\u00a01885 \u00e0\u00a0R\u00e9gina.",
             "infos": {
@@ -628,19 +554,13 @@
                 "2021S051624660024",
                 "2021S051624660026",
                 "2021S051624660032"
-            ]
+            ],
+            "postalcodes": []
         },
         {
             "id": "chomedey-de-maisonneuve-jeanne-mance",
             "name": "Chomedey-de-Maisonneuve-Jeanne-Mance",
             "url": "https:\/\/ssjb.com\/portail-des-sections\/chomedey-de-maisonneuve\/",
-            "fsa": [
-                "H1L",
-                "H1M",
-                "H1N",
-                "H1V",
-                "H1W"
-            ],
             "default": false,
             "description": "Paul de Chomedey De Maisonneuve, gentilhomme, officier, membre de la Soci\u00e9t\u00e9 Notre-Dame de Montr\u00e9al, fondateur de Ville-Marie, premier gouverneur de l\u2019\u00cele de Montr\u00e9al, n\u00e9 \u00e0 Neuville-sur-Vanne en France en 1626, et d\u00e9c\u00e9d\u00e9 \u00e0 Paris en\u00a01676.\u00a0",
             "infos": {
@@ -686,19 +606,13 @@
                 "2021S051624660076",
                 "2021S051624660255",
                 "2021S051624660256"
-            ]
+            ],
+            "postalcodes": []
         },
         {
             "id": "andree-ferretti",
             "name": "Andr\u00e9e-Ferretti",
             "url": "https:\/\/ssjb.com\/portail-des-sections\/rosemont\/",
-            "fsa": [
-                "H1T",
-                "H1X",
-                "H1Y",
-                "H2G",
-                "H2S"
-            ],
             "default": false,
             "description": "Depuis ses jeunes ann\u00e9es Andr\u00e9e Ferretti est consciente de l\u2019oppression nationale subie par le peuple qu\u00e9b\u00e9cois, elle a mis le combat pour l\u2019ind\u00e9pendance du Qu\u00e9bec au c\u0153ur de sa vie militante depuis l\u2019\u00e9poque du R.I.N.. Pour elle, la r\u00e9alisation de l\u2019ind\u00e9pendance reposera avant tout sur un vaste mouvement social, bien plus que sur un parti politique.",
             "infos": {
@@ -750,28 +664,13 @@
                 "2021S051624660120",
                 "2021S051624660123",
                 "2021S051624660125"
-            ]
+            ],
+            "postalcodes": []
         },
         {
             "id": "jacques-viger",
             "name": "Jacques-Viger",
             "url": "https:\/\/ssjb.com\/portail-des-sections\/jacques-viger\/",
-            "fsa": [
-                "H2V",
-                "H3P",
-                "H3R",
-                "H3S",
-                "H3T",
-                "H3V",
-                "H3W",
-                "H3X",
-                "H4A",
-                "H4B",
-                "H4P",
-                "H4V",
-                "H4W",
-                "H4X"
-            ],
             "default": false,
             "description": "Jacques Viger, journaliste, auteur, officier de milice, fonctionnaire, homme politique, propri\u00e9taire foncier, \u00e9rudit et collectionneur, n\u00e9 le 7\u00a0mai\u00a01787 \u00e0 Montr\u00e9al, et d\u00e9c\u00e9d\u00e9 le\u00a012\u00a0d\u00e9cembre\u00a01858.\u00a0",
             "infos": {
@@ -840,27 +739,13 @@
                 "2021S051624660210",
                 "2021S051624660214",
                 "2021S051624660219"
-            ]
+            ],
+            "postalcodes": []
         },
         {
             "id": "marguerite-bourgeoys",
             "name": "Marguerite-Bourgeoys",
             "url": "https:\/\/ssjb.com\/portail-des-sections\/marguerite-bourgeoys\/",
-            "fsa": [
-                "H3C",
-                "H3E",
-                "H3J",
-                "H3K",
-                "H4C",
-                "H4E",
-                "H4G",
-                "H4H",
-                "H8N",
-                "H8P",
-                "H8R",
-                "H8S",
-                "H8T"
-            ],
             "default": false,
             "description": "Marguerite Bourgeoys, fondatrice de la congr\u00e9gation de Notre-Dame de Montr\u00e9al, n\u00e9e \u00e0 Troyes en France le 17 avril 1620, d\u00e9c\u00e9d\u00e9e et inhum\u00e9e \u00e0 Montr\u00e9al le 12 janvier 1700, b\u00e9atifi\u00e9e le 12 novembre 1950 et canonis\u00e9e le 31 octobre\u00a01982.\u00a0",
             "infos": {
@@ -929,33 +814,13 @@
                 "2021S051624660240",
                 "2021S051624660260",
                 "2021S051624660262"
-            ]
+            ],
+            "postalcodes": []
         },
         {
             "id": "chevalier-de-lorimier",
             "name": "Chevalier-de-Lorimier",
             "url": "https:\/\/ssjb.com\/portail-des-sections\/chevalier-de-lorimier\/",
-            "fsa": [
-                "H2H",
-                "H2J",
-                "H2K",
-                "H2L",
-                "H2T",
-                "H2W",
-                "H2X",
-                "H2Y",
-                "H2Z",
-                "H3A",
-                "H3B",
-                "H3C",
-                "H3G",
-                "H3H",
-                "H3Y",
-                "H3Z",
-                "H4Z",
-                "H5A",
-                "H5B"
-            ],
             "default": false,
             "description": "Fran\u00e7ois-Marie-Thomas-Chevalier de Lorimier, notaire et patriote, n\u00e9 le 27 d\u00e9cembre 1803 \u00e0 Saint-Cuthbert, et d\u00e9c\u00e9d\u00e9 par pendaison le 15 f\u00e9vrier 1839 \u00e0 la prison au Pied-du-Courant \u00e0\u00a0Montr\u00e9al.",
             "infos": {
@@ -1021,30 +886,15 @@
                 "2021S051624660161",
                 "2021S051624660168",
                 "2021S051624660170"
+            ],
+            "postalcodes": [
+                "H2X 1X4"
             ]
         },
         {
             "id": "pierre-lemoyne-d-iberville",
             "name": "Pierre-Lemoyne-D'Iberville",
             "url": "https:\/\/ssjb.com\/portail-des-sections\/pierre-lemoyne-diberville\/",
-            "fsa": [
-                "J3V",
-                "J3Y",
-                "J3Z",
-                "J4B",
-                "J4G",
-                "J4H",
-                "J4J",
-                "J4K",
-                "J4L",
-                "J4M",
-                "J4N",
-                "J4P",
-                "J4R",
-                "J4S",
-                "J4T",
-                "J4V"
-            ],
             "default": false,
             "description": "Pierre Le Moyne D\u2019Iberville et D\u2019Ardilli\u00e8res, soldat, capitaine de vaisseau, explorateur, colonisateur, chevalier de Saint-Louis, aventurier, corsaire et trafiquant, le plus c\u00e9l\u00e8bre fils de la Nouvelle-France. Il fut baptis\u00e9 le 20\u00a0juillet\u00a01661 \u00e0 Ville-Marie (Montr\u00e9al), et mourut sans doute \u00e0 La\u00a0Havane vers le\u00a09\u00a0juillet\u00a01706.",
             "infos": {
@@ -1127,27 +977,17 @@
                 "2021S051624580062",
                 "2021S051624580063",
                 "2021S051624580064"
+            ],
+            "postalcodes": [
+                "J3L 0J3",
+                "J3Y 0A1",
+                "J3Z 1J4"
             ]
         },
         {
             "id": "doris-lussier",
             "name": "Doris-Lussier",
             "url": "https:\/\/ssjb.com\/portail-des-sections\/doris-lussier",
-            "fsa": [
-                "J0L",
-                "J4W",
-                "J4X",
-                "J4Y",
-                "J4Z",
-                "J5A",
-                "J5B",
-                "J5C",
-                "J5R",
-                "J6J",
-                "J6K",
-                "J6N",
-                "J6R"
-            ],
             "default": false,
             "description": "Doris Lussier (dit le P\u00e8re G\u00e9d\u00e9on), 15 juillet 1918-28 octobre 1993. \u00c9crivain et humoriste, originaire de Fontainebleau au Qu\u00e9bec. Outre son c\u00f4t\u00e9 artistique, Doris Lussier s\u2019est fait conna\u00eetre par son implication dans le mouvement souverainiste du Parti Qu\u00e9b\u00e9cois dans les ann\u00e9es 1970 et 1980 aupr\u00e8s de Ren\u00e9 L\u00e9vesque. Filmographie : La Famille Plouffe.",
             "infos": {
@@ -1202,19 +1042,17 @@
                 "2021S051624670022",
                 "2021S051624670023",
                 "2021S051624670024"
+            ],
+            "postalcodes": [
+                "J6J 0A9",
+                "J6J 0B5",
+                "J6J 0C4"
             ]
         },
         {
             "id": "rene-levesque",
             "name": "Ren\u00e9-L\u00e9vesque",
             "url": "https:\/\/ssjb.com\/portail-des-sections\/rene-levesque\/",
-            "fsa": [
-                "H2A",
-                "H2E",
-                "H2P",
-                "H2R",
-                "H3N"
-            ],
             "default": false,
             "description": "Ren\u00e9 L\u00e9vesque, journaliste, correspondant de guerre, animateur de radio et de t\u00e9l\u00e9vision, d\u00e9put\u00e9, ministre et chef politique qu\u00e9b\u00e9cois. Il fonde le Parti qu\u00e9b\u00e9cois en 1968 et exerce la fonction de premier ministre du Qu\u00e9bec de 1976 \u00e0\u00a01985.",
             "infos": {
@@ -1263,7 +1101,8 @@
                 "2021S051624660102",
                 "2021S051624660104",
                 "2021S051624660109"
-            ]
+            ],
+            "postalcodes": []
         }
     ],
     "defaultSection": {
@@ -1287,6 +1126,9 @@
                 "G\u00e9rard Pelletier"
             ],
             "conseiller_jeunesse": []
-        }
+        },
+        "postalcodes": [
+            "G0N 1E0"
+        ]
     }
 }

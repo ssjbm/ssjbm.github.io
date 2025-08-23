@@ -45,12 +45,16 @@
     "liveServer.settings.ignoreFiles": [
         ".vscode/**",
         ".github/**",
+        "**/_**",
+        "**/.git/**",
+        "**/.vendor/**",
+        "**/node_modules/**",
         "**/*.scss",
         "**/*.sass",
-        "**/*.ts",
         "**/*.php",
-        "**/*.geojson",
-        "**/!(*.min).js"
+        "**/*.ts",
+        "**/!(*.min).js",
+        "**/*.geojson"
     ]
 
 }

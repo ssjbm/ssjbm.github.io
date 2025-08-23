@@ -1,4 +1,5 @@
 window.SearchTool = {
+    
     sections: null,
     secrets: null,
     postalcode: null,
@@ -257,24 +258,46 @@ window.SearchTool = {
 
 
     getPalette: function() {
-        return [
-            '#ef4444', // red
-            '#f97316', // orange
-            '#f59e0b', // amber
-            '#eab308', // yellow
-            '#84cc16', // lime
-            '#22c55e', // green
-            '#10b981', // emerald
-            '#14b8a6', // teal
-            '#06b6d4', // cyan
-            '#0ea5e9', // sky
-            '#3b82f6', // blue
-            '#6366f1', // indigo
-            '#8b5cf6', // violet
-            '#a855f7', // purple
-            '#d946ef', // fuchsia
-            '#ec4899'  // pink
-        ];
+        if(localStorage.getItem('darkmode') === 'true') {
+            return [
+                '#ef4444', // red
+                '#f97316', // orange
+                '#f59e0b', // amber
+                '#eab308', // yellow
+                '#84cc16', // lime
+                '#22c55e', // green
+                '#10b981', // emerald
+                '#14b8a6', // teal
+                '#06b6d4', // cyan
+                '#0ea5e9', // sky
+                '#3b82f6', // blue
+                '#6366f1', // indigo
+                '#8b5cf6', // violet
+                '#a855f7', // purple
+                '#d946ef', // fuchsia
+                '#ec4899'  // pink
+            ];
+        } else {
+            return [
+                '#b91c1c', // red-700
+                '#c2410c', // orange-700
+                '#b45309', // amber-700
+                '#854d0e', // yellow-800 (jaune plus foncé = lisible)
+                '#4d7c0f', // lime-700
+                '#15803d', // green-700
+                '#047857', // emerald-700
+                '#0f766e', // teal-700
+                '#0e7490', // cyan-700
+                '#0369a1', // sky-700
+                '#1d4ed8', // blue-700
+                '#4338ca', // indigo-700
+                '#6d28d9', // violet-700
+                '#7e22ce', // purple-700
+                '#a21caf', // fuchsia-700
+                '#be185d'  // pink-700
+            ];
+
+        }
     }
 
 };
