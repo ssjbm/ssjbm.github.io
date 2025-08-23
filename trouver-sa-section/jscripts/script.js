@@ -127,13 +127,13 @@ window.SearchTool = {
 
         const infos = Object.fromEntries(Object.entries(section.infos).map(([k, v]) => [k, v.join(', ')]));
         let html = `<table class="section_results"><thead><tr><th colspan="2">Section ${section.name}</th></tr><thead><tbody>`;
-            html += `<tr><td style="width: 1%; white-space: preserve nowrap;">Président :</td><td>${infos.president || ''}</td></tr>`;
-            html += `<tr><td style="width: 1%; white-space: preserve nowrap;">Vice-président :</td><td>${infos.vice_president || ''}</td></tr>`;
-            html += `<tr><td style="width: 1%; white-space: preserve nowrap;">Secrétaire :</td><td>${infos.secretaire || ''}</td></tr>`;
-            html += `<tr><td style="width: 1%; white-space: preserve nowrap;">Trésorier :</td><td>${infos.tresorier || ''}</td></tr>`;
-            html += `<tr><td style="width: 1%; white-space: preserve nowrap;">Conseiller jeunesse :</td><td>${infos.conseiller_jeunesse || ''}</td></tr>`;
-            html += `<tr><td style="width: 1%; white-space: preserve nowrap;">Conseillers :</td><td>${infos.conseillers || ''}</td></tr>`;
-            html += `<tr><td style="width: 1%; white-space: preserve nowrap;">Contact :</td><td><a href="mailto:${section.email}">${section.email}</a></td></tr>`;
+            html += `<tr><td>Président :</td><td>${infos.president || ''}</td></tr>`;
+            html += `<tr><td>Vice-président :</td><td>${infos.vice_president || ''}</td></tr>`;
+            html += `<tr><td>Secrétaire :</td><td>${infos.secretaire || ''}</td></tr>`;
+            html += `<tr><td>Trésorier :</td><td>${infos.tresorier || ''}</td></tr>`;
+            html += `<tr><td>Conseiller jeunesse :</td><td>${infos.conseiller_jeunesse || ''}</td></tr>`;
+            html += `<tr><td>Conseillers :</td><td>${infos.conseillers || ''}</td></tr>`;
+            html += `<tr><td>Contact :</td><td><a href="mailto:${section.email}">${section.email}</a></td></tr>`;
             html += `</tbody></table>`;
         this.infos.innerHTML = html;
 
