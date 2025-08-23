@@ -1,5 +1,8 @@
 <?php
 
+// Updating sections map
+echo "Updating sections map...\r\n";
+
 
 // Add more memory to the script
 ini_set('memory_limit', '2G');
@@ -16,7 +19,7 @@ $secrets = json_decode(file_get_contents($secretFile));
 
 
 // Set dirs
-$srcMapDir = realpath(__DIR__ . '../../../maps'). S;
+$srcMapDir = realpath(__DIR__ . '../../../maps') . S;
 $geoSectionFile = $srcMapDir . 'sections.geojson';
 $areasFile = $srcMapDir . 'montreal-areas.geojson';
 $sectionsFile = $srcMapDir . 'sections.json';
@@ -25,7 +28,7 @@ $sections = json_decode(file_get_contents($sectionsFile));
 
 // Compile and merge areas for sections
 foreach($sections->sections as $section) {
-    echo 'Create section Geojson: ' . $section->name.RN;
+    echo 'Create section Geojson: ' . $section->name . RN;
     $sectionFile = $srcMapDir . 'section-' . $section->id . '.geojson';
     $sectionFiles[] = escapeshellarg($sectionFile);
     shell_exec('mapshaper ' . escapeshellarg($areasFile) . ' -filter "/^(' . join('|', $section->areas) . ')$/.test(IDUGD)" -dissolve -simplify visvalingam 5% keep-shapes -clean -each "id=\'' . addslashes($section->id) . '\'; name=\'' . addslashes($section->name) . '\'" -o format=geojson geojson-type=FeatureCollection id-field=fid ' . escapeshellarg($sectionFile) . ' 2>&1');
@@ -51,7 +54,7 @@ file_put_contents($sectionsFile, json_encode($sections, JSON_PRETTY_PRINT));
 
 
 // Merge Postal Codes with KV API
-echo "Merge actual postal codes with KV API..." .RN;
+echo "Merge actual postal codes with KV API..." . RN;
 $postalCodesFile = $srcMapDir . 'postal-codes.json';
 $postalCodes = json_decode(file_get_contents($postalCodesFile));
 if(!$contents = curl_get_contents('https://script.google.com/macros/s/' . $secrets->KV_API_KEY . '/exec?action=get_all&clear=1')) err("Can't get KV API data.");
@@ -76,7 +79,7 @@ file_put_contents($postalCodesFile, json_encode($postalCodes, JSON_PRETTY_PRINT)
 
 
 // Dispatch postal codes in sections
-echo "Dispatch postal codes in sections..." .RN;
+echo "Dispatch postal codes in sections..." . RN;
 $sections = json_decode(file_get_contents($sectionsFile));
 $geoSections = json_decode(file_get_contents($geoSectionFile));
 $defaultPostalCodes = [];
