@@ -3403,5 +3403,96 @@
         "types": [
             "postal_code"
         ]
+    },
+    "H7N 3Y9": {
+        "address_components": [
+            {
+                "long_name": "H7N 3Y9",
+                "short_name": "H7N 3Y9",
+                "types": [
+                    "postal_code"
+                ]
+            },
+            {
+                "long_name": "Laval-des-rapides",
+                "short_name": "Laval-des-Rapides",
+                "types": [
+                    "neighborhood",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Laval",
+                "short_name": "Laval",
+                "types": [
+                    "locality",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Laval",
+                "short_name": "Laval",
+                "types": [
+                    "administrative_area_level_3",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Laval",
+                "short_name": "Laval",
+                "types": [
+                    "administrative_area_level_2",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Qu\u00e9bec",
+                "short_name": "QC",
+                "types": [
+                    "administrative_area_level_1",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Canada",
+                "short_name": "CA",
+                "types": [
+                    "country",
+                    "political"
+                ]
+            }
+        ],
+        "formatted_address": "Laval, QC H7N 3Y9, Canada",
+        "geometry": {
+            "bounds": {
+                "northeast": {
+                    "lat": 45.5664972,
+                    "lng": -73.7119414
+                },
+                "southwest": {
+                    "lat": 45.5635526,
+                    "lng": -73.7151621
+                }
+            },
+            "location": {
+                "lat": 45.5650106,
+                "lng": -73.71357979999999
+            },
+            "location_type": "APPROXIMATE",
+            "viewport": {
+                "northeast": {
+                    "lat": 45.5664972,
+                    "lng": -73.7119414
+                },
+                "southwest": {
+                    "lat": 45.5635526,
+                    "lng": -73.7151621
+                }
+            }
+        },
+        "place_id": "ChIJiUCF3joiyUwRV6p3zILVFWs",
+        "types": [
+            "postal_code"
+        ]
     }
 }

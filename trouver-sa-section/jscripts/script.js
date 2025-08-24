@@ -24,7 +24,9 @@ window.SearchTool = {
             }
         });
 
+        // const urls = [root + 'secrets.json', root + 'assets/maps/sections.json'];
         const urls = [root + 'secrets.json', root + 'assets/maps/sections.json'];
+        
         const requests = urls.map(async url => {
             const response = await fetch(url);
             return { url, id: url.match(/([^\/]+)(?=\.\w+$)/)[0], status: response.status, ok: response.ok, data: await response.json()};
@@ -74,11 +76,11 @@ window.SearchTool = {
             features.forEach(f => f.getGeometry().forEachLatLng(ll => b.extend(ll)));
             if (!b.isEmpty()) this.map.fitBounds(b);
 
-            const palette = this.getPalette();
+            const palette = this.getPalette(true);
             features.forEach((feature, i) => {
 
                 this.features[feature.getProperty('id')] = feature;
-                const c = palette[this.findSectionById(feature.getProperty('id')).color];
+                const c = palette[this.findSectionById(feature.getProperty('id')).color % palette.length];
                 this.layer.overrideStyle(feature, { fillColor: c, strokeColor: c, fillOpacity: 0.20, strokeWeight: 2 });
 
                 const geoms = this.dataGeomToPolygons(feature.getGeometry()); // -> array<google.maps.Polygon>
@@ -243,9 +245,9 @@ window.SearchTool = {
     },
 
 
-    getPalette: function() {
+    getPalette: function(full = false) {
         if(localStorage.getItem('darkmode') === 'true') {
-            return [
+            if(full) return [
                 '#ef4444', // red
                 '#f97316', // orange
                 '#f59e0b', // amber
@@ -263,8 +265,18 @@ window.SearchTool = {
                 '#d946ef', // fuchsia
                 '#ec4899'  // pink
             ];
+            else return [
+                '#ef4444', // red
+                '#f59e0b', // amber
+                '#84cc16', // lime
+                '#10b981', // emerald
+                '#06b6d4', // cyan
+                '#3b82f6', // blue
+                '#8b5cf6', // violet
+                '#ec4899'  // pink
+            ];
         } else {
-            return [
+            if(full) return [
                 '#b91c1c', // red-700
                 '#c2410c', // orange-700
                 '#b45309', // amber-700
@@ -280,6 +292,16 @@ window.SearchTool = {
                 '#6d28d9', // violet-700
                 '#7e22ce', // purple-700
                 '#a21caf', // fuchsia-700
+                '#be185d'  // pink-700
+            ];
+            else return [
+                '#b91c1c', // red-700
+                '#b45309', // amber-700
+                '#4d7c0f', // lime-700
+                '#047857', // emerald-700
+                '#0e7490', // cyan-700
+                '#1d4ed8', // blue-700
+                '#6d28d9', // violet-700
                 '#be185d'  // pink-700
             ];
 

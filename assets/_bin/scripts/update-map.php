@@ -30,13 +30,13 @@ foreach($sections->sections as $section) {
     echo 'Create section Geojson: ' . $section->name . RN;
     $sectionFile = $srcMapDir . 'section-' . $section->id . '.geojson';
     $sectionFiles[] = escapeshellarg($sectionFile);
-    shell_exec('mapshaper ' . escapeshellarg($areasFile) . ' -filter "/^(' . join('|', $section->areas) . ')$/.test(IDUGD)" -dissolve -simplify visvalingam 5% keep-shapes -clean -each "id=\'' . addslashes($section->id) . '\'; name=\'' . addslashes($section->name) . '\'" -o format=geojson geojson-type=FeatureCollection id-field=fid ' . escapeshellarg($sectionFile) . ' 2>&1');
+    shell_exec('mapshaper ' . escapeshellarg($areasFile) . ' -filter "/^(' . join('|', $section->areas) . ')$/.test(IDUGD)" -dissolve2 -simplify visvalingam 5% keep-shapes -clean -each "id=\'' . addslashes($section->id) . '\'; name=\'' . addslashes($section->name) . '\'" -o format=geojson geojson-type=FeatureCollection id-field=fid ' . escapeshellarg($sectionFile) . ' 2>&1');
 }
 
 
 // Merge sections into one file
 echo "Merge section files in one FeatureCollection file..." . RN;
-GeoJsonMerge::mergeFiles([$srcMapDir . 'section-*.geojson'], $geoSectionFile);
+GeoJsonMerge::mergeFiles([$srcMapDir . 'section-*.geojson'], $geoSectionFile, ['skipInvalid' => false]);
 GeoJsonSimplify::simplifyFile($geoSectionFile);
 GeoJsonBBox::addBBoxesToFile($geoSectionFile);
 file_put_contents($geoSectionFile, json_encode(json_decode(file_get_contents($geoSectionFile))));

@@ -7,10 +7,12 @@ window.SearchTool = {
 
     map: null,
     layer: null,
-    features: {},
-    
-    ready: false,
+    // features: {},
+    featureIdx: [],
+    colorCodes: [],
+    selector: null,
 
+    
 
     init: async function () {
 
@@ -25,44 +27,57 @@ window.SearchTool = {
         }
 
         this.setReady();
-        // console.log(this.sections);
-        // console.log(this.secrets);
     },
 
 
-    setReady: function() {
-        
-        const palette = this.getPalette();
+    setReady: function() {        
+        const palette = this.getPalette(true);
+        this.sections.sections.forEach(s => this.colorCodes[s.id] = palette[s.color]);
+        this.selector = document.getElementById('sectionselector').create('select');
+ 
+        this.selector.create('option', null, '--- Sélectionner une section ---');
 
         this.sections.sections.forEach((s, i) => {
-            s.color = palette[i];
+            const opt = this.selector.create('option');
+            opt.value = s.id;
+            opt.innerText = s.name;
+            opt.style.backgroundColor = this.colorCodes[s.id];
         });
 
+        this.loadScript('https://maps.googleapis.com/maps/api/js', {
+           key:       this.secrets.MAPS_API_KEY,
+           callback:  'SearchTool.initMap',
+           libraries: 'geometry',
+           loading:   'async',
+           language:  'fr',
+           region:    'CA',
+           v:         'weekly',
+        });
 
-
-        const s = document.createElement('script');
-        s.src = `https://maps.googleapis.com/maps/api/js?key=${this.secrets.MAPS_API_KEY}&callback=SearchTool.initMap&v=weekly&loading=async`;
-        s.async = true;
-        document.head.appendChild(s);
-
-        this.ready = true;
     },
 
 
-    initMap: function () {
-        this.loadGeneralMap();
+    loadScript: async function(endpoint, params = {}) {
+        const url = new URL(endpoint);
+        Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
+        const script = document.createElement('script');
+        script.src = url.toString();
+        script.async = true;
+        document.head.appendChild(script);
     },
 
 
-    loadGeneralMap: async function() {
+    initMap: async function() {
         const {ColorScheme} = await google.maps.importLibrary("core");
-        this.map = new google.maps.Map(document.getElementById('map'), {
+        this.map = new google.maps.Map(document.getElementById('resultmap'), {
             center: {lat: 45.55, lng: -73.65}, zoom: 9,
+            streetViewControl: false,
+            mapTypeControl: false,
             colorScheme: localStorage.getItem('darkmode') === 'true' ? ColorScheme.DARK : ColorScheme.LIGHT,
         });
 
         this.layer = new google.maps.Data({ map: this.map });
-        // this.layer.setStyle({ fillOpacity: 0.40, strokeWeight: 1, strokeColor: '#f00', fillColor: '#red' });
+        this.layer.setStyle({ fillOpacity: 0.10, strokeWeight: 1, strokeColor: '#a74747ff', fillColor: '#000' });
         this.layer.loadGeoJson(root + '/assets/maps/montreal-areas.geojson', null, (features) => {
             
 
@@ -80,9 +95,10 @@ window.SearchTool = {
                 const section = this.findSectionByAreaId(f.getProperty('IDUGD'));
                 if(section) {
                     // console.log(section.id);
-                    this.layer.overrideStyle(f, { fillColor: section.color, strokeColor: section.color, fillOpacity: 0.20, strokeWeight: 1 });
+                    // f.title = section.name;
+                    this.layer.overrideStyle(f, { fillColor: this.colorCodes[section.id], strokeColor: this.colorCodes[section.id], fillOpacity: 0.20, strokeWeight: 1 });
                 } else {
-                    this.layer.overrideStyle(f, { fillOpacity: 0.20, strokeWeight: 1, strokeColor: '#a74747ff', fillColor: '#000' });
+                    // this.layer.overrideStyle(f, { fillOpacity: 0.20, strokeWeight: 1, strokeColor: '#a74747ff', fillColor: '#000' });
                 }
 
 
@@ -177,26 +193,68 @@ console.log(id);
     },
 
 
-    getPalette: function() {
-        return [
-            '#ef4444', // red
-            '#f97316', // orange
-            '#f59e0b', // amber
-            '#eab308', // yellow
-            '#84cc16', // lime
-            '#22c55e', // green
-            '#10b981', // emerald
-            '#14b8a6', // teal
-            '#06b6d4', // cyan
-            '#0ea5e9', // sky
-            '#3b82f6', // blue
-            '#6366f1', // indigo
-            '#8b5cf6', // violet
-            '#a855f7', // purple
-            '#d946ef', // fuchsia
-            '#ec4899'  // pink
-        ];
-    }
+    getPalette: function(full = false) {
+        if(localStorage.getItem('darkmode') === 'true') {
+            if(full) return [
+                '#ef4444', // red
+                '#f97316', // orange
+                '#f59e0b', // amber
+                '#eab308', // yellow
+                '#84cc16', // lime
+                '#22c55e', // green
+                '#10b981', // emerald
+                '#14b8a6', // teal
+                '#06b6d4', // cyan
+                '#0ea5e9', // sky
+                '#3b82f6', // blue
+                '#6366f1', // indigo
+                '#8b5cf6', // violet
+                '#a855f7', // purple
+                '#d946ef', // fuchsia
+                '#ec4899'  // pink
+            ];
+            else return [
+                '#ef4444', // red
+                '#f59e0b', // amber
+                '#84cc16', // lime
+                '#10b981', // emerald
+                '#06b6d4', // cyan
+                '#3b82f6', // blue
+                '#8b5cf6', // violet
+                '#ec4899'  // pink
+            ];
+        } else {
+            if(full) return [
+                '#b91c1c', // red-700
+                '#c2410c', // orange-700
+                '#b45309', // amber-700
+                '#854d0e', // yellow-800 (jaune plus foncé = lisible)
+                '#4d7c0f', // lime-700
+                '#15803d', // green-700
+                '#047857', // emerald-700
+                '#0f766e', // teal-700
+                '#0e7490', // cyan-700
+                '#0369a1', // sky-700
+                '#1d4ed8', // blue-700
+                '#4338ca', // indigo-700
+                '#6d28d9', // violet-700
+                '#7e22ce', // purple-700
+                '#a21caf', // fuchsia-700
+                '#be185d'  // pink-700
+            ];
+            else return [
+                '#b91c1c', // red-700
+                '#b45309', // amber-700
+                '#4d7c0f', // lime-700
+                '#047857', // emerald-700
+                '#0e7490', // cyan-700
+                '#1d4ed8', // blue-700
+                '#6d28d9', // violet-700
+                '#be185d'  // pink-700
+            ];
+
+        }
+    },
 
 };
 

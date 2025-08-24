@@ -7,7 +7,11 @@
  */
 ?>
 
-<div class="resultmap" id="map"></div>
+
+
+<div class="sectionselector" id="sectionselector"></div>
+
+<div class="resultmap" id="resultmap"></div>
 
 
 
