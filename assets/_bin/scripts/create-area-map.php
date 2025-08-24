@@ -67,12 +67,7 @@ $shpFile = get_shp_file(ZIP_FILE_AGGDISAREAS, $srcMapDir);
 echo "Generate greater Montréal area Geojson..." . RN;
 $montrealAreaFile = $srcMapDir . 'montreal-areas.geojson';
 $divisionsString = "'" . join("','", DIVISIONS) . "'";
-shell_exec('mapshaper ' . escapeshellarg($shpFile) . ' -proj wgs84 from=EPSG:3347 -filter "[' . $divisionsString . '].indexOf(String(ADAIDU).slice(0,4)) >= 0" -o format=geojson ' . escapeshellarg($montrealAreaFile) . ' 2>&1');
-
-
-// Generate greater Montréal area Geojson
-echo "Optimize Geojson file..." . RN;
-GeoJsonSimplify::simplifyFile($montrealAreaFile);
+passthru('mapshaper ' . escapeshellarg($shpFile) . ' -filter "[' . $divisionsString . '].indexOf(String(ADAIDU).slice(0,4)) >= 0" -proj wgs84 from=EPSG:3347 -snap interval=1e-9 -simplify visvalingam 5% keep-shapes -clean -o precision=0.00000001 format=geojson ' . escapeshellarg($montrealAreaFile) . ' 2>&1');
 GeoJsonBBox::addBBoxesToFile($montrealAreaFile);
 file_put_contents($montrealAreaFile, json_encode(json_decode(file_get_contents($montrealAreaFile))));
 
