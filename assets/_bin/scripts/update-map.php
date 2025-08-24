@@ -37,7 +37,9 @@ foreach($sections->sections as $section) {
 
 // Merge sections into one file
 echo "Merge section files in one FeatureCollection file..." . RN;
-shell_exec('geojson-merge ' . join(' ', $sectionFiles) . ' > ' . escapeshellarg($geoSectionFile));
+GeoJsonMerge::mergeFiles([$srcMapDir . 'section-*.geojson'], $geoSectionFile);
+GeoJsonSimplify::simplifyFile($geoSectionFile);
+GeoJsonBBox::addBBoxesToFile($geoSectionFile);
 file_put_contents($geoSectionFile, json_encode(json_decode(file_get_contents($geoSectionFile))));
 array_map('unlink', glob($srcMapDir . 'section-*.geojson'));
 
@@ -104,7 +106,7 @@ file_put_contents($sectionsFile, json_encode($sections));
 // Sort sections for palette intersection
 echo "Sort sections for palette intersection..." . RN;
 $sections = json_decode(file_get_contents($sectionsFile));
-$orderedIds = FeatureOrder::orderIds($geoSectionFile,['idKeys' => ['id'], 'seed'   => 'barycenter', 'metric' => 'euclid', 'step' => 8]);
+$orderedIds = FeatureOrder::orderIds($geoSectionFile, ['idKeys' => ['id'], 'seed'   => 'barycenter', 'metric' => 'euclid', 'step' => 8]);
 foreach($sections->sections as $section) $section->color = array_search($section->id, $orderedIds);
 file_put_contents($sectionsFile, json_encode($sections));
 

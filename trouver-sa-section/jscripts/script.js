@@ -59,6 +59,8 @@ window.SearchTool = {
         const { ColorScheme } = await google.maps.importLibrary("core");
         this.map = new google.maps.Map(document.getElementById('map'), {
             // center: {lat: 45.55, lng: -73.65}, zoom: 7
+            streetViewControl: false,
+            mapTypeControl: false,
             colorScheme: localStorage.getItem('darkmode') === 'true' ? ColorScheme.DARK : ColorScheme.LIGHT,
         });
 

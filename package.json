@@ -1,7 +1,6 @@
 {
 	"dependencies": {
 		"@ffmpeg-installer/ffmpeg": "^1.1.0",
-		"@mapbox/geojson-merge": "^1.1.1",
 		"audiowaveform-uni-installer": "^1.0.3",
 		"esbuild": "^0.25.9",
 		"mapshaper": "^0.6.111",
