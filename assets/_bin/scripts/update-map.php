@@ -29,8 +29,7 @@ $sections = json_decode(file_get_contents($sectionsFile));
 foreach($sections->sections as $section) {
     echo 'Create section Geojson: ' . $section->name . RN;
     $sectionFile = $srcMapDir . 'section-' . $section->id . '.geojson';
-    $sectionFiles[] = escapeshellarg($sectionFile);
-    shell_exec('mapshaper ' . escapeshellarg($areasFile) . ' -filter "/^(' . join('|', $section->areas) . ')$/.test(IDUGD)" -snap interval=1e-7 -dissolve -clean -each "id=\'' . addslashes($section->id) . '\'; name=\'' . addslashes($section->name) . '\'" -o format=geojson geojson-type=FeatureCollection id-field=fid ' . escapeshellarg($sectionFile) . ' 2>&1');
+    shell_exec('mapshaper ' . escapeshellarg($areasFile) . ' -filter "([\'' . join("','", $section->areas) . '\'].indexOf(String(IDUGD)) >= 0)" -snap interval=1e-7 -dissolve -clean -each "id=\'' . addslashes($section->id) . '\'; name=\'' . addslashes($section->name) . '\'" -o format=geojson geojson-type=FeatureCollection id-field=fid ' . escapeshellarg($sectionFile) . ' 2>&1');
 }
 
 
