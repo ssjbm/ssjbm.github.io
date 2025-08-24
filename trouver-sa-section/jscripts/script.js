@@ -15,7 +15,6 @@ window.SearchTool = {
 
     init: async function () {
         this.infos = document.getElementById('info');
-        // this.results = document.getElementById('searchtool_results');
         this.postalcode = document.getElementById('searchtool_postalcode');
         this.postalcode.addEventListener('input', () => {
             let value = this.postalcode.value.replace(/\s/g, '');
@@ -76,7 +75,6 @@ window.SearchTool = {
             features.forEach(f => f.getGeometry().forEachLatLng(ll => b.extend(ll)));
             if (!b.isEmpty()) this.map.fitBounds(b);
 
-            // const palette = this.getPalette().map(v => [Math.random(), v]).sort((a,b)=>a[0]-b[0]).map(([,v])=>v);
             const palette = this.getPalette();
             features.forEach((feature, i) => {
 
@@ -93,14 +91,12 @@ window.SearchTool = {
 
             });
 
-            // console.log('GeoJSON features:', features.length);
         });
     },
 
 
     setFocus: async function(id) {
         const section = this.findSectionById(id);
-        // this.results.innerHTML = `Section ${section.name}`;
 
         if (this.features[id] !== undefined) {
             const b = new google.maps.LatLngBounds();
