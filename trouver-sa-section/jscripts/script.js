@@ -5,7 +5,6 @@ window.SearchTool = {
     postalcode: null,
     results: null,
     infos: null,
-    ready: false,
 
     map: null,
     layer: null,
@@ -35,27 +34,29 @@ window.SearchTool = {
             this[id] = data;
         }
 
-        this.setReady();
+        this.loadScript('https://maps.googleapis.com/maps/api/js', {
+           key:       this.secrets.MAPS_API_KEY,
+           callback:  'SearchTool.initMap',
+           libraries: 'geometry',
+           loading:   'async',
+           language:  'fr',
+           region:    'CA',
+           v:         'weekly',
+        });
     },
 
 
-    setReady: function() {
-        this.ready = true;
-        this.postalcode.disabled = false;
-
-        const s = document.createElement('script');
-        s.src = `https://maps.googleapis.com/maps/api/js?key=${this.secrets.MAPS_API_KEY}&callback=SearchTool.initMap&v=weekly&loading=async&language=fr&region=CA&libraries=geometry`;
-        s.async = true;
-        document.head.appendChild(s);
+    loadScript: async function(endpoint, params = {}) {
+        const url = new URL(endpoint);
+        Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
+        const script = document.createElement('script');
+        script.src = url.toString();
+        script.async = true;
+        document.head.appendChild(script);
     },
 
 
-    initMap: function () {
-        this.loadGeneralMap();
-    },
-
-
-    loadGeneralMap: async function() {
+    initMap: async function() {
         const { ColorScheme } = await google.maps.importLibrary("core");
         this.map = new google.maps.Map(document.getElementById('map'), {
             // center: {lat: 45.55, lng: -73.65}, zoom: 7
@@ -66,11 +67,7 @@ window.SearchTool = {
 
         this.layer = new google.maps.Data({ map: this.map });
         this.layer.loadGeoJson(root + '/assets/maps/sections.geojson', null, (features) => {
-            this.layer.setStyle({ fillOpacity: 0.20, strokeWeight: 2 });
-
-            this.layer.addListener('click', e => {
-                this.setFocus(e.feature.getProperty('id'));
-            });
+            this.layer.addListener('click', e => { this.setFocus(e.feature.getProperty('id')); });
 
             // Fit aux polygones chargés
             const b = new google.maps.LatLngBounds();
@@ -94,6 +91,7 @@ window.SearchTool = {
             });
 
         });
+        this.postalcode.disabled = false;
     },
 
 
@@ -125,12 +123,12 @@ window.SearchTool = {
 
         const infos = Object.fromEntries(Object.entries(section.infos).map(([k, v]) => [k, v.join(', ')]));
         let html = `<table class="section_results"><thead><tr><th colspan="2">Section ${section.name}</th></tr><thead><tbody>`;
-            html += `<tr><td>Président :</td><td>${infos.president || ''}</td></tr>`;
-            html += `<tr><td>Vice-président :</td><td>${infos.vice_president || ''}</td></tr>`;
-            html += `<tr><td>Secrétaire :</td><td>${infos.secretaire || ''}</td></tr>`;
-            html += `<tr><td>Trésorier :</td><td>${infos.tresorier || ''}</td></tr>`;
-            html += `<tr><td>Conseiller jeunesse :</td><td>${infos.conseiller_jeunesse || ''}</td></tr>`;
-            html += `<tr><td>Conseillers :</td><td>${infos.conseillers || ''}</td></tr>`;
+            html += `<tr><td>Président :</td><td>${infos.president || '&nbsp;'}</td></tr>`;
+            html += `<tr><td>Vice-président :</td><td>${infos.vice_president || '&nbsp;'}</td></tr>`;
+            html += `<tr><td>Secrétaire :</td><td>${infos.secretaire || '&nbsp;'}</td></tr>`;
+            html += `<tr><td>Trésorier :</td><td>${infos.tresorier || '&nbsp;'}</td></tr>`;
+            html += `<tr><td>Conseiller jeunesse :</td><td>${infos.conseiller_jeunesse || '&nbsp;'}</td></tr>`;
+            html += `<tr><td>Conseillers :</td><td>${infos.conseillers || '&nbsp;'}</td></tr>`;
             html += `<tr><td>Contact :</td><td><a href="mailto:${section.email}">${section.email}</a></td></tr>`;
             html += `</tbody></table>`;
         this.infos.innerHTML = html;
@@ -143,10 +141,13 @@ window.SearchTool = {
         if(easySection) this.setFocus(easySection.id);
         else {
             const results = await this.getGeocode(postalcode);
-            if(results.status != 'OK') this.setFocus(this.sections.defaultSection.id);
+            if(results.status != 'OK') {
+                this.setFocus(this.sections.defaultSection.id);
+                console.error(this.statusMessage(results.status));
+            }
             else {
-                const data = this.wrapData(results);
-                const section = this.findSectionByLatLng(data.latitude, data.longitude);
+                const location = results.results[0].geometry.location;
+                const section = this.findSectionByLatLng(location.lat, location.lng);
                 this.setFocus(section.id);
             }
         }
@@ -175,20 +176,6 @@ window.SearchTool = {
     },
 
 
-    statusMessage: function (status, errorMessage) {
-        switch (status) {
-            case "ZERO_RESULTS": return "Aucun résultat pour ce code postal.";
-            case "OVER_DAILY_LIMIT":
-            case "OVER_QUERY_LIMIT": return "Quota dépassé. Vérifiez la facturation/quota sur Google Cloud.";
-            case "REQUEST_DENIED": return "Requête refusée. Vérifiez les restrictions de la clé API (HTTP referrer) et l’activation de l’API Geocoding.";
-            case "INVALID_REQUEST": return "Requête invalide. Paramètres manquants ou mal formés.";
-            case "UNKNOWN_ERROR": return "Erreur inconnue côté Google. Réessayez.";
-            default:
-                return errorMessage || `Statut inattendu: ${status || "inconnu"}`;
-        }
-    },
-
-
     getGeocode: async function(postalcode, data = null) {
         const key = 'geocoder_' + postalcode.replace(/[^A-Z0-9]/, '').toLowerCase();
         if ((data = localStorage.getItem(key)) !== null) return JSON.parse(data);
@@ -212,23 +199,17 @@ window.SearchTool = {
     },
 
 
-    wrapData: function(data) {
-        const r = data.results[0];
-        const joinNonEmpty = (arr) => { return arr.filter(Boolean).join(' '); }
-        const codeWrap = (s) => { return s ? `(${s})` : ''; }
-        const get = (type, short = false) => { const c = r.address_components.find(c => c.types.includes(type)); return c ? (short ? c.short_name : c.long_name) : ''; };
-        const rows = [
-            ["postalcode", get("postal_code")],
-            ["city", get("locality") || get("sublocality") || get("postal_town")],
-            ["neighborhood", get("neighborhood") || get("sublocality")],
-            ["state", joinNonEmpty([get("administrative_area_level_1"), codeWrap(get("administrative_area_level_1", true))])],
-            ["country", joinNonEmpty([get("country"), codeWrap(get("country", true))])],
-            ["address", r.formatted_address],
-            ["latitude", r.geometry?.location?.lat ?? ""],
-            ["longitude", r.geometry?.location?.lng ?? ""],
-            ["place_id", r.place_id]
-        ].filter(([,v]) => v && String(v).trim() !== "");
-        return Object.fromEntries(rows);
+    statusMessage: function (status, errorMessage) {
+        switch (status) {
+            case "ZERO_RESULTS": return "Aucun résultat pour ce code postal.";
+            case "OVER_DAILY_LIMIT":
+            case "OVER_QUERY_LIMIT": return "Quota dépassé. Vérifiez la facturation/quota sur Google Cloud.";
+            case "REQUEST_DENIED": return "Requête refusée. Vérifiez les restrictions de la clé API (HTTP referrer) et l’activation de l’API Geocoding.";
+            case "INVALID_REQUEST": return "Requête invalide. Paramètres manquants ou mal formés.";
+            case "UNKNOWN_ERROR": return "Erreur inconnue côté Google. Réessayez.";
+            default:
+                return errorMessage || `Statut inattendu: ${status || "inconnu"}`;
+        }
     },
 
 

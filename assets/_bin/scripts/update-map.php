@@ -10,7 +10,6 @@ ini_set('memory_limit', '2G');
 
 // Load PXDoc utilities
 require(__DIR__ . '/../../../pxdoc/_bin/scripts/utils.php');
-require(__DIR__ . '/libraries/functions.php');
 
 
 // Load Secrets
@@ -106,7 +105,7 @@ file_put_contents($sectionsFile, json_encode($sections));
 // Sort sections for palette intersection
 echo "Sort sections for palette intersection..." . RN;
 $sections = json_decode(file_get_contents($sectionsFile));
-$orderedIds = FeatureOrder::orderIds($geoSectionFile, ['idKeys' => ['id'], 'seed'   => 'barycenter', 'metric' => 'euclid', 'step' => 8]);
+$orderedIds = FeatureOrder::orderIds($geoSectionFile, ['idKeys' => ['id'], 'metric' => 'euclid', 'step' => 8]);
 foreach($sections->sections as $section) $section->color = array_search($section->id, $orderedIds);
 file_put_contents($sectionsFile, json_encode($sections));
 
