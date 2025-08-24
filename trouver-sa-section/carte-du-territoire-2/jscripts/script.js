@@ -7,7 +7,6 @@ window.SearchTool = {
 
     map: null,
     layer: null,
-    // features: {},
     featureIdx: [],
     colorCodes: [],
     selector: null,
@@ -86,46 +85,20 @@ window.SearchTool = {
                 // this.setFocus(e.feature.getProperty('RTACIDU'));
             });
 
-            // console.log(this.sections.sections[0]);
 
-            features.forEach(f => {
-                // console.log(f.getProperty('IDUGD'));
+            features.forEach(feature => {
+                const areaId = feature.getProperty('IDUGD');
+                const section = this.findSectionByAreaId(areaId);
+                feature.sectionId = section ? section.id : null;
+                this.featureIdx[areaId] = feature;
+            })
 
-                // console.log(typeof f.getProperty('IDUGD'));
-                const section = this.findSectionByAreaId(f.getProperty('IDUGD'));
-                if(section) {
-                    // console.log(section.id);
-                    // f.title = section.name;
-                    this.layer.overrideStyle(f, { fillColor: this.colorCodes[section.id], strokeColor: this.colorCodes[section.id], fillOpacity: 0.20, strokeWeight: 1 });
-                } else {
-                    // this.layer.overrideStyle(f, { fillOpacity: 0.20, strokeWeight: 1, strokeColor: '#a74747ff', fillColor: '#000' });
-                }
-
-
+            this.sections.sections.forEach(section => {
+                section.areas.forEach(areaId => {
+                    this.layer.overrideStyle(this.featureIdx[areaId], { fillColor: this.colorCodes[section.id], strokeColor: this.colorCodes[section.id], fillOpacity: 0.20, strokeWeight: 1 });
+                });
             });
 
-
-            // Fit aux polygones chargés
-            // const b = new google.maps.LatLngBounds();
-            // features.forEach(f => f.getGeometry().forEachLatLng(ll => b.extend(ll)));
-            // if (!b.isEmpty()) this.map.fitBounds(b);
-
-            // const palette = this.getPalette();
-            // features.forEach((f, i) => {
-            //     this.features[f.getProperty('RTACIDU')] = f;
-            // //     const c = palette[i % palette.length];
-            // //     this.layer.overrideStyle(f, { fillColor: c, strokeColor: c, fillOpacity: 0.40, strokeWeight: 1 });
-            // });
-            
-            // const palette = this.getPalette();
-            // this.sections.sections.forEach((section, i) => {
-            //     const c = palette[i % palette.length];
-            //     section.fsa.forEach(fsa => {
-            //         this.layer.overrideStyle(this.features[fsa], { fillColor: c, strokeColor: c, fillOpacity: 0.20, strokeWeight: 1 });
-            //     });
-            // });
-
-            // console.log('GeoJSON features:', features.length);
         });
     },
 
@@ -139,6 +112,8 @@ console.log(id);
             const b = new google.maps.LatLngBounds();
             this.features[id].getGeometry().forEachLatLng(ll => b.extend(ll));
             if (!b.isEmpty()) this.map.fitBounds(b);
+
+            
             for (const i in this.features) {
                 if (this.features.hasOwnProperty(i)) {
                     if(i == id) this.layer.overrideStyle(this.features[i], { fillOpacity: 0.50 });
@@ -162,28 +137,9 @@ console.log(id);
     },
 
 
-    searchSection: async function(postalcode) {
-        const fsa = postalcode.slice(0, 3).toUpperCase();
-        const section = this.findSectionByFSA(fsa);
-        this.setFocus(section.id);
-    },
-
-
     findSectionByAreaId: function(areaId) {
-
-        // this.sections.sections.forEach(s => {
-        //     if(s.areas.includes(areaId)) console.log('yes');
-        // });
-
-
         const section = this.sections.sections.find(s => Array.isArray(s.areas) && s.areas.includes(areaId));
         return section || null;
-    },
-
-
-    findSectionByFSA: function(fsa) {
-        const section = this.sections.sections.find(s => Array.isArray(s.fsa) && s.fsa.includes(fsa));
-        return section || this.sections.defaultSection || null;
     },
 
 
