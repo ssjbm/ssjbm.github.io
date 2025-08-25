@@ -25,17 +25,10 @@ window.SearchTool = {
             }
         });
 
-        const requests = [
+        await this.loadJsonProperties([
             root + 'secrets.json',
             root + 'assets/maps/sections.json'
-        ].map(async url => {
-            const response = await fetch(url);
-            return { url, id: url.match(/([^\/]+)(?=\.\w+$)/)[0], status: response.status, ok: response.ok, data: await response.json()};
-        });
-        for await (const {url, id, status, ok, data} of requests) {
-            if(!ok) console.error(`${id} [${status} - ${ok ? "OK" : "ERREUR"}] ${url}`);
-            this[id] = data;
-        }
+        ]);
 
         this.loadScript('https://maps.googleapis.com/maps/api/js', {
            key:       this.secrets.MAPS_API_KEY,
@@ -46,6 +39,19 @@ window.SearchTool = {
            region:    'CA',
            v:         'weekly',
         });
+
+    },
+
+
+    loadJsonProperties: async function(files = []) {
+        const requests = files.map(async url => {
+            const response = await fetch(url);
+            return { url, id: url.match(/([^\/]+)(?=\.\w+$)/)[0], status: response.status, ok: response.ok, data: await response.json()};
+        });
+        for await (const {url, id, status, ok, data} of requests) {
+            if(!ok) console.error(`${id} [${status} - ${ok ? "OK" : "ERREUR"}] ${url}`);
+            this[id] = data;
+        }
     },
 
 
@@ -62,7 +68,6 @@ window.SearchTool = {
     initMap: async function() {
         const { ColorScheme, ControlPosition } = await google.maps.importLibrary("core");
         this.map = new google.maps.Map(document.getElementById('map'), {
-            // center: {lat: 45.55, lng: -73.65}, zoom: 7
             streetViewControl: false,
             mapTypeControl: false,
             colorScheme: localStorage.getItem('darkmode') === 'true' ? ColorScheme.DARK : ColorScheme.LIGHT,
@@ -72,7 +77,7 @@ window.SearchTool = {
         this.map.controls[ControlPosition.TOP_LEFT].push(this.toolbar);
 
         this.layer = new google.maps.Data({ map: this.map });
-        this.layer.loadGeoJson(root + '/assets/maps/sections.geojson', null, (features) => {
+        this.layer.loadGeoJson(root + '/assets/maps/sections.geojson', null, async (features) => {
             this.layer.addListener('click', e => { this.setFocus(e.feature.getProperty('id')); });
 
             // Fit aux polygones chargés
@@ -87,7 +92,7 @@ window.SearchTool = {
                 const c = palette[this.findSectionById(feature.getProperty('id')).color % palette.length];
                 this.layer.overrideStyle(feature, { fillColor: c, strokeColor: c, fillOpacity: 0.20, strokeWeight: 2 });
 
-                const geoms = this.dataGeomToPolygons(feature.getGeometry()); // -> array<google.maps.Polygon>
+                const geoms = this.dataGeomToPolygons(feature.getGeometry());
                 geoms.forEach((poly) => {
                     const bounds = new google.maps.LatLngBounds();
                     poly.getPaths().forEach(path => path.forEach(ll => bounds.extend(ll)));
@@ -96,8 +101,19 @@ window.SearchTool = {
 
             });
 
+            this.postalcode.disabled = false;
+
+            if("geolocation" in navigator) {
+                try {
+                    const s = await (navigator.permissions?.query({ name: 'geolocation' }));
+                    if(s.state !== 'denied') {
+                        navigator.geolocation.getCurrentPosition(pos => {
+                            this.setFocus(this.findSectionByLatLng(pos.coords.latitude, pos.coords.longitude).id);
+                        }, null, { enableHighAccuracy: true });
+                    }
+                } catch(e) { console.error(e); }
+            }
         });
-        this.postalcode.disabled = false;
     },
 
 
@@ -140,7 +156,6 @@ window.SearchTool = {
             html += `<tr><td>Contact :</td><td><a href="mailto:${section.email}">${section.email}</a></td></tr>`;
             html += `</tbody></table>`;
         this.infos.innerHTML = html;
-
     },
 
 
