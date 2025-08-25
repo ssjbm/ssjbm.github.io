@@ -180,7 +180,6 @@ window.SearchTool = {
                 feature.oldSectionId = feature.sectionId;
                 feature.sectionId = sectionId;
                 this.layer.overrideStyle(feature, { fillColor: this.colorCodes[sectionId], strokeColor: this.colorCodes[sectionId], fillOpacity: 0.50, strokeWeight: 1 });
-
             }
         } else {
             feature.sectionId = sectionId;

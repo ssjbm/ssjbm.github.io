@@ -45,6 +45,9 @@ const DIVISIONS = [
     2452, // MRC D'Autray
     2462, // MRC de Matawinie
 
+    // Autres
+    2423, // Wendake
+
 ];
 
 
