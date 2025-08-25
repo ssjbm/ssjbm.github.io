@@ -5,6 +5,7 @@ window.SearchTool = {
     postalcode: null,
     results: null,
     infos: null,
+    toolbar: null,
 
     map: null,
     layer: null,
@@ -59,13 +60,16 @@ window.SearchTool = {
 
 
     initMap: async function() {
-        const { ColorScheme } = await google.maps.importLibrary("core");
+        const { ColorScheme, ControlPosition } = await google.maps.importLibrary("core");
         this.map = new google.maps.Map(document.getElementById('map'), {
             // center: {lat: 45.55, lng: -73.65}, zoom: 7
             streetViewControl: false,
             mapTypeControl: false,
             colorScheme: localStorage.getItem('darkmode') === 'true' ? ColorScheme.DARK : ColorScheme.LIGHT,
         });
+
+        this.toolbar = create('div', 'resultmap-toolbar-section-name');
+        this.map.controls[ControlPosition.TOP_LEFT].push(this.toolbar);
 
         this.layer = new google.maps.Data({ map: this.map });
         this.layer.loadGeoJson(root + '/assets/maps/sections.geojson', null, (features) => {
@@ -99,6 +103,8 @@ window.SearchTool = {
 
     setFocus: async function(id) {
         const section = this.findSectionById(id);
+        this.toolbar.textContent = "Section " + section.name;
+        this.toolbar.style.display = 'block';
 
         if (this.features[id] !== undefined) {
             const b = new google.maps.LatLngBounds();

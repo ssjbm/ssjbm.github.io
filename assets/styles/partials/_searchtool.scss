@@ -70,28 +70,30 @@
 
 }
 
-    .resultmap {
-        position: relative;
-        margin-top: 1rem;
-        aspect-ratio: 4/3;
-        position: relative;
-        // height: 60vh;
-
-
-    }
-
-.resultmap-container {
+.resultmap {
     position: relative;
+    margin-top: 1rem;
+    aspect-ratio: 4/3;
+    position: relative;
+    // height: 60vh;
 
 
+}
 
-    .section-label {
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: red;
-        z-index: 10;
-    }
+.resultmap-toolbar-section-name {
+    background-color: var(--main-color-alpha3);
+    margin-top: 0.6rem;
+    margin-left: 0.6rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 0.3rem 0.5rem;
+    box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 80%;
+    user-select: none;
+    display: none;
 }
 
 

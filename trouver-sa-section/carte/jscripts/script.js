@@ -67,7 +67,7 @@ window.SearchTool = {
 
 
     initMap: async function() {
-        const {ColorScheme, ControlPosition} = await google.maps.importLibrary("core");
+        const { ColorScheme, ControlPosition } = await google.maps.importLibrary("core");
         const { Map, Data } = await google.maps.importLibrary("maps");
         this.map = new Map(document.getElementById('resultmap'), {
             center: {lat: 45.55, lng: -73.65}, zoom: 9,
