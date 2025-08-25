@@ -81,6 +81,7 @@ window.SearchTool = {
             
 
             this.layer.addListener('click', e => {
+                console.log(e.feature.sectionId);
                 // console.log(e.feature.getProperty('id'), e.feature.getProperty('name'));
                 // this.setFocus(e.feature.getProperty('RTACIDU'));
             });
@@ -101,6 +102,12 @@ window.SearchTool = {
 
         });
     },
+
+
+    getSelectSection: function() {
+        return this.selector.value;
+    },
+
 
 
     setFocus: async function(id) {

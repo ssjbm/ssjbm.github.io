@@ -77,7 +77,7 @@ echo RN . 'EN FRANÇAIS ✊' . RN;
 exit(0);
 
 
-// Download help functions
+// Download helper functions
 function get_shp_file($url, $dest) {
     if($shpFile = current(glob($dest . shp_pattern_from_zip($url)))) return realpath($shpFile);
 

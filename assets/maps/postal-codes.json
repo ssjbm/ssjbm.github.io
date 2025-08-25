@@ -3586,5 +3586,97 @@
         "types": [
             "postal_code"
         ]
+    },
+    "H4R 1Y8": {
+        "address_components": [
+            {
+                "long_name": "H4R 1Y8",
+                "short_name": "H4R 1Y8",
+                "types": [
+                    "postal_code"
+                ]
+            },
+            {
+                "long_name": "Saint-Laurent",
+                "short_name": "Saint-Laurent",
+                "types": [
+                    "political",
+                    "sublocality",
+                    "sublocality_level_1"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "locality",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "administrative_area_level_3",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Montr\u00e9al",
+                "short_name": "Montr\u00e9al",
+                "types": [
+                    "administrative_area_level_2",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Qu\u00e9bec",
+                "short_name": "QC",
+                "types": [
+                    "administrative_area_level_1",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Canada",
+                "short_name": "CA",
+                "types": [
+                    "country",
+                    "political"
+                ]
+            }
+        ],
+        "formatted_address": "Saint-Laurent, QC H4R 1Y8, Canada",
+        "geometry": {
+            "bounds": {
+                "northeast": {
+                    "lat": 45.4994929,
+                    "lng": -73.7067533
+                },
+                "southwest": {
+                    "lat": 45.4981561,
+                    "lng": -73.7075999
+                }
+            },
+            "location": {
+                "lat": 45.4987977,
+                "lng": -73.7070409
+            },
+            "location_type": "APPROXIMATE",
+            "viewport": {
+                "northeast": {
+                    "lat": 45.5001734802915,
+                    "lng": -73.7058276197085
+                },
+                "southwest": {
+                    "lat": 45.4974755197085,
+                    "lng": -73.70852558029152
+                }
+            }
+        },
+        "place_id": "ChIJw_5BhgIYyUwR5t5bg9nFVPo",
+        "types": [
+            "postal_code"
+        ]
     }
 }
