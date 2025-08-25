@@ -24,10 +24,10 @@ window.SearchTool = {
             }
         });
 
-        // const urls = [root + 'secrets.json', root + 'assets/maps/sections.json'];
-        const urls = [root + 'secrets.json', root + 'assets/maps/sections.json'];
-        
-        const requests = urls.map(async url => {
+        const requests = [
+            root + 'secrets.json',
+            root + 'assets/maps/sections.json'
+        ].map(async url => {
             const response = await fetch(url);
             return { url, id: url.match(/([^\/]+)(?=\.\w+$)/)[0], status: response.status, ok: response.ok, data: await response.json()};
         });

@@ -92,7 +92,7 @@ window.SearchTool = {
                 const section = this.findSectionByAreaId(areaId);
                 feature.sectionId = section ? section.id : null;
                 this.featureIdx[areaId] = feature;
-            })
+            });
 
             this.sections.sections.forEach(section => {
                 section.areas.forEach(areaId => {
