@@ -43,6 +43,7 @@ const DIVISIONS = [
     2448, // Acton
     2459, // Marguerite-D’Youville
     2452, // MRC D'Autray
+    2462, // MRC de Matawinie
 
 ];
 
@@ -98,7 +99,7 @@ function get_shp_file($url, $dest) {
     unlink($tmpFile);
 
     foreach($files as $file) if(pathinfo($file, PATHINFO_EXTENSION) == 'shp') return realpath($file);
-    throw err("Can't find shp file in the zip.");
+    err("Can't find shp file in the zip.");
 }
 
 
