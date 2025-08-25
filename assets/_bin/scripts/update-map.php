@@ -50,7 +50,7 @@ $sections = json_decode(file_get_contents($sectionsFile));
 $sectionsFeatures = json_decode(file_get_contents($sectionsFeaturesFile));
 foreach($sectionsFeatures->features as $feature) $bounds[$feature->properties->id] = Geomatic::featureBounds($feature);
 foreach($sections->sections as $section) $section->bounds = $bounds[$section->id];
-file_put_contents($sectionsFile, json_encode($sections, JSON_PRETTY_PRINT)); 
+file_put_contents($sectionsFile, json_encode($sections)); 
 
 
 // Merge Postal Codes with KV API
@@ -75,7 +75,7 @@ if($results->count) {
         $postalCodes->{$postalcode} = clone $elm;
     }
 }
-file_put_contents($postalCodesFile, json_encode($postalCodes, JSON_PRETTY_PRINT));
+file_put_contents($postalCodesFile, json_encode($postalCodes));
 
 
 // Dispatch postal codes in sections

@@ -1,6 +1,3 @@
-const GEOCODER = '';
-
-
 window.SearchTool = {
     sections: null,
     secrets: null,
@@ -10,11 +7,11 @@ window.SearchTool = {
     featureIdx: [],
     colorCodes: [],
     selector: null,
+    lastSectionId: null,
 
     
 
     init: async function () {
-
         const urls = [root + 'secrets.json', root + 'assets/maps/sections.json'];
         const requests = urls.map(async url => {
             const response = await fetch(url);
@@ -24,7 +21,6 @@ window.SearchTool = {
             if(!ok) console.error(`${id} [${status} - ${ok ? "OK" : "ERREUR"}] ${url}`);
             this[id] = data;
         }
-
         this.setReady();
     },
 
@@ -33,8 +29,7 @@ window.SearchTool = {
         const palette = this.getPalette(true);
         this.sections.sections.forEach(s => this.colorCodes[s.id] = palette[s.color]);
         this.selector = document.getElementById('sectionselector').create('select');
- 
-        this.selector.create('option', null, '--- Sélectionner une section ---');
+        this.selector.create('option', null, '--- Sélectionner une section ---').value = '';
 
         this.sections.sections.forEach((s, i) => {
             const opt = this.selector.create('option');
@@ -42,6 +37,12 @@ window.SearchTool = {
             opt.innerText = s.name;
             opt.style.backgroundColor = this.colorCodes[s.id];
         });
+
+        this.selector.addEventListener('change', e => {
+            this.setFocus(this.getSelectSection());
+        });
+
+        document.getElementById('savesection').create('button', null, 'Sauvegarder la carte').addEventListener('click', e => { this.saveJsonMap(); });
 
         this.loadScript('https://maps.googleapis.com/maps/api/js', {
            key:       this.secrets.MAPS_API_KEY,
@@ -52,7 +53,6 @@ window.SearchTool = {
            region:    'CA',
            v:         'weekly',
         });
-
     },
 
 
@@ -78,22 +78,21 @@ window.SearchTool = {
         this.layer = new google.maps.Data({ map: this.map });
         this.layer.setStyle({ fillOpacity: 0.10, strokeWeight: 1, strokeColor: '#a74747ff', fillColor: '#000' });
         this.layer.loadGeoJson(root + '/assets/maps/montreal-areas.geojson', null, (features) => {
-            
-
             this.layer.addListener('click', e => {
-                console.log(e.feature.sectionId);
-                // console.log(e.feature.getProperty('id'), e.feature.getProperty('name'));
-                // this.setFocus(e.feature.getProperty('RTACIDU'));
+                if(e.domEvent.ctrlKey || e.domEvent.metaKey) {
+                    this.selector.value = e.feature.sectionId ?? '';
+                    this.setFocus(e.feature.sectionId);
+                } else {
+                    this.clickArea(e.feature);
+                }
             });
-
-
             features.forEach(feature => {
                 const areaId = feature.getProperty('IDUGD');
                 const section = this.findSectionByAreaId(areaId);
                 feature.sectionId = section ? section.id : null;
+                feature.oldSectionId = null;
                 this.featureIdx[areaId] = feature;
             });
-
             this.sections.sections.forEach(section => {
                 section.areas.forEach(areaId => {
                     this.layer.overrideStyle(this.featureIdx[areaId], { fillColor: this.colorCodes[section.id], strokeColor: this.colorCodes[section.id], fillOpacity: 0.20, strokeWeight: 1 });
@@ -105,42 +104,67 @@ window.SearchTool = {
 
 
     getSelectSection: function() {
-        return this.selector.value;
+        return this.selector.value || null;
     },
 
 
-
     setFocus: async function(id) {
-        const section = this.findSectionById(id);
-        // this.results.innerHTML = `Section ${section.name}`;
-console.log(id);
+        if(this.lastSectionId && id != this.lastSectionId) {
+            const section = this.findSectionById(this.lastSectionId);
+            section.areas.forEach(areaId => { this.layer.overrideStyle(this.featureIdx[areaId], { fillOpacity: 0.20 }); });
+        }
+        if(id) {
+            const bound = new google.maps.LatLngBounds();
+            const section = this.findSectionById(id);
+            section.areas.forEach(areaId => {
+                this.featureIdx[areaId].getGeometry().forEachLatLng(ll => bound.extend(ll));
+                this.layer.overrideStyle(this.featureIdx[areaId], { fillOpacity: 0.50 });
+            });
+            if (!bound.isEmpty()) this.map.fitBounds(bound);
+        } else {
+            const bound = new google.maps.LatLngBounds();
+            this.sections.sections.forEach(section => { section.areas.forEach(areaId => { this.featureIdx[areaId].getGeometry().forEachLatLng(ll => bound.extend(ll)); }); });
+            if (!bound.isEmpty()) this.map.fitBounds(bound);
+        }
+        this.lastSectionId = id;
+    },
 
-        if (this.features[id] !== undefined) {
-            const b = new google.maps.LatLngBounds();
-            this.features[id].getGeometry().forEachLatLng(ll => b.extend(ll));
-            if (!b.isEmpty()) this.map.fitBounds(b);
 
-            
-            for (const i in this.features) {
-                if (this.features.hasOwnProperty(i)) {
-                    if(i == id) this.layer.overrideStyle(this.features[i], { fillOpacity: 0.50 });
-                    else this.layer.overrideStyle(this.features[i], { fillOpacity: 0.20 });
+    clickArea: function(feature) {
+        const sectionId = this.getSelectSection();
+        if(!sectionId) return;
+
+        const section = this.findSectionById(sectionId);
+        const areaId = feature.getProperty('IDUGD');
+
+        if(feature.sectionId) {
+            if(feature.sectionId == sectionId) {
+                if(feature.oldSectionId) {
+                    const oldSection = this.findSectionById(feature.oldSectionId);
+                    oldSection.areas.push(areaId);
+                    section.areas = section.areas.filter(x => x !== areaId);
+                    feature.sectionId = feature.oldSectionId;
+                    feature.oldSectionId = null;
+                    this.layer.overrideStyle(feature, { fillColor: this.colorCodes[oldSection.id], strokeColor: this.colorCodes[oldSection.id], fillOpacity: 0.20, strokeWeight: 1 });
+                } else {
+                    feature.sectionId = null;
+                    section.areas = section.areas.filter(x => x !== areaId);
+                    this.layer.overrideStyle(feature, { fillOpacity: 0.10, strokeWeight: 1, strokeColor: '#a74747ff', fillColor: '#000' });
                 }
+            } else {
+                const oldSection = this.findSectionById(feature.sectionId);
+                oldSection.areas = oldSection.areas.filter(x => x !== areaId);
+                section.areas.push(areaId);
+                feature.oldSectionId = feature.sectionId;
+                feature.sectionId = sectionId;
+                this.layer.overrideStyle(feature, { fillColor: this.colorCodes[sectionId], strokeColor: this.colorCodes[sectionId], fillOpacity: 0.50, strokeWeight: 1 });
+
             }
         } else {
-            const b = new google.maps.LatLngBounds();
-            for (const i in this.features) {
-                if (this.features.hasOwnProperty(i)) {
-                    this.features[i].getGeometry().forEachLatLng(ll => b.extend(ll));
-                    this.layer.overrideStyle(this.features[i], { fillOpacity: 0.20 });
-                }
-            }
-            if (!b.isEmpty()) this.map.fitBounds(b);
+            feature.sectionId = sectionId;
+            section.areas.push(areaId);
+            this.layer.overrideStyle(feature, { fillColor: this.colorCodes[sectionId], strokeColor: this.colorCodes[sectionId], fillOpacity: 0.50, strokeWeight: 1 });
         }
-
-
-        
-
     },
 
 
@@ -153,6 +177,11 @@ console.log(id);
     findSectionById: function(id) {
         const section = this.sections.sections.find(s => s.id == id);
         return section || this.sections.defaultSection || null;
+    },
+
+
+    saveJsonMap: function() {
+        saveJson(this.sections, 'sections.json');
     },
 
 
