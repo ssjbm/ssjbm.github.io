@@ -2,12 +2,16 @@
 /**
  * @type     article
  * @title    Carte du territoire
- * @icon     images/icon3.svg
+ * @icon     images/icon.svg
  * @abstract Outil de modification de la carte du territoire
  */
 ?>
 
-<div class="resultmap" id="map"></div>
+
+
+<div class="sectionselector" id="sectionselector"></div>
+
+<div class="resultmap" id="resultmap"></div>
 
 
 
