@@ -67,15 +67,16 @@ window.SearchTool = {
 
 
     initMap: async function() {
-        const {ColorScheme} = await google.maps.importLibrary("core");
-        this.map = new google.maps.Map(document.getElementById('resultmap'), {
+        const {ColorScheme, ControlPosition} = await google.maps.importLibrary("core");
+        const { Map, Data } = await google.maps.importLibrary("maps");
+        this.map = new Map(document.getElementById('resultmap'), {
             center: {lat: 45.55, lng: -73.65}, zoom: 9,
             streetViewControl: false,
             mapTypeControl: false,
             colorScheme: localStorage.getItem('darkmode') === 'true' ? ColorScheme.DARK : ColorScheme.LIGHT,
         });
 
-        this.layer = new google.maps.Data({ map: this.map });
+        this.layer = new Data({ map: this.map });
         this.layer.setStyle({ fillOpacity: 0.10, strokeWeight: 1, strokeColor: '#a74747ff', fillColor: '#000' });
         this.layer.loadGeoJson(root + '/assets/maps/montreal-areas.geojson', null, (features) => {
             this.layer.addListener('click', e => {
@@ -100,6 +101,27 @@ window.SearchTool = {
             });
 
         });
+
+
+
+  // Ton overlay devient un control
+  const toolbar = document.createElement("div");
+  toolbar.style.cssText = `
+    background:#111827;color:#fff;border-radius:12px;
+    padding:8px 10px; box-shadow:0 2px 8px rgba(0,0,0,.35);
+    font: 14px/1.2 system-ui, sans-serif;/* caché hors fullscreen */
+  `;
+  toolbar.textContent = "Outils fullscreen seulement";
+
+  // Ajout dans la zone TOP_LEFT
+  this.map.controls[ControlPosition.TOP_LEFT].push(toolbar);
+
+
+
+        document.addEventListener("fullscreenchange", e => { this.updateFullscreenLayer(e); });
+        document.addEventListener("webkitfullscreenchange", e => { this.updateFullscreenLayer(e); });
+        // document.addEventListener("webkitfullscreenchange", updateFullscreenLayer);
+
     },
 
 
@@ -165,6 +187,15 @@ window.SearchTool = {
             section.areas.push(areaId);
             this.layer.overrideStyle(feature, { fillColor: this.colorCodes[sectionId], strokeColor: this.colorCodes[sectionId], fillOpacity: 0.50, strokeWeight: 1 });
         }
+    },
+
+
+    updateFullscreenLayer: function(e) {
+
+        const fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+        const fullscreen = (fsEl && this.map.getDiv().contains(fsEl)) || false;
+
+        console.log('FS Changed: ' + fullscreen);
     },
 
 
