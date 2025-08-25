@@ -130,7 +130,7 @@ window.SearchTool = {
     },
 
 
-    clickArea: function(feature) {
+    clickArea: async function(feature) {
         const sectionId = this.getSelectSection();
         if(!sectionId) return;
 
