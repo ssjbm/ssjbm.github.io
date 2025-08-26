@@ -18,9 +18,9 @@ window.SearchTool = {
 
     init: async function () {
         await loadJsonProperties(this, [
-            root + 'secrets.json',
-            root + 'assets/maps/sections.json',
-            root + 'assets/maps/palettes.json'
+            `${root}secrets.json`,
+            `${root}assets/maps/sections.json`,
+            `${root}assets/maps/palettes.json`
         ]);
 
         loadScript('https://maps.googleapis.com/maps/api/js', {
@@ -67,7 +67,7 @@ window.SearchTool = {
         this.map.controls[ControlPosition.TOP_LEFT].push(this.toolbar);
 
         this.layer = new Data({ map: this.map });
-        this.layer.loadGeoJson(root + '/assets/maps/sections.geojson', null, async (features) => {
+        this.layer.loadGeoJson(`${root}/assets/maps/sections.geojson`, null, async (features) => {
             this.layer.addListener('click', e => { this.setFocus(e.feature.getProperty('id')); });
             const palette = this.getPalette(true);
 
@@ -103,18 +103,16 @@ window.SearchTool = {
         const geoLocation = JSON.parse(sessionStorage.getItem('geolocation'));
         if(geoLocation) {
             this.setFocus(this.findSectionByLatLng(geoLocation.coords.latitude, geoLocation.coords.longitude).id);
-        } else {
-            if("geolocation" in navigator) {
-                try {
-                    const s = await (navigator.permissions?.query({ name: 'geolocation' }));
-                    if(s.state !== 'denied') {
-                        navigator.geolocation.getCurrentPosition(pos => {
-                            sessionStorage.setItem('geolocation', JSON.stringify(pos))
-                            this.setFocus(this.findSectionByLatLng(pos.coords.latitude, pos.coords.longitude).id);
-                        }, null, { enableHighAccuracy: true });
-                    }
-                } catch(e) { console.error(e); }
-            }
+        } else if("geolocation" in navigator) {
+            try {
+                const service = await (navigator.permissions?.query({ name: 'geolocation' }));
+                if(service.state !== 'denied') {
+                    navigator.geolocation.getCurrentPosition(pos => {
+                        sessionStorage.setItem('geolocation', JSON.stringify(pos))
+                        this.setFocus(this.findSectionByLatLng(pos.coords.latitude, pos.coords.longitude).id);
+                    }, null, { enableHighAccuracy: true });
+                }
+            } catch(e) { console.error(e); }
         }
     },
 
@@ -123,7 +121,7 @@ window.SearchTool = {
         const section = this.findSectionById(id);
         
         this.toolbar.style.display = 'block';
-        this.toolbar.textContent = "Section " + section.name;
+        this.toolbar.textContent = `Section ${section.name}`;
 
         if(this.features.hasOwnProperty(id)) {
             this.zoomFeatures([this.features[id]]);
@@ -206,7 +204,7 @@ window.SearchTool = {
     },
 
 
-    saveGeocodeRequest: async function(key, data) {
+    saveGeocodeRequest: function(key, data) {
         fetch(`https://script.google.com/macros/s/${this.secrets.KV_API_KEY}/exec`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -220,7 +218,7 @@ window.SearchTool = {
             case "ZERO_RESULTS": return "Aucun résultat pour ce code postal.";
             case "OVER_DAILY_LIMIT":
             case "OVER_QUERY_LIMIT": return "Quota dépassé. Vérifiez la facturation/quota sur Google Cloud.";
-            case "REQUEST_DENIED": return "Requête refusée. Vérifiez les restrictions de la clé API (HTTP referrer) et l’activation de l’API Geocoding.";
+            case "REQUEST_DENIED": return `Requête refusée. Vérifiez les restrictions de la clé API (HTTP referrer) et l’activation de l’API Geocoding.`;
             case "INVALID_REQUEST": return "Requête invalide. Paramètres manquants ou mal formés.";
             case "UNKNOWN_ERROR": return "Erreur inconnue côté Google. Réessayez.";
             default:
