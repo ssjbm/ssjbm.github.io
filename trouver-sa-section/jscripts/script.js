@@ -72,12 +72,13 @@ window.SearchTool = {
             const palette = this.getPalette(true);
 
             features.forEach(feature => {
-                const color = palette[this.findSectionById(feature.getProperty('id')).color % palette.length];
+                const sectionId = feature.getProperty('id');
+                const color = palette[this.findSectionById(sectionId).color % palette.length];
                 this.layer.overrideStyle(feature, { fillColor: color, strokeColor: color, fillOpacity: 0.20, strokeWeight: 2 });
-                this.features[feature.getProperty('id')] = feature;
+                this.features[sectionId] = feature;
                 
                 const geoms = this.dataGeomToPolygons(feature.getGeometry());
-                geoms.forEach((poly) => {
+                geoms.forEach(poly => {
                     const bounds = new LatLngBounds();
                     poly.getPaths().forEach(path => path.forEach(latlng => bounds.extend(latlng)));
                     this.polyIndex.push({ feature, poly, bounds });
@@ -87,9 +88,6 @@ window.SearchTool = {
             this.postalcode.disabled = false;
             this.zoomFeatures(features);            
             this.jumpLocation();
-
-
-
         });
     },
 
@@ -130,9 +128,8 @@ window.SearchTool = {
         if(this.features.hasOwnProperty(id)) {
             this.zoomFeatures([this.features[id]]);
             this.layer.overrideStyle(this.features[id], { fillOpacity: 0.50 });
-            if(this.features.hasOwnProperty(this.lastSectionId)) {
+            if(id !== this.lastSectionId && this.features.hasOwnProperty(this.lastSectionId))
                 this.layer.overrideStyle(this.features[this.lastSectionId], { fillOpacity: 0.20 });
-            }
         } else this.zoomFeatures(Object.values(this.features));
 
         const infos = Object.fromEntries(Object.entries(section.infos).map(([k, v]) => [k, v.join(', ')]));
@@ -185,8 +182,8 @@ window.SearchTool = {
     findSectionByLatLng: function(lat, lng) {
         const feature = this.findContainingFeature({ lat, lng });
         if(!feature) return this.sections.defaultSection || null;
-        const id = feature.getProperty('id');
-        return this.sections.sections.find(s => s.id == id);
+        const sectionId = feature.getProperty('id');
+        return this.sections.sections.find(section => section.id == sectionId);
     },
 
 
@@ -202,6 +199,7 @@ window.SearchTool = {
         const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         if(!(data = await res.json())) throw new Error(`Bad request response format.`);
+        localStorage.setItem(key, JSON.stringify(data));
         this.saveGeocodeRequest(key, data);
 
         return data;
@@ -209,8 +207,7 @@ window.SearchTool = {
 
 
     saveGeocodeRequest: async function(key, data) {
-        localStorage.setItem(key, JSON.stringify(data));
-        fetch('https://script.google.com/macros/s/' + this.secrets.KV_API_KEY + '/exec', {
+        fetch(`https://script.google.com/macros/s/${this.secrets.KV_API_KEY}/exec`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams({ key: key, value: JSON.stringify(data) }),
