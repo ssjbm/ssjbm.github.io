@@ -7,8 +7,7 @@
  */
 ?>
 
-<div class="sectionselector" id="sectionselector"></div>
 <div class="resultmap" id="resultmap"></div>
 <div class="savesection" id="savesection"></div>
 
-<script src="./jscripts/script.js"></script>
+<script src="./jscripts/script.min.js"></script>

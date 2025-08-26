@@ -67,7 +67,7 @@ window.SearchTool = {
         this.map.controls[ControlPosition.TOP_LEFT].push(this.toolbar);
 
         this.layer = new Data({ map: this.map });
-        this.layer.loadGeoJson(`${root}/assets/maps/sections.geojson`, null, async (features) => {
+        this.layer.loadGeoJson(`${root}assets/maps/sections.geojson`, null, async (features) => {
             this.layer.addListener('click', e => { this.setFocus(e.feature.getProperty('id')); });
             const palette = this.getPalette(true);
 
