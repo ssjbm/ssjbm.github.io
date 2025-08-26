@@ -122,20 +122,17 @@ window.SearchTool = {
         const section = this.findSectionById(id);
         this.toolbar.style.display = 'block';
         this.toolbar.textContent = "Section " + section.name;
-        
 
         if (this.features[id] !== undefined) {
             const b = new google.maps.LatLngBounds();
             this.features[id].getGeometry().forEachLatLng(ll => b.extend(ll));
             if (!b.isEmpty()) this.map.fitBounds(b);
-
             for (const i in this.features) {
                 if (this.features.hasOwnProperty(i)) {
                     if(i == id) this.layer.overrideStyle(this.features[i], { fillOpacity: 0.50 });
                     else this.layer.overrideStyle(this.features[i], { fillOpacity: 0.20 });
                 }
             }
-
         } else {
             const b = new google.maps.LatLngBounds();
             for (const i in this.features) {
@@ -272,7 +269,7 @@ window.SearchTool = {
         location.reload();
     },
 
-    
+
     lightSwitchOff: function() {
         location.reload();
     },

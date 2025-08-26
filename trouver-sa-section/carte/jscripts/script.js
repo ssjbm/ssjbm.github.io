@@ -6,8 +6,10 @@ window.SearchTool = {
     layer: null,
     featureIdx: [],
     colorCodes: [],
+    toolbar: null,
     selector: null,
     lastSectionId: null,
+
 
     
 
@@ -76,16 +78,22 @@ window.SearchTool = {
             colorScheme: localStorage.getItem('darkmode') === 'true' ? ColorScheme.DARK : ColorScheme.LIGHT,
         });
 
+        this.toolbar = create('div', 'resultmap-toolbar-section-name');
+        this.map.controls[ControlPosition.TOP_LEFT].push(this.toolbar);
+
         this.layer = new Data({ map: this.map });
         this.layer.setStyle({ fillOpacity: 0.10, strokeWeight: 1, strokeColor: '#a74747ff', fillColor: '#000' });
         this.layer.loadGeoJson(root + '/assets/maps/montreal-areas.geojson', null, (features) => {
             this.layer.addListener('click', e => {
                 if(e.domEvent.ctrlKey || e.domEvent.metaKey) {
-                    this.selector.value = e.feature.sectionId ?? '';
-                    this.setFocus(e.feature.sectionId);
-                } else {
                     this.clickArea(e.feature);
+                } else {
+                    this.selector.value = e.feature.sectionId ?? '';
+                    if(e.feature.sectionId) this.setFocus(e.feature.sectionId);
                 }
+            });
+            this.layer.addListener('rightclick', e => {
+                this.clickArea(e.feature);
             });
             features.forEach(feature => {
                 const areaId = feature.getProperty('IDUGD');
@@ -104,23 +112,11 @@ window.SearchTool = {
 
 
 
-  // Ton overlay devient un control
-  const toolbar = document.createElement("div");
-  toolbar.style.cssText = `
-    background:#111827;color:#fff;border-radius:12px;
-    padding:8px 10px; box-shadow:0 2px 8px rgba(0,0,0,.35);
-    font: 14px/1.2 system-ui, sans-serif;/* caché hors fullscreen */
-  `;
-  toolbar.textContent = "Outils fullscreen seulement";
-
-  // Ajout dans la zone TOP_LEFT
-  this.map.controls[ControlPosition.TOP_LEFT].push(toolbar);
 
 
 
-        document.addEventListener("fullscreenchange", e => { this.updateFullscreenLayer(e); });
-        document.addEventListener("webkitfullscreenchange", e => { this.updateFullscreenLayer(e); });
-        // document.addEventListener("webkitfullscreenchange", updateFullscreenLayer);
+        // document.addEventListener("fullscreenchange", e => { this.updateFullscreenLayer(e); });
+        // document.addEventListener("webkitfullscreenchange", e => { this.updateFullscreenLayer(e); });
 
     },
 
@@ -131,18 +127,24 @@ window.SearchTool = {
 
 
     setFocus: async function(id) {
+
+
+
         if(this.lastSectionId && id != this.lastSectionId) {
-            const section = this.findSectionById(this.lastSectionId);
-            section.areas.forEach(areaId => { this.layer.overrideStyle(this.featureIdx[areaId], { fillOpacity: 0.20 }); });
+            // const section = this.findSectionById(this.lastSectionId);
+            this.findSectionById(this.lastSectionId).areas.forEach(areaId => { this.layer.overrideStyle(this.featureIdx[areaId], { fillOpacity: 0.20 }); });
         }
         if(id) {
             const bound = new google.maps.LatLngBounds();
             const section = this.findSectionById(id);
+            this.toolbar.style.display = 'block';
+            this.toolbar.textContent = "Section " + section.name;
             section.areas.forEach(areaId => {
                 this.featureIdx[areaId].getGeometry().forEachLatLng(ll => bound.extend(ll));
                 this.layer.overrideStyle(this.featureIdx[areaId], { fillOpacity: 0.50 });
             });
             if (!bound.isEmpty()) this.map.fitBounds(bound);
+            
         } else {
             const bound = new google.maps.LatLngBounds();
             this.sections.sections.forEach(section => { section.areas.forEach(areaId => { this.featureIdx[areaId].getGeometry().forEachLatLng(ll => bound.extend(ll)); }); });
@@ -189,13 +191,13 @@ window.SearchTool = {
     },
 
 
-    updateFullscreenLayer: function(e) {
+    // updateFullscreenLayer: function(e) {
 
-        const fsEl = document.fullscreenElement || document.webkitFullscreenElement;
-        const fullscreen = (fsEl && this.map.getDiv().contains(fsEl)) || false;
+    //     const fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    //     const fullscreen = (fsEl && this.map.getDiv().contains(fsEl)) || false;
 
-        console.log('FS Changed: ' + fullscreen);
-    },
+    //     console.log('FS Changed: ' + fullscreen);
+    // },
 
 
     findSectionByAreaId: function(areaId) {
