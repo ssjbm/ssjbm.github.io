@@ -17,7 +17,6 @@ window.SearchTool = {
     
 
     init: async function () {
-
         await loadJsonProperties(this, [
             root + 'secrets.json',
             root + 'assets/maps/sections.json',
