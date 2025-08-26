@@ -39,7 +39,8 @@ window.SearchTool = {
            region:    'CA',
            v:         'weekly',
         });
-
+        
+        setTimeout(() => { $app.registerLightSwitch(this); }, 1);
     },
 
 
@@ -264,6 +265,16 @@ window.SearchTool = {
             }
         }
         return null;
+    },
+
+
+    lightSwitchOn: function() {
+        location.reload();
+    },
+
+    
+    lightSwitchOff: function() {
+        location.reload();
     },
 
 
