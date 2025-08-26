@@ -84,6 +84,7 @@ window.SearchTool = {
         this.layer = new Data({ map: this.map });
         this.layer.setStyle({ fillOpacity: 0.10, strokeWeight: 1, strokeColor: '#a74747ff', fillColor: '#000' });
         this.layer.loadGeoJson(root + '/assets/maps/montreal-areas.geojson', null, (features) => {
+            this.layer.addListener('rightclick', e => this.clickArea(e.feature));
             this.layer.addListener('click', e => {
                 if(e.domEvent.ctrlKey || e.domEvent.metaKey) {
                     this.clickArea(e.feature);
@@ -92,9 +93,7 @@ window.SearchTool = {
                     if(e.feature.sectionId) this.setFocus(e.feature.sectionId);
                 }
             });
-            this.layer.addListener('rightclick', e => {
-                this.clickArea(e.feature);
-            });
+            
             features.forEach(feature => {
                 const areaId = feature.getProperty('IDUGD');
                 const section = this.findSectionByAreaId(areaId);
