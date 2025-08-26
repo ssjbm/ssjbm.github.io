@@ -86,17 +86,10 @@ window.SearchTool = {
 
             this.postalcode.disabled = false;
             this.zoomFeatures(features);            
+            this.jumpLocation();
 
-            if("geolocation" in navigator) {
-                try {
-                    const s = await (navigator.permissions?.query({ name: 'geolocation' }));
-                    if(s.state !== 'denied') {
-                        navigator.geolocation.getCurrentPosition(pos => {
-                            this.setFocus(this.findSectionByLatLng(pos.coords.latitude, pos.coords.longitude).id);
-                        }, null, { enableHighAccuracy: true });
-                    }
-                } catch(e) { console.error(e); }
-            }
+
+
         });
     },
 
@@ -105,6 +98,26 @@ window.SearchTool = {
         const bounds = new google.maps.LatLngBounds();
         features.forEach(feature => feature.getGeometry().forEachLatLng(latlng => bounds.extend(latlng)));
         if(!bounds.isEmpty()) this.map.fitBounds(bounds);
+    },
+
+
+    jumpLocation: async function() {
+        const geoLocation = JSON.parse(sessionStorage.getItem('geolocation'));
+        if(geoLocation) {
+            this.setFocus(this.findSectionByLatLng(geoLocation.coords.latitude, geoLocation.coords.longitude).id);
+        } else {
+            if("geolocation" in navigator) {
+                try {
+                    const s = await (navigator.permissions?.query({ name: 'geolocation' }));
+                    if(s.state !== 'denied') {
+                        navigator.geolocation.getCurrentPosition(pos => {
+                            sessionStorage.setItem('geolocation', JSON.stringify(pos))
+                            this.setFocus(this.findSectionByLatLng(pos.coords.latitude, pos.coords.longitude).id);
+                        }, null, { enableHighAccuracy: true });
+                    }
+                } catch(e) { console.error(e); }
+            }
+        }
     },
 
 
