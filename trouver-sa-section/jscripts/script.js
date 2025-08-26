@@ -68,7 +68,7 @@ window.SearchTool = {
 
         this.layer = new Data({ map: this.map });
         this.layer.loadGeoJson(`${root}assets/maps/sections.geojson`, null, async (features) => {
-            this.layer.addListener('click', e => { this.setFocus(e.feature.getProperty('id')); });
+            this.layer.addListener('click', e => this.setFocus(e.feature.getProperty('id')));
             const palette = this.getPalette(true);
 
             features.forEach(feature => {
@@ -108,7 +108,7 @@ window.SearchTool = {
                 const service = await (navigator.permissions?.query({ name: 'geolocation' }));
                 if(service.state !== 'denied') {
                     navigator.geolocation.getCurrentPosition(pos => {
-                        sessionStorage.setItem('geolocation', JSON.stringify(pos))
+                        sessionStorage.setItem('geolocation', JSON.stringify(pos));
                         this.setFocus(this.findSectionByLatLng(pos.coords.latitude, pos.coords.longitude).id);
                     }, null, { enableHighAccuracy: true });
                 }
@@ -213,16 +213,15 @@ window.SearchTool = {
     },
 
 
-    statusMessage: function (status, errorMessage) {
+    statusMessage: function (status, msg) {
         switch (status) {
-            case "ZERO_RESULTS": return "Aucun résultat pour ce code postal.";
             case "OVER_DAILY_LIMIT":
             case "OVER_QUERY_LIMIT": return "Quota dépassé. Vérifiez la facturation/quota sur Google Cloud.";
             case "REQUEST_DENIED": return `Requête refusée. Vérifiez les restrictions de la clé API (HTTP referrer) et l’activation de l’API Geocoding.`;
             case "INVALID_REQUEST": return "Requête invalide. Paramètres manquants ou mal formés.";
             case "UNKNOWN_ERROR": return "Erreur inconnue côté Google. Réessayez.";
-            default:
-                return errorMessage || `Statut inattendu: ${status || "inconnu"}`;
+            case "ZERO_RESULTS": return "Aucun résultat pour ce code postal.";
+            default: return msg || `Statut inattendu: ${status || "inconnu"}`;
         }
     },
 
@@ -239,9 +238,7 @@ window.SearchTool = {
     findContainingFeature: function (latLng) {
         for (const { feature, poly, bounds } of this.polyIndex) {
             if (!bounds.contains(latLng)) continue;
-            if (google.maps.geometry.poly.containsLocation(latLng, poly)) {
-                return feature;
-            }
+            if (google.maps.geometry.poly.containsLocation(latLng, poly)) return feature;
         }
         return null;
     },
@@ -266,4 +263,4 @@ window.SearchTool = {
 };
 
 
-ready(() => { SearchTool.init(); });
+ready(() => SearchTool.init());

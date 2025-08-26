@@ -177,4 +177,4 @@ window.SearchTool = {
 };
 
 
-ready(() => { SearchTool.init(); });
+ready(() => SearchTool.init());
