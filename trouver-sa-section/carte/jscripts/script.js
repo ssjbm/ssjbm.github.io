@@ -12,23 +12,28 @@ window.SearchTool = {
     lastSectionId: null,
 
 
-    
-
     init: async function () {
-        const urls = [root + 'secrets.json', root + 'assets/maps/sections.json', root + 'assets/maps/palettes.json'];
-        const requests = urls.map(async url => {
-            const response = await fetch(url);
-            return { url, id: url.match(/([^\/]+)(?=\.\w+$)/)[0], status: response.status, ok: response.ok, data: await response.json()};
-        });
-        for await (const {url, id, status, ok, data} of requests) {
-            if(!ok) console.error(`${id} [${status} - ${ok ? "OK" : "ERREUR"}] ${url}`);
-            this[id] = data;
-        }
-        this.setReady();
+        await loadJsonProperties(this, [
+            root + 'secrets.json',
+            root + 'assets/maps/sections.json',
+            root + 'assets/maps/palettes.json'
+        ]);
+
+        loadScript('https://maps.googleapis.com/maps/api/js', {
+           key:       this.secrets.MAPS_API_KEY,
+           callback:  'SearchTool.initMap',
+           libraries: 'geometry',
+           loading:   'async',
+           language:  'fr',
+           region:    'CA',
+           v:         'weekly',
+        }, true);        
+
+        this.initFields();
     },
 
 
-    setReady: function() {        
+    initFields: async function() {        
         const palette = this.getPalette(true);
         this.sections.sections.forEach(s => this.colorCodes[s.id] = palette[s.color % palette.length]);
         this.selector = document.getElementById('sectionselector').create('select');
@@ -41,31 +46,9 @@ window.SearchTool = {
             opt.style.backgroundColor = this.colorCodes[s.id];
         });
 
-        this.selector.addEventListener('change', e => {
-            this.setFocus(this.getSelectSection());
-        });
-
+        this.selector.addEventListener('change', e => this.setFocus(this.getSelectSection()));
         document.getElementById('savesection').create('button', null, 'Sauvegarder la carte').addEventListener('click', e => { this.saveJsonMap(); });
-
-        this.loadScript('https://maps.googleapis.com/maps/api/js', {
-           key:       this.secrets.MAPS_API_KEY,
-           callback:  'SearchTool.initMap',
-           libraries: 'geometry',
-           loading:   'async',
-           language:  'fr',
-           region:    'CA',
-           v:         'weekly',
-        });
-    },
-
-
-    loadScript: async function(endpoint, params = {}) {
-        const url = new URL(endpoint);
-        Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
-        const script = document.createElement('script');
-        script.src = url.toString();
-        script.async = true;
-        document.head.appendChild(script);
+        setTimeout(() => $app.registerLightSwitch(this), 1);
     },
 
 
@@ -125,9 +108,8 @@ window.SearchTool = {
 
     setFocus: async function(id) {
 
-        if(this.lastSectionId && id != this.lastSectionId) {
-            this.findSectionById(this.lastSectionId).areas.forEach(areaId => this.layer.overrideStyle(this.featureIdx[areaId], { fillOpacity: 0.20 }));
-        }
+        if(this.lastSectionId && id != this.lastSectionId)
+                this.findSectionById(this.lastSectionId).areas.forEach(areaId => this.layer.overrideStyle(this.featureIdx[areaId], { fillOpacity: 0.20 }));
         if(id) {
             const bound = new google.maps.LatLngBounds();
             const section = this.findSectionById(id);
@@ -138,10 +120,9 @@ window.SearchTool = {
                 this.layer.overrideStyle(this.featureIdx[areaId], { fillOpacity: 0.50 });
             });
             if (!bound.isEmpty()) this.map.fitBounds(bound);
-            
         } else {
             const bound = new google.maps.LatLngBounds();
-            this.sections.sections.forEach(section => { section.areas.forEach(areaId => { this.featureIdx[areaId].getGeometry().forEachLatLng(ll => bound.extend(ll)); }); });
+            this.sections.sections.forEach(section => section.areas.forEach(areaId => this.featureIdx[areaId].getGeometry().forEachLatLng(ll => bound.extend(ll))));
             if (!bound.isEmpty()) this.map.fitBounds(bound);
         }
         this.lastSectionId = id;
@@ -208,6 +189,9 @@ window.SearchTool = {
             [full ? 'full' : 'partial'];
     },
 
+
+    lightSwitchOn: function() { location.reload(); },
+    lightSwitchOff: function() { location.reload(); },
 };
 
 
