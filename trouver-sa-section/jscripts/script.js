@@ -21,6 +21,7 @@ window.SearchTool = {
             if (value.length > 3) value = value.slice(0,3) + ' ' + value.slice(3);
             this.postalcode.value = value.toUpperCase();
             if(this.postalcode.checkValidity()) {
+                this.shakeElement(this.postalcode);
                 this.searchSection(this.postalcode.value);
             }
         });
@@ -237,10 +238,9 @@ window.SearchTool = {
 
     dataGeomToPolygons: function (geom) {
         const out = [];
-        const type = geom.getType(); // 'Polygon' | 'MultiPolygon' | ...
+        const type = geom.getType();
         if (type === 'Polygon') {
             out.push(new google.maps.Polygon({
-                // rings: [outer, hole1, hole2, ...]
                 paths: geom.getArray().map(ring => ring.getArray())
             }));
         } else if (type === 'MultiPolygon') {
@@ -256,9 +256,9 @@ window.SearchTool = {
 
     findContainingFeature: function (latLng) {
         for (const { feature, poly, bounds } of this.polyIndex) {
-            if (!bounds.contains(latLng)) continue; // rejet rapide
+            if (!bounds.contains(latLng)) continue;
             if (google.maps.geometry.poly.containsLocation(latLng, poly)) {
-                return feature; // trouvé !
+                return feature;
             }
         }
         return null;
@@ -272,6 +272,13 @@ window.SearchTool = {
 
     lightSwitchOff: function() {
         location.reload();
+    },
+
+
+    shakeElement: async function(elm, t = 500) {
+        elm.classList.add('shake');
+        await sleep(t);
+        elm.classList.remove('shake');
     },
 
 

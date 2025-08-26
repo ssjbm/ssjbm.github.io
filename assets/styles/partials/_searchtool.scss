@@ -158,3 +158,25 @@ div.savesection {
         cursor: pointer;
     }
 }
+
+.shake {
+    filter: blur(0.01rem);
+    animation-name: shake;
+    animation-duration: 50ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    transform-origin: center center;
+
+}
+
+
+
+@keyframes shake {
+    0% {
+        transform: translate(-1%, 1%) rotate(-3deg);
+    }
+
+    100% {
+        transform: translate(1%, -1%) rotate(3deg);
+    }
+}

@@ -29,7 +29,7 @@ window.SearchTool = {
 
     setReady: function() {        
         const palette = this.getPalette(true);
-        this.sections.sections.forEach(s => this.colorCodes[s.id] = palette[s.color]);
+        this.sections.sections.forEach(s => this.colorCodes[s.id] = palette[s.color % palette.length]);
         this.selector = document.getElementById('sectionselector').create('select');
         this.selector.create('option', null, '--- Sélectionner une section ---').value = '';
 
@@ -109,14 +109,6 @@ window.SearchTool = {
 
         });
 
-
-
-
-
-
-        // document.addEventListener("fullscreenchange", e => { this.updateFullscreenLayer(e); });
-        // document.addEventListener("webkitfullscreenchange", e => { this.updateFullscreenLayer(e); });
-
     },
 
 
@@ -127,11 +119,8 @@ window.SearchTool = {
 
     setFocus: async function(id) {
 
-
-
         if(this.lastSectionId && id != this.lastSectionId) {
-            // const section = this.findSectionById(this.lastSectionId);
-            this.findSectionById(this.lastSectionId).areas.forEach(areaId => { this.layer.overrideStyle(this.featureIdx[areaId], { fillOpacity: 0.20 }); });
+            this.findSectionById(this.lastSectionId).areas.forEach(areaId => this.layer.overrideStyle(this.featureIdx[areaId], { fillOpacity: 0.20 }));
         }
         if(id) {
             const bound = new google.maps.LatLngBounds();
