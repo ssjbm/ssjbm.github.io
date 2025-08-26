@@ -1,5 +1,6 @@
 window.SearchTool = {
     sections: null,
+    palettes: null,
     secrets: null,
 
     map: null,
@@ -14,7 +15,7 @@ window.SearchTool = {
     
 
     init: async function () {
-        const urls = [root + 'secrets.json', root + 'assets/maps/sections.json'];
+        const urls = [root + 'secrets.json', root + 'assets/maps/sections.json', root + 'assets/maps/palettes.json'];
         const requests = urls.map(async url => {
             const response = await fetch(url);
             return { url, id: url.match(/([^\/]+)(?=\.\w+$)/)[0], status: response.status, ok: response.ok, data: await response.json()};
@@ -103,7 +104,12 @@ window.SearchTool = {
             });
             this.sections.sections.forEach(section => {
                 section.areas.forEach(areaId => {
-                    this.layer.overrideStyle(this.featureIdx[areaId], { fillColor: this.colorCodes[section.id], strokeColor: this.colorCodes[section.id], fillOpacity: 0.20, strokeWeight: 1 });
+                    this.layer.overrideStyle(this.featureIdx[areaId], {
+                        fillColor: this.colorCodes[section.id],
+                        strokeColor: this.colorCodes[section.id],
+                        strokeWeight: 1,
+                        fillOpacity: 0.20
+                    });
                 });
             });
 
@@ -179,15 +185,6 @@ window.SearchTool = {
     },
 
 
-    // updateFullscreenLayer: function(e) {
-
-    //     const fsEl = document.fullscreenElement || document.webkitFullscreenElement;
-    //     const fullscreen = (fsEl && this.map.getDiv().contains(fsEl)) || false;
-
-    //     console.log('FS Changed: ' + fullscreen);
-    // },
-
-
     findSectionByAreaId: function(areaId) {
         const section = this.sections.sections.find(s => Array.isArray(s.areas) && s.areas.includes(areaId));
         return section || null;
@@ -206,66 +203,9 @@ window.SearchTool = {
 
 
     getPalette: function(full = false) {
-        if(localStorage.getItem('darkmode') === 'true') {
-            if(full) return [
-                '#ef4444', // red
-                '#f97316', // orange
-                '#f59e0b', // amber
-                '#eab308', // yellow
-                '#84cc16', // lime
-                '#22c55e', // green
-                '#10b981', // emerald
-                '#14b8a6', // teal
-                '#06b6d4', // cyan
-                '#0ea5e9', // sky
-                '#3b82f6', // blue
-                '#6366f1', // indigo
-                '#8b5cf6', // violet
-                '#a855f7', // purple
-                '#d946ef', // fuchsia
-                '#ec4899'  // pink
-            ];
-            else return [
-                '#ef4444', // red
-                '#f59e0b', // amber
-                '#84cc16', // lime
-                '#10b981', // emerald
-                '#06b6d4', // cyan
-                '#3b82f6', // blue
-                '#8b5cf6', // violet
-                '#ec4899'  // pink
-            ];
-        } else {
-            if(full) return [
-                '#b91c1c', // red-700
-                '#c2410c', // orange-700
-                '#b45309', // amber-700
-                '#854d0e', // yellow-800 (jaune plus foncé = lisible)
-                '#4d7c0f', // lime-700
-                '#15803d', // green-700
-                '#047857', // emerald-700
-                '#0f766e', // teal-700
-                '#0e7490', // cyan-700
-                '#0369a1', // sky-700
-                '#1d4ed8', // blue-700
-                '#4338ca', // indigo-700
-                '#6d28d9', // violet-700
-                '#7e22ce', // purple-700
-                '#a21caf', // fuchsia-700
-                '#be185d'  // pink-700
-            ];
-            else return [
-                '#b91c1c', // red-700
-                '#b45309', // amber-700
-                '#4d7c0f', // lime-700
-                '#047857', // emerald-700
-                '#0e7490', // cyan-700
-                '#1d4ed8', // blue-700
-                '#6d28d9', // violet-700
-                '#be185d'  // pink-700
-            ];
-
-        }
+        return this.palettes
+            [localStorage.getItem('darkmode') === 'true' ? 'dark' : 'light']
+            [full ? 'full' : 'partial'];
     },
 
 };

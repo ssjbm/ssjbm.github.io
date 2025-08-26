@@ -1,16 +1,19 @@
 window.SearchTool = {
 
     sections: null,
+    palettes: null,
     secrets: null,
     postalcode: null,
     results: null,
     infos: null,
-    toolbar: null,
+    
 
     map: null,
     layer: null,
+    toolbar: null,
     features: {},
     polyIndex: [],
+    
 
 
     init: async function () {
@@ -28,7 +31,8 @@ window.SearchTool = {
 
         await this.loadJsonProperties([
             root + 'secrets.json',
-            root + 'assets/maps/sections.json'
+            root + 'assets/maps/sections.json',
+            root + 'assets/maps/palettes.json'
         ]);
 
         this.loadScript('https://maps.googleapis.com/maps/api/js', {
@@ -68,8 +72,10 @@ window.SearchTool = {
 
 
     initMap: async function() {
-        const { ColorScheme, ControlPosition } = await google.maps.importLibrary("core");
-        this.map = new google.maps.Map(document.getElementById('map'), {
+        const { ColorScheme, ControlPosition, LatLngBounds } = await google.maps.importLibrary("core");
+        const { Map, Data } = await google.maps.importLibrary("maps");
+        
+        this.map = new Map(document.getElementById('map'), {
             streetViewControl: false,
             mapTypeControl: false,
             colorScheme: localStorage.getItem('darkmode') === 'true' ? ColorScheme.DARK : ColorScheme.LIGHT,
@@ -78,32 +84,29 @@ window.SearchTool = {
         this.toolbar = create('div', 'resultmap-toolbar-section-name');
         this.map.controls[ControlPosition.TOP_LEFT].push(this.toolbar);
 
-        this.layer = new google.maps.Data({ map: this.map });
+        this.layer = new Data({ map: this.map });
         this.layer.loadGeoJson(root + '/assets/maps/sections.geojson', null, async (features) => {
             this.layer.addListener('click', e => { this.setFocus(e.feature.getProperty('id')); });
 
-            // Fit aux polygones chargés
-            const b = new google.maps.LatLngBounds();
-            features.forEach(f => f.getGeometry().forEachLatLng(ll => b.extend(ll)));
-            if (!b.isEmpty()) this.map.fitBounds(b);
-
+            const bounds = new LatLngBounds();
             const palette = this.getPalette(true);
-            features.forEach((feature, i) => {
-
+            features.forEach(feature => {
+                feature.getGeometry().forEachLatLng(ll => bounds.extend(ll));
                 this.features[feature.getProperty('id')] = feature;
                 const c = palette[this.findSectionById(feature.getProperty('id')).color % palette.length];
                 this.layer.overrideStyle(feature, { fillColor: c, strokeColor: c, fillOpacity: 0.20, strokeWeight: 2 });
-
+                
                 const geoms = this.dataGeomToPolygons(feature.getGeometry());
                 geoms.forEach((poly) => {
-                    const bounds = new google.maps.LatLngBounds();
-                    poly.getPaths().forEach(path => path.forEach(ll => bounds.extend(ll)));
-                    this.polyIndex.push({ feature, poly, bounds });
+                    const b = new LatLngBounds();
+                    poly.getPaths().forEach(path => path.forEach(ll => b.extend(ll)));
+                    this.polyIndex.push({ feature, poly, b });
                 });
 
             });
-
             this.postalcode.disabled = false;
+            if (!bounds.isEmpty()) this.map.fitBounds(bounds);
+            
 
             if("geolocation" in navigator) {
                 try {
@@ -283,66 +286,9 @@ window.SearchTool = {
 
 
     getPalette: function(full = false) {
-        if(localStorage.getItem('darkmode') === 'true') {
-            if(full) return [
-                '#ef4444', // red
-                '#f97316', // orange
-                '#f59e0b', // amber
-                '#eab308', // yellow
-                '#84cc16', // lime
-                '#22c55e', // green
-                '#10b981', // emerald
-                '#14b8a6', // teal
-                '#06b6d4', // cyan
-                '#0ea5e9', // sky
-                '#3b82f6', // blue
-                '#6366f1', // indigo
-                '#8b5cf6', // violet
-                '#a855f7', // purple
-                '#d946ef', // fuchsia
-                '#ec4899'  // pink
-            ];
-            else return [
-                '#ef4444', // red
-                '#f59e0b', // amber
-                '#84cc16', // lime
-                '#10b981', // emerald
-                '#06b6d4', // cyan
-                '#3b82f6', // blue
-                '#8b5cf6', // violet
-                '#ec4899'  // pink
-            ];
-        } else {
-            if(full) return [
-                '#b91c1c', // red-700
-                '#c2410c', // orange-700
-                '#b45309', // amber-700
-                '#854d0e', // yellow-800 (jaune plus foncé = lisible)
-                '#4d7c0f', // lime-700
-                '#15803d', // green-700
-                '#047857', // emerald-700
-                '#0f766e', // teal-700
-                '#0e7490', // cyan-700
-                '#0369a1', // sky-700
-                '#1d4ed8', // blue-700
-                '#4338ca', // indigo-700
-                '#6d28d9', // violet-700
-                '#7e22ce', // purple-700
-                '#a21caf', // fuchsia-700
-                '#be185d'  // pink-700
-            ];
-            else return [
-                '#b91c1c', // red-700
-                '#b45309', // amber-700
-                '#4d7c0f', // lime-700
-                '#047857', // emerald-700
-                '#0e7490', // cyan-700
-                '#1d4ed8', // blue-700
-                '#6d28d9', // violet-700
-                '#be185d'  // pink-700
-            ];
-
-        }
+        return this.palettes
+            [localStorage.getItem('darkmode') === 'true' ? 'dark' : 'light']
+            [full ? 'full' : 'partial'];
     },
 
 
