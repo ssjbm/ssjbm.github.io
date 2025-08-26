@@ -91,10 +91,13 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: 80%;
+    max-width: calc(100% - 70px);
     user-select: none;
     display: none;
-    @media (orientation: portrait) {
+    -webkit-appearance: none;
+    appearance: none;
+
+    @media (max-width: 576px)  {
         visibility: hidden;
     }
 }
