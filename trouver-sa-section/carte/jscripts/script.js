@@ -15,11 +15,11 @@ window.SearchTool = {
 
 
     init: async function () {
-        await loadJsonProperties(this, [
-            `${root}secrets.json`,
-            `${root}assets/maps/sections.json`,
-            `${root}assets/maps/palettes.json`
-        ]);
+        await loadJsonProperties(this, {
+            secrets:  `${root}secrets.json`,
+            sections: `${root}assets/maps/sections.json`,
+            palettes: `${root}assets/maps/palettes.json`
+        });
 
         loadScript('https://maps.googleapis.com/maps/api/js', {
            key:       this.secrets.MAPS_API_KEY,
