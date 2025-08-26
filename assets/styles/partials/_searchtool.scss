@@ -94,6 +94,9 @@
     max-width: 80%;
     user-select: none;
     display: none;
+    @media (orientation: portrait) {
+        visibility: hidden;
+    }
 }
 
 .resultinfo {

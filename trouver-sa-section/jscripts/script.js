@@ -119,8 +119,9 @@ window.SearchTool = {
 
     setFocus: async function(id) {
         const section = this.findSectionById(id);
-        this.toolbar.textContent = "Section " + section.name;
         this.toolbar.style.display = 'block';
+        this.toolbar.textContent = "Section " + section.name;
+        
 
         if (this.features[id] !== undefined) {
             const b = new google.maps.LatLngBounds();
