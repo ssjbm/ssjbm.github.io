@@ -6,17 +6,39 @@ window.SearchTool = {
     postalcode: null,
     results: null,
     infos: null,
-    
 
     map: null,
     layer: null,
     toolbar: null,
-    features: {},
+    features: [],
     polyIndex: [],
+
+    lastSectionId: null,
     
 
-
     init: async function () {
+
+        await loadJsonProperties(this, [
+            root + 'secrets.json',
+            root + 'assets/maps/sections.json',
+            root + 'assets/maps/palettes.json'
+        ]);
+
+        loadScript('https://maps.googleapis.com/maps/api/js', {
+            key:       this.secrets.MAPS_API_KEY,
+            callback:  'SearchTool.initMap',
+            libraries: 'geometry',
+            loading:   'async',
+            language:  'fr',
+            region:    'CA',
+            v:         'weekly',
+        }, true);
+
+        this.initFields();
+    },
+
+
+    initFields: async function() {
         this.infos = document.getElementById('info');
         this.postalcode = document.getElementById('searchtool_postalcode');
         this.postalcode.addEventListener('input', () => {
@@ -28,46 +50,7 @@ window.SearchTool = {
                 this.searchSection(this.postalcode.value);
             }
         });
-
-        await this.loadJsonProperties([
-            root + 'secrets.json',
-            root + 'assets/maps/sections.json',
-            root + 'assets/maps/palettes.json'
-        ]);
-
-        this.loadScript('https://maps.googleapis.com/maps/api/js', {
-           key:       this.secrets.MAPS_API_KEY,
-           callback:  'SearchTool.initMap',
-           libraries: 'geometry',
-           loading:   'async',
-           language:  'fr',
-           region:    'CA',
-           v:         'weekly',
-        });
-        
-        setTimeout(() => { $app.registerLightSwitch(this); }, 1);
-    },
-
-
-    loadJsonProperties: async function(files = []) {
-        const requests = files.map(async url => {
-            const response = await fetch(url);
-            return { url, id: url.match(/([^\/]+)(?=\.\w+$)/)[0], status: response.status, ok: response.ok, data: await response.json()};
-        });
-        for await (const {url, id, status, ok, data} of requests) {
-            if(!ok) console.error(`${id} [${status} - ${ok ? "OK" : "ERREUR"}] ${url}`);
-            this[id] = data;
-        }
-    },
-
-
-    loadScript: async function(endpoint, params = {}) {
-        const url = new URL(endpoint);
-        Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
-        const script = document.createElement('script');
-        script.src = url.toString();
-        script.async = true;
-        document.head.appendChild(script);
+        setTimeout(() => $app.registerLightSwitch(this), 1);
     },
 
 
@@ -87,26 +70,23 @@ window.SearchTool = {
         this.layer = new Data({ map: this.map });
         this.layer.loadGeoJson(root + '/assets/maps/sections.geojson', null, async (features) => {
             this.layer.addListener('click', e => { this.setFocus(e.feature.getProperty('id')); });
-
-            const bounds = new LatLngBounds();
             const palette = this.getPalette(true);
+
             features.forEach(feature => {
-                feature.getGeometry().forEachLatLng(ll => bounds.extend(ll));
+                const color = palette[this.findSectionById(feature.getProperty('id')).color % palette.length];
+                this.layer.overrideStyle(feature, { fillColor: color, strokeColor: color, fillOpacity: 0.20, strokeWeight: 2 });
                 this.features[feature.getProperty('id')] = feature;
-                const c = palette[this.findSectionById(feature.getProperty('id')).color % palette.length];
-                this.layer.overrideStyle(feature, { fillColor: c, strokeColor: c, fillOpacity: 0.20, strokeWeight: 2 });
                 
                 const geoms = this.dataGeomToPolygons(feature.getGeometry());
                 geoms.forEach((poly) => {
-                    const b = new LatLngBounds();
-                    poly.getPaths().forEach(path => path.forEach(ll => b.extend(ll)));
-                    this.polyIndex.push({ feature, poly, b });
+                    const bounds = new LatLngBounds();
+                    poly.getPaths().forEach(path => path.forEach(latlng => bounds.extend(latlng)));
+                    this.polyIndex.push({ feature, poly, bounds });
                 });
-
             });
+
             this.postalcode.disabled = false;
-            if (!bounds.isEmpty()) this.map.fitBounds(bounds);
-            
+            this.zoomFeatures(features);            
 
             if("geolocation" in navigator) {
                 try {
@@ -122,31 +102,26 @@ window.SearchTool = {
     },
 
 
+    zoomFeatures: async function(features = []) {
+        const bounds = new google.maps.LatLngBounds();
+        features.forEach(feature => feature.getGeometry().forEachLatLng(latlng => bounds.extend(latlng)));
+        if(!bounds.isEmpty()) this.map.fitBounds(bounds);
+    },
+
+
     setFocus: async function(id) {
         const section = this.findSectionById(id);
+        
         this.toolbar.style.display = 'block';
         this.toolbar.textContent = "Section " + section.name;
 
-        if (this.features[id] !== undefined) {
-            const b = new google.maps.LatLngBounds();
-            this.features[id].getGeometry().forEachLatLng(ll => b.extend(ll));
-            if (!b.isEmpty()) this.map.fitBounds(b);
-            for (const i in this.features) {
-                if (this.features.hasOwnProperty(i)) {
-                    if(i == id) this.layer.overrideStyle(this.features[i], { fillOpacity: 0.50 });
-                    else this.layer.overrideStyle(this.features[i], { fillOpacity: 0.20 });
-                }
+        if(this.features.hasOwnProperty(id)) {
+            this.zoomFeatures([this.features[id]]);
+            this.layer.overrideStyle(this.features[id], { fillOpacity: 0.50 });
+            if(this.features.hasOwnProperty(this.lastSectionId)) {
+                this.layer.overrideStyle(this.features[this.lastSectionId], { fillOpacity: 0.20 });
             }
-        } else {
-            const b = new google.maps.LatLngBounds();
-            for (const i in this.features) {
-                if (this.features.hasOwnProperty(i)) {
-                    this.features[i].getGeometry().forEachLatLng(ll => b.extend(ll));
-                    this.layer.overrideStyle(this.features[i], { fillOpacity: 0.20 });
-                }
-            }
-            if (!b.isEmpty()) this.map.fitBounds(b);
-        }
+        } else this.zoomFeatures(Object.values(this.features));
 
         const infos = Object.fromEntries(Object.entries(section.infos).map(([k, v]) => [k, v.join(', ')]));
         let html = `<table class="section_results"><thead><tr><th colspan="2">Section ${section.name}</th></tr><thead><tbody>`;
@@ -159,12 +134,13 @@ window.SearchTool = {
             html += `<tr><td>Contact :</td><td><a href="mailto:${section.email}">${section.email}</a></td></tr>`;
             html += `</tbody></table>`;
         this.infos.innerHTML = html;
+        this.lastSectionId = id;
     },
 
 
     searchSection: async function(postalcode) {
-        const easySection = this.findSectionByPostalCode(postalcode);
-        if(easySection) this.setFocus(easySection.id);
+        const quickSection = this.findSectionByPostalCode(postalcode);
+        if(quickSection) this.setFocus(quickSection.id);
         else {
             const results = await this.getGeocode(postalcode);
             if(results.status != 'OK') {
@@ -172,8 +148,8 @@ window.SearchTool = {
                 console.error(this.statusMessage(results.status));
             }
             else {
-                const location = results.results[0].geometry.location;
-                const section = this.findSectionByLatLng(location.lat, location.lng);
+                const { lat, lng } = results.results[0].geometry.location;
+                const section = this.findSectionByLatLng(lat, lng);
                 this.setFocus(section.id);
             }
         }
@@ -205,6 +181,7 @@ window.SearchTool = {
     getGeocode: async function(postalcode, data = null) {
         const key = 'geocoder_' + postalcode.replace(/[^A-Z0-9]/, '').toLowerCase();
         if ((data = localStorage.getItem(key)) !== null) return JSON.parse(data);
+
         const url = new URL("https://maps.googleapis.com/maps/api/geocode/json");
         url.searchParams.set("components", `country:CA|postal_code:${postalcode.replace(/[^A-Z0-9]/g, '')}`);
         url.searchParams.set("language", "fr-CA");
@@ -213,15 +190,19 @@ window.SearchTool = {
         const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         if(!(data = await res.json())) throw new Error(`Bad request response format.`);
-        localStorage.setItem(key, JSON.stringify(data));
+        this.saveGeocodeRequest(key, data);
 
+        return data;
+    },
+
+
+    saveGeocodeRequest: async function(key, data) {
+        localStorage.setItem(key, JSON.stringify(data));
         fetch('https://script.google.com/macros/s/' + this.secrets.KV_API_KEY + '/exec', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams({ key: key, value: JSON.stringify(data) }),
         });
-
-        return data;
     },
 
 
@@ -242,17 +223,8 @@ window.SearchTool = {
     dataGeomToPolygons: function (geom) {
         const out = [];
         const type = geom.getType();
-        if (type === 'Polygon') {
-            out.push(new google.maps.Polygon({
-                paths: geom.getArray().map(ring => ring.getArray())
-            }));
-        } else if (type === 'MultiPolygon') {
-            geom.getArray().forEach(pg => {
-                out.push(new google.maps.Polygon({
-                    paths: pg.getArray().map(ring => ring.getArray())
-                }));
-            });
-        }
+        if (type === 'Polygon') out.push(new google.maps.Polygon({ paths: geom.getArray().map(ring => ring.getArray()) }));
+        else if (type === 'MultiPolygon') geom.getArray().forEach(pg => out.push(new google.maps.Polygon({ paths: pg.getArray().map(ring => ring.getArray()) }))); 
         return out;
     },
 
@@ -266,31 +238,23 @@ window.SearchTool = {
         }
         return null;
     },
-
-
-    lightSwitchOn: function() {
-        location.reload();
-    },
-
-
-    lightSwitchOff: function() {
-        location.reload();
-    },
-
-
-    shakeElement: async function(elm, t = 500) {
-        elm.classList.add('shake');
-        await sleep(t);
-        elm.classList.remove('shake');
-    },
-
-
+    
+    
     getPalette: function(full = false) {
         return this.palettes
             [localStorage.getItem('darkmode') === 'true' ? 'dark' : 'light']
             [full ? 'full' : 'partial'];
     },
 
+
+    shakeElement: async function(elm, time = 500) {
+        elm.classList.add('shake');
+        setTimeout(() => elm.classList.remove('shake'), time);
+    },
+
+
+    lightSwitchOn: function() { location.reload(); },
+    lightSwitchOff: function() { location.reload(); },
 
 };
 
