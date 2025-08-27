@@ -29,13 +29,13 @@ $sections = json_decode(file_get_contents($sectionsFile));
 foreach($sections->sections as $section) {
     echo 'Create section Geojson: ' . $section->name . RN;
     $sectionFile = $srcMapDir . 'section-' . $section->id . '.geojson';
-    shell_exec('mapshaper ' . escapeshellarg($areasFile) . ' -filter "([\'' . join("','", $section->areas) . '\'].indexOf(String(IDUGD)) >= 0)" -snap interval=1e-7 -dissolve -clean -each "id=\'' . addslashes($section->id) . '\'; name=\'' . addslashes($section->name) . '\'" -o format=geojson geojson-type=FeatureCollection id-field=fid ' . escapeshellarg($sectionFile) . ' 2>&1');
+    shell_exec('mapshaper ' . escapeshellarg($areasFile) . ' -filter "([\'' . join("','", $section->areas) . '\'].indexOf(String(IDUGD)) >= 0)" -snap interval=1e-7 -dissolve -clean -each "id=\'' . addslashes($section->id) . '\'" -o format=geojson geojson-type=FeatureCollection id-field=id ' . escapeshellarg($sectionFile) . ' 2>&1');
 }
 
 
 // Merge sections into one file
 echo "Merge section files in one FeatureCollection file..." . RN;
-GeoJsonMerge::mergeFiles([$srcMapDir . 'section-*.geojson'], $geoSectionFile, ['skipInvalid' => false]);
+GeoJsonMerge::mergeFiles([$srcMapDir . 'section-*.geojson'], $geoSectionFile);
 GeoJsonSimplify::simplifyFile($geoSectionFile);
 GeoJsonBBox::addBBoxesToFile($geoSectionFile);
 file_put_contents($geoSectionFile, json_encode(json_decode(file_get_contents($geoSectionFile))));
@@ -59,7 +59,7 @@ $postalCodesFile = $srcMapDir . 'postal-codes.json';
 $postalCodes = json_decode(file_get_contents($postalCodesFile));
 if(!$contents = curl_get_contents('https://script.google.com/macros/s/' . $secrets->KV_API_KEY . '/exec?action=get_all&clear=1')) err("Can't get KV API data.");
 if(!$results = json_decode($contents)) err("Can't decode KV API server response.");
-if(!$results->ok) err("An error occured while crawling KV API: ". $results->error);
+if(!$results->ok) err("An error occured while crawling KV API: " . $results->error);
 if($results->count) {
     foreach($results->items as $item) {
         if(!$data = json_decode($item->value)) continue;
@@ -110,5 +110,5 @@ file_put_contents($sectionsFile, json_encode($sections));
 
 
 // EN FRANÇAIS!
-echo RN . 'EN FRANÇAIS ✊' . RN;
+echo RN . "EN FRANÇAIS ✊" . RN;
 exit(0);

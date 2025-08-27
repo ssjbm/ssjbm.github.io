@@ -60,6 +60,7 @@ window.SearchTool = {
         this.map = new Map(document.getElementById('map'), {
             streetViewControl: false,
             mapTypeControl: false,
+            disableDoubleClickZoom: true,
             colorScheme: localStorage.getItem('darkmode') === 'true' ? ColorScheme.DARK : ColorScheme.LIGHT,
         });
 
@@ -226,7 +227,7 @@ window.SearchTool = {
     },
 
 
-    dataGeomToPolygons: function (geom) {
+    dataGeomToPolygons: function(geom) {
         const out = [];
         const type = geom.getType();
         if (type === 'Polygon') out.push(new google.maps.Polygon({ paths: geom.getArray().map(ring => ring.getArray()) }));
@@ -235,7 +236,7 @@ window.SearchTool = {
     },
 
 
-    findContainingFeature: function (latLng) {
+    findContainingFeature: function(latLng) {
         for (const { feature, poly, bounds } of this.polyIndex) {
             if (!bounds.contains(latLng)) continue;
             if (google.maps.geometry.poly.containsLocation(latLng, poly)) return feature;
