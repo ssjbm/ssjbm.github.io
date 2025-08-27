@@ -54,8 +54,8 @@ window.SearchTool = {
 
 
     initMap: async function() {
-        const { ColorScheme, ControlPosition, LatLngBounds } = await google.maps.importLibrary("core");
-        const { Map, Data } = await google.maps.importLibrary("maps");
+        const { ColorScheme, ControlPosition, LatLngBounds } = await google.maps.importLibrary('core');
+        const { Map, Data } = await google.maps.importLibrary('maps');
         
         this.map = new Map(document.getElementById('map'), {
             streetViewControl: false,
@@ -103,7 +103,7 @@ window.SearchTool = {
         const geoLocation = JSON.parse(sessionStorage.getItem('geolocation'));
         if(geoLocation) {
             this.setFocus(this.findSectionByLatLng(geoLocation.coords.latitude, geoLocation.coords.longitude).id);
-        } else if("geolocation" in navigator) {
+        } else if('geolocation' in navigator) {
             try {
                 const service = await (navigator.permissions?.query({ name: 'geolocation' }));
                 if(service.state !== 'denied') {
@@ -189,10 +189,10 @@ window.SearchTool = {
         const key = 'geocoder_' + postalcode.replace(/[^A-Z0-9]/, '').toLowerCase();
         if ((data = localStorage.getItem(key)) !== null) return JSON.parse(data);
 
-        const url = new URL("https://maps.googleapis.com/maps/api/geocode/json");
-        url.searchParams.set("components", `country:CA|postal_code:${postalcode.replace(/[^A-Z0-9]/g, '')}`);
-        url.searchParams.set("language", "fr-CA");
-        url.searchParams.set("key", this.secrets.MAPS_API_KEY);
+        const url = new URL('https://maps.googleapis.com/maps/api/geocode/json');
+        url.searchParams.set('components', `country:CA|postal_code:${postalcode.replace(/[^A-Z0-9]/g, '')}`);
+        url.searchParams.set('language', 'fr-CA');
+        url.searchParams.set('key', this.secrets.MAPS_API_KEY);
 
         const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -215,12 +215,12 @@ window.SearchTool = {
 
     statusMessage: function (status, msg) {
         switch (status) {
-            case "OVER_DAILY_LIMIT":
-            case "OVER_QUERY_LIMIT": return "Quota dépassé. Vérifiez la facturation/quota sur Google Cloud.";
-            case "REQUEST_DENIED": return `Requête refusée. Vérifiez les restrictions de la clé API (HTTP referrer) et l’activation de l’API Geocoding.`;
-            case "INVALID_REQUEST": return "Requête invalide. Paramètres manquants ou mal formés.";
-            case "UNKNOWN_ERROR": return "Erreur inconnue côté Google. Réessayez.";
-            case "ZERO_RESULTS": return "Aucun résultat pour ce code postal.";
+            case 'OVER_DAILY_LIMIT':
+            case 'OVER_QUERY_LIMIT': return `Quota dépassé. Vérifiez la facturation/quota sur Google Cloud.`;
+            case 'REQUEST_DENIED':   return `Requête refusée. Vérifiez les restrictions de la clé API (HTTP referrer) et l’activation de l’API Geocoding.`;
+            case 'INVALID_REQUEST':  return `Requête invalide. Paramètres manquants ou mal formés.`;
+            case 'UNKNOWN_ERROR':    return `Erreur inconnue côté Google. Réessayez.`;
+            case 'ZERO_RESULTS':     return `Aucun résultat pour ce code postal.`;
             default: return msg || `Statut inattendu: ${status || "inconnu"}`;
         }
     },

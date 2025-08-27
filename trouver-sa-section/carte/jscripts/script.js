@@ -10,7 +10,7 @@ window.SearchTool = {
     toolbar: null,
     lastSectionId: null,
 
-    defaultStroke: '#a74747ff',
+    defaultStroke: '#a74747',
     defaultFill:   '#000000',
 
 
@@ -44,13 +44,14 @@ window.SearchTool = {
 
 
     initMap: async function() {
-        const { ColorScheme, ControlPosition } = await google.maps.importLibrary("core");
-        const { Map, Data } = await google.maps.importLibrary("maps");
+        const { ColorScheme, ControlPosition } = await google.maps.importLibrary('core');
+        const { Map, Data } = await google.maps.importLibrary('maps');
         this.map = new Map(document.getElementById('resultmap'), {
             colorScheme: localStorage.getItem('darkmode') === 'true' ? ColorScheme.DARK : ColorScheme.LIGHT,
             center: { lat: 45.55, lng: -73.65 },
             streetViewControl: false,
             mapTypeControl: false,
+            disableDoubleClickZoom: true,
             zoom: 9
         });
 
@@ -82,9 +83,7 @@ window.SearchTool = {
                     fillOpacity: 0.20
                 });
             }));
-
         });
-
     },
 
 
