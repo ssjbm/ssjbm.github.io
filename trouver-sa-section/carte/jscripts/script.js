@@ -60,7 +60,7 @@ window.SearchTool = {
 
         this.layer = new Data({ map: this.map });
         this.layer.setStyle({ fillOpacity: 0.10, strokeWeight: 1, strokeColor: this.defaultStroke, fillColor: this.defaultFill });
-        this.layer.loadGeoJson(`${root}assets/maps/montreal-areas.geojson`, null, (features) => {
+        this.layer.loadGeoJson(`${root}assets/maps/montreal-blocks.geojson`, null, (features) => {
             this.layer.addListener('rightclick', e => this.clickArea(e.feature));
             this.layer.addListener('click', e => {
                 if(e.domEvent.ctrlKey || e.domEvent.metaKey) this.clickArea(e.feature);

@@ -1,0 +1,1 @@
+@"php-bulk" "%~dp0..\scripts\create-block-map.php" %1
