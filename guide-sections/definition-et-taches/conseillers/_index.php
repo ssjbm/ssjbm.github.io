@@ -30,7 +30,11 @@
     <li>Prendre part aux diverses activités de la Société, notamment l’assemblée générale annuelle et les campagnes de financement.</li>
 </ol>
 
-<warning>Toute prise de position publique ou tout message diffusé au nom de la section doit préalablement être approuvé par la direction de la SSJB.</warning>
+<warning>
+    Toute prise de position publique ou tout message diffusé au nom de la section doit préalablement être approuvé par la direction de la SSJB.<br><br>
+    <doclink href="../../../assets/documents/code-d'ethique-et-de-deontologie.pdf">Code d'étique et de déontologie</doclink>
+
+</warning>
 
 
 <dots></dots>

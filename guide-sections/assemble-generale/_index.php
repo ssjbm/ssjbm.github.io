@@ -10,6 +10,7 @@
 
 <grostitre>Introduction</grostitre>
 
+
 <p>Lorsque l'on veut tenir une assemblée générale de section, un membre de la permanence de la Société Saint-Jean-Baptiste contactera le président de la section pour réserver la date de l’assemblée de votre section. </p>
 
 <p>Les sections doivent tenir au moins une assemblée générale par année, durant laquelle les dirigeants et  les délégués sont élus. Durant la période du 15 janvier au 15 février, un maximum de trois assemblées  générales peuvent se faire à la même date, et ce, pour toutes les sections. Tous les membres de la section,  les conseillers généraux, les candidats au conseil général et autres observateurs peuvent assister à  l’assemblée générale de la section, mais seuls les membres actifs de la section ont le droit de parole et  seuls les membres actifs depuis trois mois ont droit de vote. </p>
