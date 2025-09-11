@@ -1,9 +1,9 @@
 <?php
 /**
- * @index    10000
+ * @index    9000
  * @type     article
  * @title    Mission et historique
- * @icon     images/citation-duvernay.webp
+ * @icon     ../images/icon.svg
  * @abstract Résumé de la mission et de l'historique de la SSJB
  */
 ?>

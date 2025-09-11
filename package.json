@@ -6,8 +6,8 @@
 		"mapshaper": "^0.6.111",
 		"mediainfo-installer": "^1.0.10",
 		"php-bulk-installer": "^1.1.2",
-		"sass": "^1.91.0",
-		"vue": "^3.5.20"
+		"sass": "^1.92.1",
+		"vue": "^3.5.21"
 	},
 	"scripts": {
 		"postinstall": "node pxdoc/_bin/node/postinstall.js && node assets/_bin/node/postinstall.js"
