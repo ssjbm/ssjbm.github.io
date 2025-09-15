@@ -149,7 +149,7 @@
 
 <grostitre>Direction Générale</grostitre>
 
-<p>Il nomme le personnel cadre de la direction générale et remplit sous la direction du conseil général tous les devoirs inhérents à cette fonction. </p>
+<p>Sous la supervision du Conseil, il désigne le personnel et assume l’ensemble des responsabilités inhérentes à cette fonction.</p>
 
 <dots></dots>
 

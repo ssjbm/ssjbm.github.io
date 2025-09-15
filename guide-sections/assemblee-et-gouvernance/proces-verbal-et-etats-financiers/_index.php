@@ -22,6 +22,8 @@
 
 <p>À la fin de chaque exercice financier, la section doit produire des états financiers qui comprennent un  bilan financier et un état des revenus et dépenses. L'objectif principal des états financiers annuels est de  faire connaître le coût des services rendus ou des projets exécutés au cours d'une année financière et le  portrait financier de l'organisme.  </p>
 
-<p>Ces états financiers annuels seront présentés à l'assemblée générale annuelle afin d'être adoptés. Si le  budget de l'organisme est important, il est de mise de faire vérifier ces états financiers par des experts en  comptabilité qui seront choisis par l'assemblée générale. Une vérification comptable donne de la  crédibilité aux états financiers et à la corporation.</p>
+<p>Ces états financiers annuels seront présentés à l'assemblée générale annuelle afin d'être adoptés. Si le  budget de l'organisme est important, il est de mise de faire vérifier ces états financiers par des experts en  comptabilité qui seront choisis par l'assemblée générale.</p>
+
+<thumbsup>Une vérification comptable donne de la  crédibilité aux états financiers et à la corporation</thumbsup>
 
 <dots></dots>

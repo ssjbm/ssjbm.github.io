@@ -84,5 +84,8 @@
 <p>Au cours d'un débat, un membre peut toujours soulever un rappel au règlement pour rétablir les faits,  pour protester contre un langage grossier, des injures ou pour exiger qu'un autre membre s'en tienne au  sujet en discussion. Celui qui soulève le rappel au règlement doit l'expliquer brièvement et le président  juge si l'on doit en tenir compte.</p>
 
 
+<doclink href="../../../assets/documents/Presentation-Code-Morin.pdf">Présentation du code Morin</doclink>
+
+
 <dots></dots>
 

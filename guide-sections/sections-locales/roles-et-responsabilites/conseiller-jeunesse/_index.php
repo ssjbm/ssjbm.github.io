@@ -12,6 +12,8 @@
 
 <p>Le conseiller jeunesse doit participer aux réunions et aux activités de la section et du conseil jeunesse et  tenir au courant le conseil de la section des projets et des réalisations du conseil jeunesse. Il informe les  jeunes de sa section sur les activités du conseil jeunesse et suscite leur implication. Il s'implique dans le  recrutement de jeunes dans sa section. Il assure la promotion du plan d'action du conseil jeunesse dans  son milieu de vie. </p>
 
+<p>Le conseiller jeunesse est élu par la section lors de l’assemblée générale annuelle de la section locale. Pour être éligible, le candidat doit être âgé d’au moins 16 ans et d’au plus 30 ans.</p>
+
 <dots></dots><br>
 
 
