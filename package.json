@@ -2,8 +2,8 @@
 	"dependencies": {
 		"@ffmpeg-installer/ffmpeg": "^1.1.0",
 		"audiowaveform-uni-installer": "^1.0.3",
-		"esbuild": "^0.25.9",
-		"mapshaper": "^0.6.111",
+		"esbuild": "^0.25.10",
+		"mapshaper": "^0.6.112",
 		"mediainfo-installer": "^1.0.10",
 		"php-bulk-installer": "^1.1.2",
 		"sass": "^1.92.1",

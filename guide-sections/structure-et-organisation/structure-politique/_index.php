@@ -38,7 +38,7 @@
       <div style="display:flex;align-items:unsafe center;justify-content:unsafe center;width:118px;height:1px;padding-top:150px;margin-left:241px">
         <div style="box-sizing:border-box;font-size:0;text-align:center;color:currentColor">
           <div style="display:inline-block;font-size:12px;font-family:var(--font);color:currentColor;line-height:1.2;pointer-events:all;white-space:normal;word-wrap:normal">
-            Assemblée Générale Délégué.e.s
+            Conseil Général<br>Élu
           </div>
         </div>
       </div>
