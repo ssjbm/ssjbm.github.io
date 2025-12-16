@@ -1,0 +1,245 @@
+/* =========================================
+   CHRISTMAS LIGHT ROPE – CONFIG
+   ========================================= */
+
+:root {
+  /* 
+    Master size control for the entire light rope.
+    Change this to resize all bulbs/wire in one go.
+
+    Examples:
+      1.0  = base size
+      1.25 = 25% larger
+      0.8  = 20% smaller
+  */
+  --lightrope-scale: 2.0;
+
+  /*
+    Brightness “intensity” for the blink effect.
+    Controls how strong the bright phase is vs. the dim phase.
+
+    Range:
+      0   = very subtle (almost no flash)
+      0.5 = gentle twinkle
+      1   = full bright pulse (default)
+  */
+  --lightrope-brightness: 1;
+}
+
+
+/* =========================================
+   LIGHT ROPE – FIXED TOP OVERLAY
+   ========================================= */
+
+.lightrope {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  z-index: 1000;
+
+  transform-origin: top center;
+
+  /*
+    1) Center the rope horizontally (translateX(-50%))
+    2) Nudge it up slightly as it gets larger so it hugs the top
+    3) Apply the global scale
+  */
+  transform:
+    translate(
+      -50%,
+      calc(-8px * (var(--lightrope-scale) - 1))
+    )
+    scale(var(--lightrope-scale));
+}
+
+.lightrope li {
+  position: relative;
+  list-style: none;
+  display: inline-block;
+
+  width: 12px;
+  height: 28px;
+  margin: 20px;
+  border-radius: 50%;
+
+  /* default bulb colors (red) – overridden per nth-child below */
+  --bulb-dim:    #7e2c21;
+  --bulb-bright: #e46f5c;
+
+  background: var(--bulb-dim);
+
+  /* FIXED, SOFT GLOW – this doesn’t animate */
+  box-shadow: 0 8px 22px rgba(255, 255, 255, 0.18);
+
+  /* blinking only changes the bulb fill & opacity */
+  animation-name: bulb-blink;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+  animation-duration: 1.6s;
+}
+
+/* Socket (sits visually on top of the cord) */
+.lightrope li::before {
+  content: "";
+  position: absolute;
+  z-index: 2;               /* ensure socket is above the rope */
+  top: -4.6667px;
+  left: 1px;
+  width: 10px;
+  height: 9.3333px;
+  border-radius: 3px;
+  background: #134413;      /* dark green socket */
+}
+
+/* Wire arc to the next bulb 
+   - Lifted slightly higher
+   - Lower z-index so it stays "behind" the socket */
+.lightrope li::after {
+  content: "";
+  position: absolute;
+  z-index: 1;               /* behind socket */
+  top: -18px;               /* a bit higher so it doesn’t sit on the socket */
+  left: 9px;
+  width: 52px;
+  height: 18px;
+  border-bottom: 2px solid #174700; /* cord color */
+  border-radius: 50%;
+}
+
+/* No wire after the last bulb */
+// .lightrope li:last-child::after {
+// //   content: none;
+// }
+
+/* Pull the very first bulb slightly left so the rope starts off-screen */
+.lightrope li:first-child {
+  margin-left: -40px;
+}
+
+/* =========================================
+   COLOR PALETTE (DIM / BRIGHT PAIRS)
+   Order: red, plum, green, cream, gold, blue
+   ========================================= */
+
+.lightrope li:nth-child(6n+1) {        /* red */
+  --bulb-dim:    #7e2c21;
+  --bulb-bright: #e46f5c;
+}
+
+.lightrope li:nth-child(6n+2) {        /* plum */
+  --bulb-dim:    #5b4869;
+  --bulb-bright: #a487c4;
+}
+
+.lightrope li:nth-child(6n+3) {        /* green */
+  --bulb-dim:    #30553a;
+  --bulb-bright: #5fa372;
+}
+
+.lightrope li:nth-child(6n+4) {        /* warm white */
+  --bulb-dim:    #b9ae9a;
+  --bulb-bright: #f4e5cf;
+}
+
+.lightrope li:nth-child(6n+5) {        /* gold */
+  --bulb-dim:    #8b6a2f;
+  --bulb-bright: #f0c566;
+}
+
+.lightrope li:nth-child(6n+6) {        /* blue */
+  --bulb-dim:    #2e395e;
+  --bulb-bright: #4c63a8;
+}
+
+/* =========================================
+   RANDOM-FEEL TIMING (durations & delays)
+   ========================================= */
+
+.lightrope li:nth-child(2n+1) {
+  animation-duration: 1.8s;
+}
+
+.lightrope li:nth-child(3n+1) {
+  animation-duration: 1.3s;
+}
+
+.lightrope li:nth-child(4n+2) {
+  animation-duration: 2.2s;
+}
+
+.lightrope li:nth-child(5n+3) {
+  animation-duration: 1.1s;
+}
+
+.lightrope li:nth-child(7n+4) {
+  animation-delay: 0.4s;
+}
+
+.lightrope li:nth-child(9n+5) {
+  animation-delay: 0.9s;
+}
+
+/* =========================================
+   BLINK ANIMATION
+   - Box-shadow stays constant
+   - Only change fill + opacity
+   - Brightness var controls how strong the flash is
+   ========================================= */
+
+@keyframes bulb-blink {
+  0%, 100% {
+    background: var(--bulb-dim);
+    opacity: 0.65;
+  }
+  50% {
+    background: var(--bulb-bright);
+    /* 
+      Base bright opacity is 0.65 + 0.35 = 1.0 when brightness = 1
+      Lower brightness → smaller jump between dim & bright
+    */
+    opacity: calc(0.65 + 0.35 * var(--lightrope-brightness));
+  }
+}
+
+/* =========================================
+   RESPONSIVE BEHAVIOR
+   - Large: default (desktop)
+   - Medium: tablets / smaller laptops
+   - Small: phones
+   ========================================= */
+
+/* Medium screens (tablets / smaller laptops) */
+@media (max-width: 1024px) {
+  :root {
+    --lightrope-scale: 1.1;      /* a bit smaller */
+    --lightrope-brightness: 0.9; /* slightly softer pop */
+  }
+
+  .lightrope li {
+    margin: 18px;
+  }
+}
+
+/* Small screens (phones) */
+@media (max-width: 600px) {
+  :root {
+    --lightrope-scale: 0.9;      /* scale down more for small screens */
+    --lightrope-brightness: 0.75;
+  }
+
+  .lightrope li {
+    margin: 14px;
+  }
+}
+
+
+

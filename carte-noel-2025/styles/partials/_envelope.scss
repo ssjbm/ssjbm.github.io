@@ -1,0 +1,150 @@
+.env_superwrap {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.envelope_form_wrap {
+	// max-width: 100%;
+	width: 70vmin;
+	margin: calc((100vh - 70vmin) / 2) calc((100vw - 70vmin) / 2);
+	// position: absolute;
+	// top: 50%;
+	// left: 50%;
+	// transform: translate(-50%, -50%);
+}
+
+#envelope_form {
+	// background-color: red;
+	width: 100%;
+}
+
+.env_wrap {
+	position: relative;
+	overflow: hidden;
+	padding-top: 110%;
+	background: rgb(255, 255, 255);
+	background: linear-gradient(0deg, #c7c2c5 0%, #c7c2c5 55%, rgba(255, 255, 255, 0) 55%, rgba(255, 255, 255, 0) 100%);
+	width: 100%;
+}
+
+.env_top {
+	filter: drop-shadow(0px 6px 3px rgba(50, 50, 0, 0.1));
+	position: absolute;
+	width: 100%;
+	height: 33%;
+	top: 45%;
+	z-index: 99;
+	transition: all .2s ease-in-out;
+	transform-origin: top;
+}
+
+.env_top:before {
+	content: '';
+	position: absolute;
+	transform-origin: top;
+	width: 100%;
+	height: 100%;
+	background: white;
+	clip-path: polygon(50% 100%, 0 0, 100% 0);
+	transition: all .2s ease-in-out;
+}
+
+#envelope_form:hover .env_top {
+	-ms-transform: rotatex(-180deg);
+	-webkit-transform: rotatex(-180deg);
+	transform: rotatex(-180deg);
+}
+
+.env_bottom_wrap {
+	height: 55%;
+	width: 100%;
+	z-index: 2;
+	bottom: 0;
+	position: absolute;
+	filter: drop-shadow(0px -6px 3px rgba(50, 50, 0, 0.1));
+}
+
+.env_bottom {
+	clip-path: polygon(50% 50%, 100% 0, 100% 100%, 0 100%, 0 0);
+	background: white;
+	width: 100%;
+	height: 100%;
+}
+
+.env_bottom:before,
+.env_bottom:after {
+	content: '';
+	position: absolute;
+	background: #f8f6f7;
+	width: 50%;
+	height: 100%;
+}
+
+.env_bottom:before {
+	clip-path: polygon(100% 50%, 0 0, 0 100%);
+}
+
+.env_bottom:after {
+	right: 0;
+	clip-path: polygon(0 50%, 100% 0, 100% 100%);
+}
+
+.env_form_wrap {
+	width: calc(100% - 2rem);
+	left: 1rem;
+	padding: 1rem 3rem;
+	background: antiquewhite;
+	color: black;
+	position: absolute;
+	height: 100%;
+	z-index: 2;
+	transition: all .4s ease-in-out;
+	top: 100%
+}
+
+#envelope_form:hover .env_form_wrap {
+	top: 0;
+}
+
+.env_top {
+	transition-delay: .2s
+}
+
+#envelope_form:hover .env_top {
+	z-index: 1;
+	transition-delay: .0s
+}
+
+
+#envelope_form.sent .env_form_wrap {
+	top: 100% !important
+}
+
+#envelope_form.sent .env_top {
+	transition-delay: .2s;
+	transform: none;
+	z-index: 99;
+}
+
+.fly {
+	animation: flyAway .5s linear forwards
+}
+
+@keyframes flyAway {
+	50% {
+		transform: translate(-50px, -50px) rotate(40deg) scale(.5)
+	}
+
+	100% {
+		transform: translate(1000px, -100px) rotate(-40deg) scale(.3)
+	}
+}
+
+.thank_you {
+	color: white;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translatex(-50%)
+}
