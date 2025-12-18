@@ -72,9 +72,107 @@ body {
 
 
 
+.lightmask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    
+    svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+
+
+        .light {
+            opacity: 0.6;
+            filter: drop-shadow(0 0 0.5vmin #ff7f00);
+        }
+
+        .ball {
+            opacity: 0.8;
+            filter: drop-shadow(0 0 0.2vmin red);
+        }
+
+        .gift {
+            fill: #04b488;
+        }
+
+        .starbig {
+            fill: antiquewhite;
+            filter: drop-shadow(0 0 0.5vmin antiquewhite);
+            animation-name: starbig;
+            animation-duration: 1s;
+            animation-direction: alternate;
+            animation-iteration-count: infinite;
+        }
+
+
+
+        .starsmall {
+            fill: antiquewhite;
+            filter: drop-shadow(0 0 0.3vmin antiquewhite);
+            animation-name: starbig;
+            animation-duration: 1s;
+            animation-delay: -0.5s;
+            animation-direction: alternate;
+            animation-iteration-count: infinite;
+        }
+
+        .star {
+            animation-name: star;
+            animation-duration: 3s;
+            animation-direction: alternate;
+            animation-iteration-count: infinite;
+        }
+
+
+    }
+}
+
+
+
+.santa {
+    position: absolute;
+    aspect-ratio: 800/242;
+    width: 30vw;
+    top: 30%;
+    left: -30vw;
+    transform: translateY(-50%);
+    // background-color: red;
+    background-image: url(../images/santa.webp);
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: saturate(0.3) contrast(1.3);
+
+
+    animation-name: santa;
+    animation-duration: 5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+    animation-delay: 1s;
+}
+
+
+
+
+.env_superwrap {
+    animation-name: envelope;
+    animation-duration: 1.5s;
+    animation-delay: 3s;
+    animation-fill-mode: forwards;
+
+    transform: scale(0);
+
+}
+
+
+
 
 .ssjb-logo {
-    // background: red;
     position: absolute;
     bottom: 2vmin;
     right: 2vmin;
@@ -88,6 +186,34 @@ body {
 }
 
 
+@keyframes santa {
+    0% {
+        transform: translateX(0);
+    }
+    40% {
+        transform: translateX(65vw);
+    }
+    70% {
+        transform: translateX(65vw);
+    }
+    100% {
+        transform: translateX(130vw);
+    }
+}
+
+
+@keyframes envelope {
+    from {
+        transform: scale(0);
+        filter: blur(100vmin);
+    }
+    to {
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+
 @keyframes snowflake {
     0%   { transform: translateX(40%); }
     50%  { transform: translateX(-40%); }
@@ -96,10 +222,26 @@ body {
 
 @keyframes snowflake-fall {
     0%   { transform: translateY(-5vh); opacity: 1; }
-    50% {
+    50%  { opacity: 1; }
+    100% { transform: translateY(105vh); opacity: 0.1; }
+}
+
+
+@keyframes starbig {
+    from {
         opacity: 1;
     }
-    100% { transform: translateY(105vh);
-        opacity: 0.1;
+    to {
+        opacity: 0.5
+    }
+
+}
+
+@keyframes star {
+    from {
+        filter: drop-shadow(0 0 2vmin antiquewhite);
+    }
+    to {
+        filter: drop-shadow(0 0 1vmin antiquewhite);
     }
 }

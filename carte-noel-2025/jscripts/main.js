@@ -19,7 +19,7 @@ const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 
 const ChristmasCard = {
 	
-	snowflakes: 40,
+	snowflakes: 60,
 
 
 
