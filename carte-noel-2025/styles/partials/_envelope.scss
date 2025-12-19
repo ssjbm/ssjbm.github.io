@@ -50,11 +50,11 @@
 	transition: all .2s ease-in-out;
 }
 
-#envelope_form:hover .env_top {
-	-ms-transform: rotatex(-180deg);
-	-webkit-transform: rotatex(-180deg);
-	transform: rotatex(-180deg);
-}
+// #envelope_form:hover .env_top {
+// 	-ms-transform: rotatex(-180deg);
+// 	-webkit-transform: rotatex(-180deg);
+// 	transform: rotatex(-180deg);
+// }
 
 .env_bottom_wrap {
 	height: 55%;
@@ -91,30 +91,40 @@
 }
 
 .env_form_wrap {
-	width: calc(100% - 2rem);
-	left: 1rem;
-	padding: 1rem 3rem;
+	width: calc(100% - 2vmin);
+	left: 1vmin;
+	// padding: 1vmin 1vmin;
+	padding: 14vmin 2.5vmin 2.5vmin 2.5vmin;
 	background: antiquewhite;
 	color: black;
 	position: absolute;
 	height: 100%;
 	z-index: 2;
 	transition: all .4s ease-in-out;
-	top: 100%
+	top: 100%;
+	font-size: 2.2vmin;
+	font-family: Arial, Helvetica, sans-serif;
+	background-image: url(../images/branch-lights.webp);
+	background-size: 100%;
+	background-repeat: no-repeat;
+
+	.signature {
+		width: 30%;
+	}
 }
 
-#envelope_form:hover .env_form_wrap {
-	top: 0;
-}
+// #envelope_form:hover .env_form_wrap {
+// 	top: 0;
+// }
 
 .env_top {
 	transition-delay: .2s
 }
 
-#envelope_form:hover .env_top {
-	z-index: 1;
-	transition-delay: .0s
-}
+// #envelope_form:hover .env_top {
+// 	z-index: 1;
+// 	transition-delay: .0s
+// }
 
 
 #envelope_form.sent .env_form_wrap {

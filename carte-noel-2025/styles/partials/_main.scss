@@ -170,6 +170,50 @@ body {
 }
 
 
+.env_top {
+    animation-name: env_top;
+    animation-duration: 0.2s;
+    animation-delay: 6s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+    
+}
+
+.env_form_wrap {
+    animation-name: env_form_wrap;
+    animation-duration: 1.4s;
+    animation-delay: 6s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+
+@keyframes env_top {
+    from {
+        transform: rotatex(0deg);
+    }
+    to {
+        transform: rotatex(-180deg);
+        z-index: 1;
+        
+    }
+}
+
+
+@keyframes env_form_wrap {
+    0% {
+        top: 100%;
+        z-index: 2;
+    }
+    40%, 99% {
+        top: 0;
+        z-index: 2;
+    }
+    100% {
+        top: 0;
+        z-index: 99;
+    }
+}
 
 
 .ssjb-logo {
