@@ -6,3 +6,4 @@ Set-ExecutionPolicy -ExecutionPolicy ByPass -Scope LocalMachine
 
 ## Reset branch
 git reset --hard origin/main
+
